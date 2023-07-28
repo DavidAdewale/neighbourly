@@ -9,8 +9,7 @@ function App() {
       <BrowserRouter>
         <GlobalStyles />
         <Routes>
-          <Route index element={<Navigate replace to="home" />} />
-          <Route path="home" element={<Home />} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </DarkModeProvider>

@@ -8,6 +8,7 @@ import Paragraph from './Paragraph';
 const StyledContainer = styled.div`
   width: 50%;
   text-align: center;
+
   @media only screen and (max-width: 56.25em) {
     width: 80%;
   }
