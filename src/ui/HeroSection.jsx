@@ -11,7 +11,6 @@ const StyledBackground = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* position: relative; */
 `;
 
 function HeroSection() {

@@ -43,7 +43,6 @@ const StyledBuildTools = styled.div`
     justify-content: center;
     gap: 2.1rem;
     color: var(--color-light-accent);
-    /* flex-direction: column; */
     & svg {
       width: 2.1rem;
       height: 2.1rem;

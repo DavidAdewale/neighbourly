@@ -97,7 +97,7 @@ function NavMenu() {
   const ref = useOutsideClick(closeMenu);
   return (
     <MenuListContainer>
-      <StyledNavMenu type={isOpen && 'open'} ref={ref}>
+      <StyledNavMenu type={isOpen ? 'open' : ''} ref={ref}>
         <li>
           <StyledNavLink>How to use</StyledNavLink>
         </li>

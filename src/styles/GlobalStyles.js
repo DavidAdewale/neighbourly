@@ -19,6 +19,7 @@ const GlobalStyles = createGlobalStyle`
         --color-btn-selection: #1e1e1e;
         --color-btn-secondary: transparent;
         --color-btn-secondary-hover: rgba(243, 245, 242, 1);
+        --color-btn-nav-bg: rgba(243, 245, 242, .38);
         --color-light-accent:#DADADA;
         --color-after-border: linear-gradient(
             to right,
@@ -43,6 +44,7 @@ const GlobalStyles = createGlobalStyle`
         --color-btn-selection: #1e1e1e;
         --color-btn-secondary: transparent;
         --color-btn-secondary-hover: rgba(252, 252, 252, .2);
+        --color-btn-nav-bg: rgba(0, 0, 0, .4);
         --color-light-accent: #515151;
         --color-after-border: linear-gradient(
             to right,
