@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import GlobalStyles from './styles/GlobalStyles';
 import { DarkModeProvider } from './context/DarkModeContext';

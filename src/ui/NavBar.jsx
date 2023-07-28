@@ -10,7 +10,8 @@ const StyledNavBar = styled.div`
   padding: 2rem 10rem;
   position: fixed;
   background: var(--color-btn-nav-bg);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   @media only screen and (max-width: 56.25em) {
     padding: 2rem 4rem;
   }
