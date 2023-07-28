@@ -52,7 +52,7 @@ const GlobalStyles = createGlobalStyle`
             rgba(252, 252, 252, 0.5),
             transparent
             );
-        --color-overlay: rgba(252, 252, 252, .10);
+        --color-overlay: rgba(0, 0, 0, .3);
         --color-hero-bg: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('/gradient.webp');
         }

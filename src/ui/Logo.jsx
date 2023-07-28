@@ -18,7 +18,7 @@ function Logo() {
   const imageSrc = isDark ? 'neighbourly-dark.svg' : 'neighbourly-light.svg';
   return (
     <StyledImageContainer>
-      <img src={imageSrc} alt="Neighbourhood Logo" />
+      <img src={imageSrc} alt="Neighbourhood Logo" draggable="false" />
     </StyledImageContainer>
   );
 }
