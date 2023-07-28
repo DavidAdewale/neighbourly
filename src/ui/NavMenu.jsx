@@ -115,7 +115,7 @@ function NavMenu() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink>Log in</StyledNavLink>
+          <StyledNavLink>Sign in</StyledNavLink>
         </li>
         <li>
           <StyledNavLink type="button">Sign up</StyledNavLink>

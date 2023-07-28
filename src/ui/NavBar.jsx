@@ -9,7 +9,7 @@ const StyledNavBar = styled.div`
   width: 100%;
   padding: 2rem 10rem;
   position: fixed;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(4px);
   @media only screen and (max-width: 56.25em) {
     padding: 2rem 4rem;
   }

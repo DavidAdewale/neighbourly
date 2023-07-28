@@ -1,3 +1,4 @@
+import FeaturesSection from '../ui/FeaturesSection';
 import HeroSection from '../ui/HeroSection';
 import NavBar from '../ui/NavBar';
 
@@ -6,6 +7,7 @@ function Home() {
     <>
       <NavBar />
       <HeroSection />
+      <FeaturesSection />
     </>
   );
 }

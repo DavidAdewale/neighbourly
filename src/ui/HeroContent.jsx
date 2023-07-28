@@ -30,7 +30,7 @@ const GreenText = styled.span`
 
 const StyledBuildTools = styled.div`
   /* margin-top: 2.5rem; */
-  position: fixed;
+  position: absolute;
   width: 100%;
   padding: 2rem;
   bottom: 0;

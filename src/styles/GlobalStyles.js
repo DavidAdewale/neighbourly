@@ -34,7 +34,7 @@ const GlobalStyles = createGlobalStyle`
     &.dark-mode{
         --color-main: #55A34B;
         --color-main-hover: #4F9746;
-        --color-bg: #1E1E1E;
+        --color-bg: #070707;
         --color-text: #FCFCFC;
         --color-danger:#FC6B5B;
         --color-danger-hover:#E36052;
@@ -56,6 +56,13 @@ const GlobalStyles = createGlobalStyle`
         }
 
         --heading-one: 4.8rem;
+        --heading-two: 3.6rem;
+        --heading-three: 2.8rem;
+        --heading-four: 1.8rem;
+        --heading-five: 2rem;
+        --heading-six: 1.8rem;
+
+        --border-radius: .8rem;
     }
 
     *,
@@ -91,6 +98,56 @@ const GlobalStyles = createGlobalStyle`
 
         @media only screen and (max-width: 75em){
             font-size: 2.4rem;
+        }
+    }
+
+    h2{
+        font-size: var(--heading-two);
+        font-weight: 400;
+        line-height: 1.2;
+
+        @media only screen and (max-width: 75em){
+            font-size: 1.8rem;
+        }
+    }
+
+    h3{
+        font-size: var(--heading-three);
+        font-weight: 400;
+        line-height: 1.2;
+
+        @media only screen and (max-width: 75em){
+            font-size: 2rem;
+        }
+    }
+
+    h4{
+        font-size: var(--heading-four);
+        font-weight: 400;
+        line-height: 1.2;
+
+        @media only screen and (max-width: 75em){
+            font-size: 1.2rem;
+        }
+    }
+
+    h5{
+        font-size: var(--heading-five);
+        font-weight: 400;
+        line-height: 1.2;
+
+        @media only screen and (max-width: 75em){
+            font-size: 1rem;
+        }
+    }
+
+    h6{
+        font-size: var(--heading-six);
+        font-weight: 400;
+        line-height: 1.2;
+
+        @media only screen and (max-width: 75em){
+            font-size: .6rem;
         }
     }
 `;

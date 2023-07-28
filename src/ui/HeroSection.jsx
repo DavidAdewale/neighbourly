@@ -2,7 +2,6 @@ import { styled } from 'styled-components';
 import HeroContent from './HeroContent';
 
 const StyledBackground = styled.main`
-  min-width: 100dvw;
   min-height: 100dvh;
   background: var(--color-hero-bg);
   background-blend-mode: overlay;
@@ -12,6 +11,7 @@ const StyledBackground = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
+  /* position: relative; */
 `;
 
 function HeroSection() {
