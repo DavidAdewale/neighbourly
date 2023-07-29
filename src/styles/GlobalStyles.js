@@ -20,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
         --color-btn-secondary: transparent;
         --color-btn-secondary-hover: rgba(243, 245, 242, 1);
         --color-btn-nav-bg: rgba(243, 245, 242, .38);
-        --color-light-accent:#DADADA;
+        --color-light-accent:#CCCBCB;
         --color-form-btn: #F6F6F6;
         --color-form-input: #F9F9F9;
         --color-form-input-focus: rgba(243, 245, 242, .18)

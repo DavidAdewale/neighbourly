@@ -1,39 +1,44 @@
-import { styled } from 'styled-components';
-import Button from './Button';
-import FormRow from './FormRow';
-import FormInput from './FormInput';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useSignin } from '../authentication/useSignin';
 
-const SignInForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-`;
+import { useSignin } from './useSignin';
 
-function Form() {
+import Button from '../ui/Button';
+import FormRow from '../ui/FormRow';
+import FormInput from '../ui/FormInput';
+import Spinner from '../ui/Spinner';
+import FormBox from '../ui/FormBox';
+
+function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const disabled = email === '' || password === '' ? true : false;
 
   const { signin, isLoading } = useSignin();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
-    if (isLoading) return;
-
-    signin({ email, password });
+    signin(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail('');
+          setPassword('');
+        },
+      }
+    );
   }
 
   return (
-    <SignInForm onSubmit={handleSubmit}>
+    <FormBox onSubmit={handleSubmit}>
       <FormRow label="Email">
         <FormInput
           id="email"
           type="email"
           placeholder="you@example.com"
           value={email}
+          disabled={isLoading}
           onChange={(e) => setEmail(e.target.value)}
         />
       </FormRow>
@@ -43,13 +48,15 @@ function Form() {
           type="password"
           placeholder="****"
           value={password}
+          disabled={isLoading}
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormRow>
-      <Button type="submit">Sign in</Button>
-      <Link to="/">Go back</Link>
-    </SignInForm>
+      <Button type="submit" disabled={disabled}>
+        {isLoading ? <Spinner /> : 'Sign in'}
+      </Button>
+    </FormBox>
   );
 }
 
-export default Form;
+export default SignInForm;

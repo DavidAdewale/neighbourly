@@ -7,6 +7,7 @@ export async function signin({ email, password }) {
   });
 
   if (error) throw new Error('Email or password incorrect');
+  console.log(user);
   return user;
 }
 
@@ -22,6 +23,12 @@ export async function getCurrentUser() {
 export async function loginWithGoogle() {
   const { data: user, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    },
   });
   if (error) throw new Error("Couldn't log you in");
   return user;

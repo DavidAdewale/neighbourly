@@ -95,7 +95,7 @@ const StyledOverlay = styled.div`
 
 function NavMenu() {
   const { isAuthenticated } = useUser();
-  const { logout, isLoggingOut } = useLogout();
+  const { logout } = useLogout();
 
   const { isOpen, handleToggle, closeMenu } = useMenuToggle();
   const { isDark, handleDarkToggle } = useDarkMode();
@@ -132,7 +132,9 @@ function NavMenu() {
               <StyledNavLink to="/signin">Sign in</StyledNavLink>
             </li>
             <li>
-              <StyledNavLink type="button">Sign up</StyledNavLink>
+              <StyledNavLink type="button" to="/signup">
+                Sign up
+              </StyledNavLink>
             </li>
           </>
         )}

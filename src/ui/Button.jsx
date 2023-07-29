@@ -54,7 +54,31 @@ const Button = styled.button`
       font-family: inherit;
       padding: 1rem 0.5rem;
 
-      &:hover {
+      &:disabled {
+        cursor: not-allowed;
+        background-color: var(--color-light-accent);
+      }
+
+      &:hover:not(:disabled) {
+        background-color: var(--color-main-hover);
+        color: var(--color-btn-text);
+      }
+    `}
+
+    ${(props) =>
+    props.type === 'reset' &&
+    css`
+      background-color: var(--color-main);
+      color: var(--color-btn-text);
+      font-family: inherit;
+      padding: 1rem 0.5rem;
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: var(--color-light-accent);
+      }
+
+      &:hover:not(:disabled) {
         background-color: var(--color-main-hover);
         color: var(--color-btn-text);
       }

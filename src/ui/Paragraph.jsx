@@ -16,6 +16,12 @@ const Paragraph = styled.p`
     css`
       font-size: 1.6rem;
     `}
+
+    ${(props) =>
+    props.color === 'faded' &&
+    css`
+      color: var(--color-light-accent);
+    `}
 `;
 
 Paragraph.defaultProps = {

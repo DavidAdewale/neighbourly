@@ -6,11 +6,17 @@ const StyledFormRow = styled.div`
   gap: 0.5rem;
 `;
 
-function FormRow({ label, children }) {
+const Error = styled.span`
+  font-size: 1.4rem;
+  color: var(--color-danger);
+`;
+
+function FormRow({ label, error, children }) {
   return (
     <StyledFormRow>
       {label && <label htmlFor={children.type.id}>{label}</label>}
       {children}
+      {error && <Error>{error}</Error>}
     </StyledFormRow>
   );
 }
