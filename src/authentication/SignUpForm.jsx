@@ -3,16 +3,18 @@ import Button from '../ui/Button';
 import FormBox from '../ui/FormBox';
 import FormInput from '../ui/FormInput';
 import FormRow from '../ui/FormRow';
+import { useSignup } from './useSignup';
+import Spinner from '../ui/Spinner';
 
 function SignUpForm() {
+  const { signup, isLoading } = useSignup();
+
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
-  function onSubmit(data) {
-    console.log(data);
+  function onSubmit({ fullName, email, password }) {
+    signup({ fullName, email, password }, { onSettled: reset });
   }
-  console.log(errors);
-
   return (
     <FormBox onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Full Name" error={errors?.fullName?.message}>
@@ -69,8 +71,8 @@ function SignUpForm() {
           })}
         />
       </FormRow>
-      <Button type="reset" onClick={reset}>
-        Create account
+      <Button type="submit" onClick={reset} disabled={isLoading}>
+        {isLoading ? <Spinner /> : 'Create account'}
       </Button>
     </FormBox>
   );
