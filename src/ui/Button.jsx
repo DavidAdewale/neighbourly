@@ -1,6 +1,7 @@
 import { css, styled } from 'styled-components';
 
 const Button = styled.button`
+  font-family: inherit;
   font-size: inherit;
   padding: 0.5rem 1.5rem;
   border-radius: 0.8rem;
@@ -42,6 +43,38 @@ const Button = styled.button`
       &:hover {
         background-color: var(--color-danger-hover);
         color: var(--color-btn-text);
+      }
+    `}
+
+    ${(props) =>
+    props.type === 'submit' &&
+    css`
+      background-color: var(--color-main);
+      color: var(--color-btn-text);
+      font-family: inherit;
+      padding: 1rem 0.5rem;
+
+      &:hover {
+        background-color: var(--color-main-hover);
+        color: var(--color-btn-text);
+      }
+    `}
+
+    ${(props) =>
+    props.type === 'formSecondary' &&
+    css`
+      background-color: var(--color-form-btn);
+      color: var(--color-text);
+      padding: 1rem 0.5rem;
+      border: 1px solid var(--color-light-accent);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+
+      &:hover {
+        background-color: var(--color-btn-secondary-hover);
       }
     `}
 `;

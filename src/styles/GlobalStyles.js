@@ -21,6 +21,9 @@ const GlobalStyles = createGlobalStyle`
         --color-btn-secondary-hover: rgba(243, 245, 242, 1);
         --color-btn-nav-bg: rgba(243, 245, 242, .38);
         --color-light-accent:#DADADA;
+        --color-form-btn: #F6F6F6;
+        --color-form-input: #F9F9F9;
+        --color-form-input-focus: rgba(243, 245, 242, .18)
         --color-after-border: linear-gradient(
             to right,
             transparent,
@@ -46,6 +49,9 @@ const GlobalStyles = createGlobalStyle`
         --color-btn-secondary-hover: rgba(252, 252, 252, .2);
         --color-btn-nav-bg: rgba(0, 0, 0, .4);
         --color-light-accent: #515151;
+        --color-form-btn: #282828;
+        --color-form-input: #282828;
+        --color-form-input-focus: rgba(252, 252, 252, .18);
         --color-after-border: linear-gradient(
             to right,
             transparent,
