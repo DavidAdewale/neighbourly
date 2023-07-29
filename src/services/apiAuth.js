@@ -1,0 +1,33 @@
+import supabase from './supabase';
+
+export async function signin({ email, password }) {
+  const { data: user, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) throw new Error('Email or password incorrect');
+  return user;
+}
+
+export async function getCurrentUser() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // console.log(user);
+  return user;
+}
+
+export async function loginWithGoogle() {
+  const { data: user, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+  });
+  if (error) throw new Error("Couldn't log you in");
+  return user;
+}
+
+export async function logout() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error("Couldn't log you out");
+}

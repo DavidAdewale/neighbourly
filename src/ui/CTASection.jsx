@@ -1,6 +1,7 @@
 import { css, styled } from 'styled-components';
 import { useDarkMode } from '../context/DarkModeContext';
 import Button from './Button';
+import { useUser } from '../authentication/useUser';
 
 const StyledDiv = styled.div`
   min-height: 30rem;
@@ -42,11 +43,17 @@ const StyledDiv = styled.div`
 `;
 
 function CTASection() {
+  const { isAuthenticated } = useUser();
+
   const { isDark } = useDarkMode();
   return (
     <StyledDiv theme={isDark ? 'dark' : 'light'}>
       <h3>Experience the Future of Property Management</h3>
-      <Button>Join Neighbourly today!</Button>
+      {isAuthenticated ? (
+        <Button>Go to your dashboard</Button>
+      ) : (
+        <Button>Join Neighbourly today!</Button>
+      )}
     </StyledDiv>
   );
 }

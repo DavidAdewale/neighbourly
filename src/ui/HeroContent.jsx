@@ -4,6 +4,7 @@ import { RiJavascriptLine, RiSupabaseLine } from 'react-icons/ri';
 import { SiStyledcomponents } from 'react-icons/si';
 import Button from './Button';
 import Paragraph from './Paragraph';
+import { useUser } from '../authentication/useUser';
 
 const StyledContainer = styled.div`
   width: 50%;
@@ -52,6 +53,8 @@ const StyledBuildTools = styled.div`
 `;
 
 function HeroContent() {
+  const { isAuthenticated } = useUser();
+
   return (
     <StyledContainer>
       <TextContainer>
@@ -66,7 +69,11 @@ function HeroContent() {
         </Paragraph>
       </TextContainer>
       <ButtonContainer>
-        <Button type="primary">Sign up - it&lsquo;s free!</Button>
+        {isAuthenticated ? (
+          <Button>Go to your dashboard</Button>
+        ) : (
+          <Button type="primary">Sign up - it&lsquo;s free!</Button>
+        )}
         <Button type="secondary">Learn more</Button>
       </ButtonContainer>
       <StyledBuildTools>

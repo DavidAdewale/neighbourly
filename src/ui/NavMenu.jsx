@@ -4,6 +4,8 @@ import { HiBars3, HiXMark } from 'react-icons/hi2';
 import { useMenuToggle } from '../hooks/useMenuToggle';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 import { useDarkMode } from '../context/DarkModeContext';
+import { useUser } from '../authentication/useUser';
+import { useLogout } from '../authentication/useLogout';
 
 const StyledNavMenu = styled.ul`
   list-style: none;
@@ -92,9 +94,13 @@ const StyledOverlay = styled.div`
 `;
 
 function NavMenu() {
+  const { isAuthenticated } = useUser();
+  const { logout, isLoggingOut } = useLogout();
+
   const { isOpen, handleToggle, closeMenu } = useMenuToggle();
   const { isDark, handleDarkToggle } = useDarkMode();
   const ref = useOutsideClick(closeMenu);
+
   return (
     <MenuListContainer>
       <StyledNavMenu type={isOpen ? 'open' : ''} ref={ref}>
@@ -114,12 +120,22 @@ function NavMenu() {
             {isDark ? 'Light mode' : 'Dark mode'}
           </StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink to="/signin">Sign in</StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink type="button">Sign up</StyledNavLink>
-        </li>
+        {isAuthenticated ? (
+          <li>
+            <StyledNavLink type="button" onClick={() => logout()}>
+              Dashboard
+            </StyledNavLink>
+          </li>
+        ) : (
+          <>
+            <li>
+              <StyledNavLink to="/signin">Sign in</StyledNavLink>
+            </li>
+            <li>
+              <StyledNavLink type="button">Sign up</StyledNavLink>
+            </li>
+          </>
+        )}
       </StyledNavMenu>
       <button onClick={handleToggle}>
         {isOpen ? <HiXMark /> : <HiBars3 />}

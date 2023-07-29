@@ -3,6 +3,8 @@ import Paragraph from './Paragraph';
 import Form from './Form';
 import Button from './Button';
 import { AiOutlineGoogle } from 'react-icons/ai';
+// import { getCurrentUser } from '../services/apiAuth';
+import { useGoogleLogin } from '../authentication/useGoogleLogin';
 
 const Container = styled.div`
   width: 25%;
@@ -65,13 +67,19 @@ const StyledDivider = styled.p`
 `;
 
 function SignInForm() {
+  const { signin, isLoading } = useGoogleLogin();
+
+  function handleGoogleLogIn() {
+    if (isLoading) return console.log('loading');
+    signin();
+  }
   return (
     <Container>
       <div>
         <h2>Welcome Back</h2>
         <StyledParagraph>Sign in to your account</StyledParagraph>
       </div>
-      <Button type="formSecondary">
+      <Button type="formSecondary" onClick={handleGoogleLogIn}>
         <AiOutlineGoogle /> Continue with Google
       </Button>
       <Divider>
