@@ -16,9 +16,10 @@ const GlobalStyles = createGlobalStyle`
         --color-danger-hover:#FC6B5B;
         --color-tertiary: #BF7FE3;
         --color-btn-text: #fcfcfc;
+        --color-btn-text-faded: #9A9A9A;
         --color-btn-selection: #1e1e1e;
         --color-btn-secondary: transparent;
-        --color-btn-secondary-hover: rgba(243, 245, 242, 1);
+        --color-btn-secondary-hover: rgba(0, 0, 0, .09);
         --color-btn-nav-bg: rgba(243, 245, 242, .38);
         --color-light-accent:#CCCBCB;
         --color-form-btn: #F6F6F6;
@@ -44,6 +45,7 @@ const GlobalStyles = createGlobalStyle`
         --color-danger-hover:#E36052;
         --color-tertiary: #D48DFC;
         --color-btn-text: #fcfcfc;
+        --color-btn-text-faded: #747373;
         --color-btn-selection: #1e1e1e;
         --color-btn-secondary: transparent;
         --color-btn-secondary-hover: rgba(252, 252, 252, .2);

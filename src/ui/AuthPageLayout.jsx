@@ -33,7 +33,7 @@ function AuthPageLayout({ children }) {
   return (
     <Page>
       <Container>
-        <img src={imageSrc} />
+        <img src={imageSrc} alt="Neighbourly Logo" draggable="false" />
         {children}
       </Container>
     </Page>

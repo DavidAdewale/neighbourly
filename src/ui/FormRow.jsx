@@ -1,3 +1,4 @@
+import { HiOutlineExclamationCircle } from 'react-icons/hi2';
 import { styled } from 'styled-components';
 
 const StyledFormRow = styled.div`
@@ -16,7 +17,11 @@ function FormRow({ label, error, children }) {
     <StyledFormRow>
       {label && <label htmlFor={children.type.id}>{label}</label>}
       {children}
-      {error && <Error>{error}</Error>}
+      {error && (
+        <Error>
+          <HiOutlineExclamationCircle /> {error}
+        </Error>
+      )}
     </StyledFormRow>
   );
 }

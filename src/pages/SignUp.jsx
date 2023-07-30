@@ -13,7 +13,7 @@ function SignIn() {
     <AuthPageLayout>
       <AuthForm heading={heading} form={<SignUpForm />} />
       <Paragraph>
-        Already have an account? <StyledLink to="/signin">Sign up</StyledLink>
+        Already have an account? <StyledLink to="/signin">Sign in</StyledLink>
       </Paragraph>
     </AuthPageLayout>
   );

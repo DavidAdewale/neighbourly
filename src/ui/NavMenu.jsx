@@ -122,7 +122,7 @@ function NavMenu() {
         </li>
         {isAuthenticated ? (
           <li>
-            <StyledNavLink type="button" onClick={() => logout()}>
+            <StyledNavLink type="button" to="/dashboard">
               Dashboard
             </StyledNavLink>
           </li>

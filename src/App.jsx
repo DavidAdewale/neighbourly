@@ -2,14 +2,20 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { DarkModeProvider } from './context/DarkModeContext';
+import { Toaster } from 'react-hot-toast';
 
+import AppLayout from './ui/AppLayout';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
-import GlobalStyles from './styles/GlobalStyles';
-import AppLayout from './ui/AppLayout';
-import Dashboard from './pages/Dashboard';
-import { Toaster } from 'react-hot-toast';
 import SignUp from './pages/SignUp';
+import Dashboard from './pages/Dashboard';
+import Properties from './pages/Properties';
+import Tenants from './pages/Tenants';
+import Reports from './pages/Reports';
+import Settings from './pages/Settings';
+
+import GlobalStyles from './styles/GlobalStyles';
+import ProtectedRoutes from './ui/ProtectedRoutes';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,8 +36,18 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectedRoutes>
+                  <AppLayout />
+                </ProtectedRoutes>
+              }
+            >
               <Route path="dashboard" element={<Dashboard />} />
+              <Route path="properties" element={<Properties />} />
+              <Route path="tenants" element={<Tenants />} />
+              <Route path="reports" element={<Reports />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
           </Routes>
         </BrowserRouter>

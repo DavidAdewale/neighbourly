@@ -2,6 +2,7 @@ import { css, styled } from 'styled-components';
 import { useDarkMode } from '../context/DarkModeContext';
 import Button from './Button';
 import { useUser } from '../authentication/useUser';
+import { useNavigate } from 'react-router-dom';
 
 const StyledDiv = styled.div`
   min-height: 30rem;
@@ -44,15 +45,20 @@ const StyledDiv = styled.div`
 
 function CTASection() {
   const { isAuthenticated } = useUser();
+  const navigate = useNavigate();
 
   const { isDark } = useDarkMode();
   return (
     <StyledDiv theme={isDark ? 'dark' : 'light'}>
       <h3>Experience the Future of Property Management</h3>
       {isAuthenticated ? (
-        <Button>Go to your dashboard</Button>
+        <Button onClick={() => navigate('/dashboard')}>
+          Go to your dashboard
+        </Button>
       ) : (
-        <Button>Join Neighbourly today!</Button>
+        <Button onClick={() => navigate('/signup')}>
+          Join Neighbourly today!
+        </Button>
       )}
     </StyledDiv>
   );

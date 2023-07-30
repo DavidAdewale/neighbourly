@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 const Loader = styled.span`
   width: 16px;
@@ -10,6 +10,12 @@ const Loader = styled.span`
   box-sizing: border-box;
   animation: rotation 2s linear infinite;
 
+  ${(props) =>
+    props.type === 'button' &&
+    css`
+      border: 2px dotted var(--color-text);
+    `}
+
   @keyframes rotation {
     0% {
       transform: rotate(0deg);
@@ -20,8 +26,8 @@ const Loader = styled.span`
   }
 `;
 
-function Spinner() {
-  return <Loader />;
+function Spinner({ type }) {
+  return <Loader type={type} />;
 }
 
 export default Spinner;
