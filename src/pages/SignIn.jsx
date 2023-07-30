@@ -3,8 +3,15 @@ import StyledLink from '../ui/Link';
 import AuthPageLayout from '../ui/AuthPageLayout';
 import AuthForm from '../ui/AuthForm';
 import SignInForm from '../authentication/SignInForm';
+import { useUser } from '../authentication/useUser';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
+  const { isAuthenticated } = useUser();
+  const navigate = useNavigate();
+
+  if (isAuthenticated) navigate('/dashboard');
+
   const heading = {
     title: 'Welcome Back',
     paragraph: 'Sign in to your account',

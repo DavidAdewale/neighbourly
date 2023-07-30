@@ -3,8 +3,15 @@ import StyledLink from '../ui/Link';
 import AuthPageLayout from '../ui/AuthPageLayout';
 import AuthForm from '../ui/AuthForm';
 import SignUpForm from '../authentication/SignUpForm';
+import { useUser } from '../authentication/useUser';
+import { useNavigate } from 'react-router-dom';
 
-function SignIn() {
+function SignUp() {
+  const { isAuthenticated } = useUser();
+  const navigate = useNavigate();
+
+  if (isAuthenticated) navigate('/dashboard');
+
   const heading = {
     title: 'Welcome to Neighbourly',
     paragraph: 'Sign Up and Get Started',
@@ -19,4 +26,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignUp;

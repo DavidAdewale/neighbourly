@@ -24,7 +24,7 @@ const GlobalStyles = createGlobalStyle`
         --color-light-accent:#CCCBCB;
         --color-form-btn: #F6F6F6;
         --color-form-input: #F9F9F9;
-        --color-form-input-focus: rgba(243, 245, 242, .18)
+        --color-form-input-focus: rgba(243, 245, 242, .18);
         --color-after-border: linear-gradient(
             to right,
             transparent,
@@ -99,7 +99,7 @@ const GlobalStyles = createGlobalStyle`
 
     ::selection{
         background-color: #72DB65;
-        color:var(---color-btn-selection);
+        color:var(--color-btn-selection);
     }
     h1{
         font-size: var(--heading-one);

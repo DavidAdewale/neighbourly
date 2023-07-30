@@ -48,7 +48,10 @@ const ProfileImage = styled.img`
 function Header() {
   const { isDark, handleDarkToggle } = useDarkMode();
   const { user } = useUser();
-  const userAvatar = user.user_metadata.avatar_url || user.user_metadata.avatar;
+  const userAvatar =
+    user.user_metadata.avatar_url ||
+    user.user_metadata.avatar ||
+    'default-user.jpg';
 
   return (
     <StyledHeader>
