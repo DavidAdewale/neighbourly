@@ -10,6 +10,10 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 0.3s;
 
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
   ${(props) =>
     props.type === 'primary' &&
     css`
@@ -19,6 +23,10 @@ const Button = styled.button`
       &:hover {
         background-color: var(--color-main-hover);
         color: var(--color-btn-text);
+      }
+      &:disabled {
+        cursor: not-allowed;
+        background-color: var(--color-light-accent);
       }
     `}
 
@@ -68,18 +76,18 @@ const Button = styled.button`
     ${(props) =>
     props.type === 'reset' &&
     css`
-      background-color: var(--color-main);
+      background-color: var(--color-btn-reset);
       color: var(--color-btn-text);
       font-family: inherit;
-      padding: 1rem 0.5rem;
 
       &:disabled {
         cursor: not-allowed;
         background-color: var(--color-light-accent);
+        border: 1px solid(--color-light-accent);
       }
 
       &:hover:not(:disabled) {
-        background-color: var(--color-main-hover);
+        background-color: var(--color-btn-reset-hover);
         color: var(--color-btn-text);
       }
     `}

@@ -14,6 +14,9 @@ const GlobalStyles = createGlobalStyle`
         --color-text: #1E1E1E;
         --color-danger:#E36052;
         --color-danger-hover:#FC6B5B;
+        --color-btn-reset:rgba(183, 35, 19, 0.70);
+        --color-btn-reset-hover:rgba(183, 35, 19, 0.90);
+        --color-btn-reset-border: rgba(183, 35, 19, 0.70);
         --color-tertiary: #BF7FE3;
         --color-btn-text: #fcfcfc;
         --color-btn-text-faded: #9A9A9A;
@@ -43,6 +46,9 @@ const GlobalStyles = createGlobalStyle`
         --color-text: #FCFCFC;
         --color-danger:#FC6B5B;
         --color-danger-hover:#E36052;
+        --color-btn-reset:rgba(183, 35, 19, 0.70);
+        --color-btn-reset-hover:rgba(183, 35, 19, 0.90);
+        --color-btn-reset-border: #FF3924;
         --color-tertiary: #D48DFC;
         --color-btn-text: #fcfcfc;
         --color-btn-text-faded: #747373;

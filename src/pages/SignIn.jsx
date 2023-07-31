@@ -1,16 +1,21 @@
-import Paragraph from '../ui/Paragraph';
-import StyledLink from '../ui/Link';
+import { useNavigate } from 'react-router-dom';
+
+import { useUser } from '../authentication/useUser';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
+
 import AuthPageLayout from '../ui/AuthPageLayout';
 import AuthForm from '../ui/AuthForm';
 import SignInForm from '../authentication/SignInForm';
-import { useUser } from '../authentication/useUser';
-import { useNavigate } from 'react-router-dom';
+import StyledLink from '../ui/Link';
+import Paragraph from '../ui/Paragraph';
 
 function SignIn() {
   const { isAuthenticated } = useUser();
   const navigate = useNavigate();
 
   if (isAuthenticated) navigate('/dashboard');
+
+  useDocumentTitle('Sign in to your Neighbourly account');
 
   const heading = {
     title: 'Welcome Back',

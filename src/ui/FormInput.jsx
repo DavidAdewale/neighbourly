@@ -14,6 +14,11 @@ const FormInput = styled.input`
   &:focus {
     background-color: var(--color-form-input-focus);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--color-light-accent);
+  }
 `;
 
 export default FormInput;

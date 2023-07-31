@@ -1,21 +1,23 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 import {
   HiOutlineArrowRightOnRectangle,
   HiOutlineChartBarSquare,
-  HiOutlineChartPie,
   HiOutlineCog6Tooth,
   HiOutlineHomeModern,
   HiOutlineUsers,
 } from 'react-icons/hi2';
-
+import { BsPieChart } from 'react-icons/bs';
 import { useLogout } from '../authentication/useLogout';
 import { useDarkMode } from '../context/DarkModeContext';
 
 import SidebarLink from './SidebarLink';
 import Spinner from './Spinner';
+import { useSideBarMenu } from '../context/SidebarMenuContext';
+import { useOutsideClick } from '../hooks/useOutsideClick';
+import { useUser } from '../authentication/useUser';
 
 const StyledAside = styled.aside`
   min-height: 100vh;
@@ -33,6 +35,23 @@ const StyledAside = styled.aside`
     margin-bottom: 2rem;
     cursor: pointer;
   }
+
+  @media only screen and (max-width: 37.5em) {
+    position: absolute;
+    background-color: var(--color-bg);
+    transition: left 0.3s ease-in-out;
+    ${(props) =>
+      props.type === 'hidden' &&
+      css`
+        left: -10rem;
+      `}
+
+    ${(props) =>
+      props.type === 'shown' &&
+      css`
+        left: 0;
+      `}
+  }
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -44,9 +63,10 @@ const StyledNavLink = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
+
   & svg {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.1rem;
+    height: 2.1rem;
     color: var(--color-danger);
   }
 
@@ -59,27 +79,34 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-function Sidebar() {
-  const links = [
-    { icon: <HiOutlineChartPie />, content: 'Dashboard', to: '/dashboard' },
-    {
-      icon: <HiOutlineHomeModern />,
-      content: 'Properties',
-      to: '/properties',
-    },
-    { icon: <HiOutlineUsers />, content: 'Tenants', to: '/tenants' },
-    { icon: <HiOutlineChartBarSquare />, content: 'Reports', to: '/reports' },
-    { icon: <HiOutlineCog6Tooth />, content: 'Settings', to: '/settings' },
-  ];
+const links = [
+  { icon: <BsPieChart />, content: 'Dashboard', to: '/dashboard' },
+  {
+    icon: <HiOutlineHomeModern />,
+    content: 'Properties',
+    to: '/properties',
+  },
+  { icon: <HiOutlineUsers />, content: 'Tenants', to: '/tenants' },
+  { icon: <HiOutlineChartBarSquare />, content: 'Reports', to: '/reports' },
+  { icon: <HiOutlineCog6Tooth />, content: 'Settings', to: '/settings' },
+];
 
-  const { logout, isLoggingOut } = useLogout();
+function Sidebar() {
   const { isDark } = useDarkMode();
+  const { isSidebarOpen, closeSidebar } = useSideBarMenu();
+  const ref = useOutsideClick(closeSidebar);
+
+  const { user } = useUser();
+  console.log(user);
+  const { logout, isLoggingOut } = useLogout();
 
   const navigate = useNavigate();
 
+  const sidebarState = isSidebarOpen ? 'shown' : 'hidden';
+
   const imageSrc = isDark ? 'emblemGrad-dark.png' : 'emblemGrad-light.png';
   return (
-    <StyledAside>
+    <StyledAside type={sidebarState} ref={ref}>
       <img
         src={imageSrc}
         alt="Neighbourly logo"

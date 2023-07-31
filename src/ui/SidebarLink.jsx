@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { useSideBarMenu } from '../context/SidebarMenuContext';
 
 const StyledNavLinks = styled(NavLink)`
   padding: 0.8rem 0.8rem;
@@ -12,8 +13,8 @@ const StyledNavLinks = styled(NavLink)`
   align-items: center;
 
   & svg {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.1rem;
+    height: 2.1rem;
     color: var(--color-btn-text-faded);
   }
 
@@ -28,6 +29,7 @@ const StyledNavLinks = styled(NavLink)`
 `;
 
 function SidebarLink({ link }) {
+  const { closeSidebar } = useSideBarMenu();
   const tooltipId = 'menulinks';
 
   const { icon, content, to } = link;
@@ -38,6 +40,7 @@ function SidebarLink({ link }) {
       data-tooltip-id={tooltipId}
       data-tooltip-content={content}
       data-tooltip-place="right"
+      onClick={() => closeSidebar()}
     >
       {icon}
     </StyledNavLinks>
