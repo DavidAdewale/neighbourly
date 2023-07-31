@@ -2,13 +2,8 @@ import { styled } from 'styled-components';
 import { useUser } from '../authentication/useUser';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
-import FormBox from '../ui/FormBox';
-import FormRow from '../ui/FormRow';
-import FormInput from '../ui/FormInput';
-import Button from '../ui/Button';
-import FileInput from '../ui/FileInput';
-import Spinner from '../ui/Spinner';
 import UpdatePersonalInformation from '../authentication/UpdatePersonalInformation';
+import UpdatePassword from '../authentication/UpdatePassword';
 
 const Page = styled.div`
   padding: 2rem 4rem;
@@ -64,8 +59,8 @@ const FormStyle = styled.div`
 function Settings() {
   useDocumentTitle('Settings');
   const { user } = useUser();
-  const { avatar_url, avatar } = user.user_metadata;
-  const userAvatar = avatar || avatar_url || 'default-user.jpg';
+  const { avatar } = user.user_metadata;
+  const userAvatar = avatar || 'default-user.jpg';
   return (
     <Page>
       <Header>
@@ -80,6 +75,7 @@ function Settings() {
       </SettingsRow>
       <SettingsRow>
         <h4>Change Password</h4>
+        <UpdatePassword />
       </SettingsRow>
     </Page>
   );

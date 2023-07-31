@@ -37,7 +37,7 @@ const StyledAside = styled.aside`
   }
 
   @media only screen and (max-width: 37.5em) {
-    position: absolute;
+    position: fixed;
     background-color: var(--color-bg);
     transition: left 0.3s ease-in-out;
     ${(props) =>
@@ -96,8 +96,7 @@ function Sidebar() {
   const { isSidebarOpen, closeSidebar } = useSideBarMenu();
   const ref = useOutsideClick(closeSidebar);
 
-  const { user } = useUser();
-  console.log(user);
+  // const { user } = useUser();
   const { logout, isLoggingOut } = useLogout();
 
   const navigate = useNavigate();

@@ -71,10 +71,7 @@ function Header() {
   const { openSidebar } = useSideBarMenu();
   const { isDark, handleDarkToggle } = useDarkMode();
   const { user } = useUser();
-  const userAvatar =
-    user.user_metadata.avatar ||
-    user.user_metadata.avatar_url ||
-    'default-user.jpg';
+  const userAvatar = user.user_metadata.avatar || 'default-user.jpg';
 
   return (
     <StyledHeader>

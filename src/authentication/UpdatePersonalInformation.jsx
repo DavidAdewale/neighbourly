@@ -31,11 +31,11 @@ function UpdatePersonalInformation() {
   const [fullName, setFullName] = useState(currentName);
   const [avatar, setAvatar] = useState(null);
 
-  const formChange = fullName !== currentName || avatar;
+  // const formChange = fullName !== currentName || avatar;
 
   function handleSumbit(e) {
     e.preventDefault();
-    if (!fullName) return;
+    if (!fullName || (fullName === currentName && !avatar)) return;
     console.log(fullName, avatar);
     updatedUser({ fullName, avatar });
   }
@@ -70,14 +70,19 @@ function UpdatePersonalInformation() {
         </FormRow>
       </FormStyle>
       <ButtonContainer>
-        <Button disabled={isUpdating || !formChange || !avatar}>
+        <Button
+        // disabled={isUpdating || !formChange || (!formChange && !avatar)}
+        >
           {isUpdating ? <Spinner /> : ''} Save Changes
         </Button>
-        {formChange && (
+        <Button type="reset" disabled={isUpdating} onClick={handleReset}>
+          Cancel
+        </Button>
+        {/* {formChange && (
           <Button type="reset" disabled={isUpdating} onClick={handleReset}>
             Cancel
           </Button>
-        )}
+        )} */}
       </ButtonContainer>
     </FormBox>
   );
