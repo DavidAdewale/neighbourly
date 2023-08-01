@@ -4,7 +4,7 @@ import { RiJavascriptLine, RiSupabaseLine } from 'react-icons/ri';
 import { SiStyledcomponents } from 'react-icons/si';
 import Button from './Button';
 import Paragraph from './Paragraph';
-import { useUser } from '../authentication/useUser';
+import { useUser } from '../features/authentication/useUser';
 import { useNavigate } from 'react-router-dom';
 
 const StyledContainer = styled.div`

@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
-import Button from '../ui/Button';
-import FormBox from '../ui/FormBox';
-import FormInput from '../ui/FormInput';
-import FormRow from '../ui/FormRow';
+import Button from '../../ui/Button';
+import FormBox from '../../ui/FormBox';
+import FormInput from '../../ui/FormInput';
+import FormRow from '../../ui/FormRow';
 import { useSignup } from './useSignup';
-import Spinner from '../ui/Spinner';
+import Spinner from '../../ui/Spinner';
 
 function SignUpForm() {
   const { signup, isLoading } = useSignup();

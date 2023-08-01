@@ -1,9 +1,9 @@
 import { styled } from 'styled-components';
-import { useUser } from '../authentication/useUser';
+import { useUser } from '../features/authentication/useUser';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
-import UpdatePersonalInformation from '../authentication/UpdatePersonalInformation';
-import UpdatePassword from '../authentication/UpdatePassword';
+import UpdatePersonalInformation from '../features/settings/UpdatePersonalInformation';
+import UpdatePassword from '../features/settings/UpdatePassword';
 
 const Page = styled.div`
   padding: 2rem 4rem;
@@ -48,19 +48,13 @@ const SettingsRow = styled.div`
   padding-top: 2rem;
 `;
 
-const FormStyle = styled.div`
-  display: flex;
-  gap: 3rem;
-  @media only screen and (max-width: 56.25em) {
-    flex-direction: column;
-  }
-`;
-
 function Settings() {
   useDocumentTitle('Settings');
   const { user } = useUser();
+  const picture = user.user_metadata.picture;
+
   const { avatar } = user.user_metadata;
-  const userAvatar = avatar || 'default-user.jpg';
+  const userAvatar = picture || avatar || 'default-user.jpg';
   return (
     <Page>
       <Header>
@@ -76,6 +70,14 @@ function Settings() {
       <SettingsRow>
         <h4>Change Password</h4>
         <UpdatePassword />
+      </SettingsRow>
+      <SettingsRow>
+        <h4>Display settings</h4>
+        <select>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="system-default">System Default</option>
+        </select>
       </SettingsRow>
     </Page>
   );

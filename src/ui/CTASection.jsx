@@ -1,7 +1,7 @@
 import { css, styled } from 'styled-components';
 import { useDarkMode } from '../context/DarkModeContext';
 import Button from './Button';
-import { useUser } from '../authentication/useUser';
+import { useUser } from '../features/authentication/useUser';
 import { useNavigate } from 'react-router-dom';
 
 const StyledDiv = styled.div`

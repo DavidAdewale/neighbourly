@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useUser } from '../authentication/useUser';
+import { useUser } from '../features/authentication/useUser';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
-import SignUpForm from '../authentication/SignUpForm';
+import SignUpForm from '../features/authentication/SignUpForm';
 import AuthPageLayout from '../ui/AuthPageLayout';
 import AuthForm from '../ui/AuthForm';
 import StyledLink from '../ui/Link';

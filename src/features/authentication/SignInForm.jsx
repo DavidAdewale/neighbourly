@@ -2,11 +2,11 @@ import { useState } from 'react';
 
 import { useSignin } from './useSignin';
 
-import Button from '../ui/Button';
-import FormRow from '../ui/FormRow';
-import FormInput from '../ui/FormInput';
-import Spinner from '../ui/Spinner';
-import FormBox from '../ui/FormBox';
+import Button from '../../ui/Button';
+import FormRow from '../../ui/FormRow';
+import FormInput from '../../ui/FormInput';
+import Spinner from '../../ui/Spinner';
+import FormBox from '../../ui/FormBox';
 
 function SignInForm() {
   const [email, setEmail] = useState('');

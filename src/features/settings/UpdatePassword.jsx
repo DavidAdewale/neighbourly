@@ -1,13 +1,15 @@
 import { styled } from 'styled-components';
-import FormBox from '../ui/FormBox';
-import FormInput from '../ui/FormInput';
-import FormRow from '../ui/FormRow';
 import { useForm } from 'react-hook-form';
-import { useUser } from './useUser';
-import Paragraph from '../ui/Paragraph';
-import Button from '../ui/Button';
-import Spinner from '../ui/Spinner';
+
+import { useUser } from '../authentication/useUser';
 import { useUpdateUser } from './useUpdateUser';
+
+import FormBox from '../../ui/FormRow';
+import FormInput from '../../ui/FormInput';
+import FormRow from '../../ui/FormRow';
+import Paragraph from '../../ui/Paragraph';
+import Button from '../../ui/Button';
+import Spinner from '../../ui/Spinner';
 
 const FormStyle = styled.div`
   display: flex;

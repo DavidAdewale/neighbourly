@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { HiBars3, HiOutlineMoon, HiOutlineSun } from 'react-icons/hi2';
 
 import { useDarkMode } from '../context/DarkModeContext';
-import { useUser } from '../authentication/useUser';
+import { useUser } from '../features/authentication/useUser';
 import { useSideBarMenu } from '../context/SidebarMenuContext';
 
 const StyledHeader = styled.header`
@@ -71,7 +71,8 @@ function Header() {
   const { openSidebar } = useSideBarMenu();
   const { isDark, handleDarkToggle } = useDarkMode();
   const { user } = useUser();
-  const userAvatar = user.user_metadata.avatar || 'default-user.jpg';
+  const picture = user.user_metadata.picture;
+  const userAvatar = picture || user.user_metadata.avatar || 'default-user.jpg';
 
   return (
     <StyledHeader>

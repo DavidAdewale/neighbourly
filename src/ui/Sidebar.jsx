@@ -10,14 +10,13 @@ import {
   HiOutlineUsers,
 } from 'react-icons/hi2';
 import { BsPieChart } from 'react-icons/bs';
-import { useLogout } from '../authentication/useLogout';
+import { useLogout } from '../features/authentication/useLogout';
 import { useDarkMode } from '../context/DarkModeContext';
 
 import SidebarLink from './SidebarLink';
 import Spinner from './Spinner';
 import { useSideBarMenu } from '../context/SidebarMenuContext';
 import { useOutsideClick } from '../hooks/useOutsideClick';
-import { useUser } from '../authentication/useUser';
 
 const StyledAside = styled.aside`
   min-height: 100vh;
@@ -96,7 +95,6 @@ function Sidebar() {
   const { isSidebarOpen, closeSidebar } = useSideBarMenu();
   const ref = useOutsideClick(closeSidebar);
 
-  // const { user } = useUser();
   const { logout, isLoggingOut } = useLogout();
 
   const navigate = useNavigate();

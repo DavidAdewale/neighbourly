@@ -4,8 +4,8 @@ import { HiBars3, HiXMark } from 'react-icons/hi2';
 import { useMenuToggle } from '../hooks/useMenuToggle';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 import { useDarkMode } from '../context/DarkModeContext';
-import { useUser } from '../authentication/useUser';
-import { useLogout } from '../authentication/useLogout';
+import { useUser } from '../features/authentication/useUser';
+import { useLogout } from '../features/authentication/useLogout';
 
 const StyledNavMenu = styled.ul`
   list-style: none;

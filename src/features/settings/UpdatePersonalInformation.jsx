@@ -1,13 +1,15 @@
 import { styled } from 'styled-components';
-import Button from '../ui/Button';
-import FileInput from '../ui/FileInput';
-import FormBox from '../ui/FormBox';
-import FormInput from '../ui/FormInput';
-import FormRow from '../ui/FormRow';
-import Spinner from '../ui/Spinner';
-import { useUser } from './useUser';
 import { useState } from 'react';
+
+import { useUser } from '../authentication/useUser';
 import { useUpdateUser } from './useUpdateUser';
+
+import Button from '../../ui/Button';
+import FileInput from '../../ui/FileInput';
+import FormBox from '../../ui/FormBox';
+import FormInput from '../../ui/FormInput';
+import FormRow from '../../ui/FormRow';
+import Spinner from '../../ui/Spinner';
 
 const FormStyle = styled.div`
   display: flex;

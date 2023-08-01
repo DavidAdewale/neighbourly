@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { useGoogleLogin } from '../authentication/useGoogleLogin';
+import { useGoogleLogin } from '../features/authentication/useGoogleLogin';
 import { AiOutlineGoogle } from 'react-icons/ai';
 import Button from './Button';
 import Paragraph from './Paragraph';
