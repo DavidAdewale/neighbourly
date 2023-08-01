@@ -24,8 +24,17 @@ function DarkModeProvider({ children }) {
   function handleDarkToggle() {
     setisDark(() => !isDark);
   }
+
+  function toggleDisplay(value) {
+    if (value === 'dark') setisDark(true);
+    if (value === 'light') setisDark(false);
+    if (value === 'system-default')
+      setisDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }
   return (
-    <DarkModeContext.Provider value={{ isDark, handleDarkToggle }}>
+    <DarkModeContext.Provider
+      value={{ isDark, handleDarkToggle, toggleDisplay }}
+    >
       {children}
     </DarkModeContext.Provider>
   );

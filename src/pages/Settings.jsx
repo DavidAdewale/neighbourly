@@ -4,6 +4,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 import UpdatePersonalInformation from '../features/settings/UpdatePersonalInformation';
 import UpdatePassword from '../features/settings/UpdatePassword';
+import DisplaySettings from '../features/settings/DisplaySettings';
 
 const Page = styled.div`
   padding: 2rem 4rem;
@@ -73,11 +74,7 @@ function Settings() {
       </SettingsRow>
       <SettingsRow>
         <h4>Display settings</h4>
-        <select>
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-          <option value="system-default">System Default</option>
-        </select>
+        <DisplaySettings />
       </SettingsRow>
     </Page>
   );
