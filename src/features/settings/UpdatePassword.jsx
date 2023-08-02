@@ -14,6 +14,7 @@ import Spinner from '../../ui/Spinner';
 const FormStyle = styled.div`
   display: flex;
   gap: 3rem;
+  margin-bottom: 2rem;
   @media only screen and (max-width: 56.25em) {
     flex-direction: column;
   }

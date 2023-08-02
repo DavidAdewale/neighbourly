@@ -33,8 +33,6 @@ function UpdatePersonalInformation() {
   const [fullName, setFullName] = useState(currentName);
   const [avatar, setAvatar] = useState(null);
 
-  // const formChange = fullName !== currentName || avatar;
-
   function handleSumbit(e) {
     e.preventDefault();
     if (!fullName || (fullName === currentName && !avatar)) return;

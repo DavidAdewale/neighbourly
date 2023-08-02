@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { useDarkMode } from '../../context/DarkModeContext';
+import { useEffect, useState } from 'react';
 
 const Select = styled.select`
   font-family: inherit;
@@ -15,11 +16,24 @@ const Select = styled.select`
 `;
 
 function DisplaySettings() {
-  const { toggleDisplay } = useDarkMode();
+  const { isDark, toggleDisplay } = useDarkMode();
+  const [select, setSelect] = useState('');
+  useEffect(
+    function () {
+      if (isDark) setSelect('dark');
+      if (!isDark) setSelect('light');
+    },
+    [isDark]
+  );
 
   return (
     <div>
-      <Select onChange={(e) => toggleDisplay(e.target.value)}>
+      <Select
+        value={select}
+        onChange={(e) => {
+          toggleDisplay(e.target.value);
+        }}
+      >
         <option value="dark">Dark</option>
         <option value="light">Light</option>
         <option value="system-default">System Default</option>
