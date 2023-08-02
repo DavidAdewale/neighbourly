@@ -36,7 +36,7 @@ function DisplaySettings() {
       >
         <option value="dark">Dark</option>
         <option value="light">Light</option>
-        <option value="system-default">System Default</option>
+        {/* <option value="system-default">System Default</option> */}
       </Select>
     </div>
   );

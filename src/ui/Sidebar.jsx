@@ -136,7 +136,11 @@ function Sidebar() {
       <StyledNavLink onClick={() => deleteProperties()}>
         <HiOutlineArchiveBoxXMark />
       </StyledNavLink>
-      <Tooltip id="menulinks" />
+      <Tooltip
+        id="menulinks"
+        hidden={window.innerWidth <= 1200 ? true : false}
+        style={{ zIndex: 1200 }}
+      />
     </StyledAside>
   );
 }

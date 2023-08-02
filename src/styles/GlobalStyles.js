@@ -11,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
         --color-main: #4F9746;
         --color-main-hover: #55A34B;
         --color-bg: #FCFCFC;
+        --color-card-bg: rgba(0, 0, 0, 0.005);
         --color-text: #1E1E1E;
         --color-danger:#E36052;
         --color-danger-hover:#FC6B5B;
@@ -37,12 +38,21 @@ const GlobalStyles = createGlobalStyle`
         --color-overlay: rgba(30, 30, 30, .15);
         --color-hero-bg: linear-gradient(rgba(243, 245, 242, 0.1), rgba(243, 245, 242, 0.2)),
     url('/gradient.webp');
+
+        --box-shadow: 0px 4px 19px 0px rgba(0, 0, 0, 0.1);
+
+        --color-occupied: rgba(79, 151, 70, 0.50);
+        --color-partially-occupied: rgba(163, 130, 67, 0.50);
+;
+
+
         }
 
     &.dark-mode{
         --color-main: #55A34B;
         --color-main-hover: #4F9746;
         --color-bg: #070707;
+        --color-card-bg: rgba(252, 252, 252, .05);
         --color-text: #FCFCFC;
         --color-danger:#FC6B5B;
         --color-danger-hover:#E36052;
@@ -69,6 +79,11 @@ const GlobalStyles = createGlobalStyle`
         --color-overlay: rgba(0, 0, 0, .3);
         --color-hero-bg: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('/gradient.webp');
+        --color-occupied: rgba(79, 151, 70, 0.50);
+        --color-partially-occupied: rgba(163, 130, 67, 0.50);
+
+        --box-shadow: 0px 5px 19px 3px rgba(252, 252, 252, 0.07);
+
         }
 
         --heading-one: 4.8rem;
@@ -79,6 +94,7 @@ const GlobalStyles = createGlobalStyle`
         --heading-six: 1.8rem;
 
         --border-radius: .8rem;
+
     }
 
     *,

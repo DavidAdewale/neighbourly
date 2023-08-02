@@ -9,7 +9,7 @@ const dummyProperties = [
     postalCode: '12345',
     expectedRentalIncome: 2500,
     actualRentalIncome: 2500,
-    occupancyStatus: 'Occupied',
+    occupancyStatus: 'occupied',
     amenities: ['Garage', 'Lawn', 'Swimming Pool'],
     tenantName: 'Sarah Johnson',
     tenantEmail: 'sarah.johnson@example.com',
@@ -51,7 +51,7 @@ const dummyProperties = [
       apartments: [
         {
           apartmentNumber: 'A1',
-          occupancyStatus: 'Occupied',
+          occupancyStatus: 'occupied',
           tenantName: 'John Doe',
           tenantEmail: 'john.doe@example.com',
           paymentStatus: 'paid',
@@ -63,13 +63,13 @@ const dummyProperties = [
         },
         {
           apartmentNumber: 'A2',
-          occupancyStatus: 'Vacant',
+          occupancyStatus: 'vacant',
           expectedRentalIncome: 1600,
           extraAmenities: ['Private Patio'],
         },
         {
           apartmentNumber: 'A3',
-          occupancyStatus: 'Occupied',
+          occupancyStatus: 'occupied',
           tenantName: 'Jane Doe',
           tenantEmail: 'jane.doe@example.com',
           paymentStatus: 'paid',
@@ -81,13 +81,13 @@ const dummyProperties = [
         },
         {
           apartmentNumber: 'A4',
-          occupancyStatus: 'Vacant',
+          occupancyStatus: 'vacant',
           expectedRentalIncome: 1700,
           extraAmenities: ['Garden View'],
         },
         {
           apartmentNumber: 'A5',
-          occupancyStatus: 'Occupied',
+          occupancyStatus: 'occupied',
           tenantName: 'Michael Smith',
           tenantEmail: 'michael.smith@example.com',
           paymentStatus: 'paid',
@@ -99,13 +99,13 @@ const dummyProperties = [
         },
         {
           apartmentNumber: 'A6',
-          occupancyStatus: 'Vacant',
+          occupancyStatus: 'vacant',
           expectedRentalIncome: 1500,
           extraAmenities: ['City View'],
         },
         {
           apartmentNumber: 'A7',
-          occupancyStatus: 'Occupied',
+          occupancyStatus: 'occupied',
           tenantName: 'Emily Johnson',
           tenantEmail: 'emily.johnson@example.com',
           paymentStatus: 'paid',
@@ -117,13 +117,13 @@ const dummyProperties = [
         },
         {
           apartmentNumber: 'A8',
-          occupancyStatus: 'Vacant',
+          occupancyStatus: 'vacant',
           expectedRentalIncome: 1400,
           extraAmenities: ['Private Balcony'],
         },
         {
           apartmentNumber: 'A9',
-          occupancyStatus: 'Occupied',
+          occupancyStatus: 'occupied',
           tenantName: 'Robert Brown',
           tenantEmail: 'robert.brown@example.com',
           paymentStatus: 'paid',
@@ -135,7 +135,7 @@ const dummyProperties = [
         },
         {
           apartmentNumber: 'A10',
-          occupancyStatus: 'Vacant',
+          occupancyStatus: 'vacant',
           expectedRentalIncome: 1900,
           extraAmenities: ['City View', 'In-Unit Laundry'],
         },

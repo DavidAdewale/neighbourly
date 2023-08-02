@@ -8,6 +8,7 @@ import AppPage from '../ui/AppPage';
 import AppPageTitle from '../ui/AppPageTitle';
 import Button from '../ui/Button';
 import PropertiesDisplay from '../features/properties/PropertiesDisplay';
+import FullPageSpinner from '../ui/FullPageSpinner';
 
 const SearchBar = styled.div`
   display: flex;
@@ -29,7 +30,7 @@ const SearchBar = styled.div`
     border: 1px solid transparent;
     outline: none;
 
-    background-color: var(--color-btn-secondary-hover);
+    background-color: var(--color-form-btn);
     color: var(--color-text);
 
     transition: all 0.3s;
@@ -52,13 +53,13 @@ const Select = styled.select`
   border: none;
   border-radius: 0.8rem;
 
-  background-color: var(--color-btn-secondary-hover);
-  color: var(--color-btn-text-faded);
+  background-color: var(--color-form-btn);
+  color: var(--color-text);
 
   transition: all 0.3s;
 
   &:focus {
-    padding: 1rem 2rem;
+    /* padding: 1rem 2rem; */
     outline: 1.5px solid var(--color-light-accent);
     background-color: var(--color-input-focus);
     color: var(--color-text);
@@ -93,7 +94,7 @@ function Properties() {
   useDocumentTitle('Properties');
   const { isLoading, properties } = useProperties();
 
-  if (isLoading) return;
+  if (isLoading) return <FullPageSpinner />;
 
   return (
     <AppPage>

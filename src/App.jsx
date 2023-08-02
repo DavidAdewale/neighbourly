@@ -17,6 +17,7 @@ import Settings from './pages/Settings';
 
 import GlobalStyles from './styles/GlobalStyles';
 import ProtectedRoutes from './ui/ProtectedRoutes';
+import Property from './features/properties/Property';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,6 +47,7 @@ function App() {
             >
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="properties" element={<Properties />} />
+              <Route path="properties/:propertyId" element={<Property />} />
               <Route path="tenants" element={<Tenants />} />
               <Route path="reports" element={<Reports />} />
               <Route path="settings" element={<Settings />} />
