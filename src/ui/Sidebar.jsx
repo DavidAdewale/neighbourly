@@ -139,7 +139,11 @@ function Sidebar() {
       <Tooltip
         id="menulinks"
         hidden={window.innerWidth <= 1200 ? true : false}
-        style={{ zIndex: 1200 }}
+        style={{
+          zIndex: 1200,
+          backgroundColor: 'var(--color-bg)',
+          color: 'var(--color-text)',
+        }}
       />
     </StyledAside>
   );

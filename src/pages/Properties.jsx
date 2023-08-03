@@ -9,6 +9,9 @@ import AppPageTitle from '../ui/AppPageTitle';
 import Button from '../ui/Button';
 import PropertiesDisplay from '../features/properties/PropertiesDisplay';
 import FullPageSpinner from '../ui/FullPageSpinner';
+import Filter from '../ui/Filter';
+import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const SearchBar = styled.div`
   display: flex;
@@ -47,30 +50,6 @@ const SearchBar = styled.div`
   }
 `;
 
-const Select = styled.select`
-  padding: 1rem 1.8rem;
-  font-family: inherit;
-  border: none;
-  border-radius: 0.8rem;
-
-  background-color: var(--color-form-btn);
-  color: var(--color-text);
-
-  transition: all 0.3s;
-
-  &:focus {
-    /* padding: 1rem 2rem; */
-    outline: 1.5px solid var(--color-light-accent);
-    background-color: var(--color-input-focus);
-    color: var(--color-text);
-  }
-
-  & option {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-  }
-`;
-
 const OperationPanel = styled.div`
   display: flex;
   justify-content: space-between;
@@ -92,9 +71,24 @@ const OperationsTab = styled.div`
 
 function Properties() {
   useDocumentTitle('Properties');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchedProperty, setSearchedProperty] = useState('');
   const { isLoading, properties } = useProperties();
 
   if (isLoading) return <FullPageSpinner />;
+
+  function handleSearch(value) {
+    const searchedProperties = properties.filter((property) =>
+      property.propertyName.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setSearchedProperty(searchedProperties);
+  }
+
+  function addProperty() {
+    searchParams.set('action', 'new');
+    setSearchParams(searchParams);
+  }
 
   return (
     <AppPage>
@@ -105,31 +99,51 @@ function Properties() {
         <OperationsTab>
           <SearchBar>
             <HiMagnifyingGlass />
-            <input type="text" id="search" placeholder="Search properties" />
+            <input
+              type="text"
+              id="search"
+              placeholder="Search properties"
+              onChange={(e) => handleSearch(e.target.value)}
+            />
           </SearchBar>
-          <Select>
-            <option value="occupied">Occupied</option>
-            <option value="partially-occupied">Partially-occupied</option>
-            <option value="vacant">Vacant</option>
-          </Select>
-          <Select>
-            <option value="house">House</option>
-            <option value="apartment-building">Apartments</option>
-          </Select>
-          <Select>
-            <option value="rentalIncome-asc">
-              Rental Income (Low to High)
-            </option>
-            <option value="rentalIncome-dsc">
-              Rental Income (High to Low)
-            </option>
-          </Select>
+          <Filter
+            filterField="status"
+            options={[
+              { value: 'all', label: 'All' },
+              { value: 'occupied', label: 'Occupied' },
+              { value: 'partially-occupied', label: 'Partially-occupied' },
+              { value: 'vacant', label: 'Vacant' },
+            ]}
+          />
+          <Filter
+            filterField="type"
+            options={[
+              { value: 'all', label: 'All' },
+              { value: 'house', label: 'Houses' },
+              { value: 'apartment-building', label: 'Apartments' },
+            ]}
+          />
+          <Filter
+            filterField="sortBy"
+            options={[
+              {
+                value: 'expectedRentalIncome-asc',
+                label: 'Rental Income (Low to High)',
+              },
+              {
+                value: 'expectedRentalIncome-dsc',
+                label: 'Rental Income (High to Low)',
+              },
+            ]}
+          />
         </OperationsTab>
-        <Button>
+        <Button onClick={addProperty}>
           Add new Property <HiPlus />{' '}
         </Button>
       </OperationPanel>
-      <PropertiesDisplay properties={properties} />
+      <PropertiesDisplay
+        properties={searchedProperty === '' ? properties : searchedProperty}
+      />
     </AppPage>
   );
 }
