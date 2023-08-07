@@ -61,7 +61,6 @@ const Button = styled.button`
       background-color: var(--color-main);
       color: var(--color-btn-text);
       font-family: inherit;
-      padding: 1rem 0.5rem;
 
       &:disabled {
         cursor: not-allowed;
@@ -108,6 +107,34 @@ const Button = styled.button`
 
       &:hover {
         background-color: var(--color-btn-secondary-hover);
+      }
+    `}
+
+    ${(props) =>
+    props.type === 'button' &&
+    props.function === 'remove' &&
+    css`
+      background-color: var(--color-danger);
+      color: var(--color-btn-text);
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: var(--color-danger-hover);
+      }
+    `}
+
+    ${(props) =>
+    props.type === 'button' &&
+    props.function === 'add' &&
+    css`
+      background-color: transparent;
+      color: var(--color-text);
+      border: 1px solid var(--color-btn-secondary-hover);
+
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: var(--color-form-btn);
       }
     `}
 `;

@@ -38,6 +38,14 @@ export async function getCurrentUser() {
   return user;
 }
 
+export async function getCurrentSession() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  return session;
+}
+
 export async function loginWithGoogle() {
   const { data: user, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',

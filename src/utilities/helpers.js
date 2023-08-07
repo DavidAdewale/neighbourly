@@ -4,7 +4,7 @@ export const formatCurrency = (value) =>
   );
 
 export function capitalizeFirstLetter(str) {
-  const stringArray = str.split('-');
+  const stringArray = str.split(/-| /);
 
   if (stringArray.length >= 2) {
     const newArray = stringArray.map(

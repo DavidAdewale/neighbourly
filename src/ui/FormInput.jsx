@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 const FormInput = styled.input`
   font-family: inherit;
@@ -19,6 +19,13 @@ const FormInput = styled.input`
     cursor: not-allowed;
     color: var(--color-light-accent);
   }
+  ${(props) =>
+    props.type === 'date' &&
+    css`
+      &::-webkit-calendar-picker-indicator {
+        color: transparent;
+      }
+    `}
 `;
 
 export default FormInput;

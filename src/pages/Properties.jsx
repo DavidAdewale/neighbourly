@@ -11,7 +11,7 @@ import PropertiesDisplay from '../features/properties/PropertiesDisplay';
 import FullPageSpinner from '../ui/FullPageSpinner';
 import Filter from '../ui/Filter';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const SearchBar = styled.div`
   display: flex;
@@ -71,11 +71,13 @@ const OperationsTab = styled.div`
 
 function Properties() {
   useDocumentTitle('Properties');
-  const [searchParams, setSearchParams] = useSearchParams();
+
+  const navigate = useNavigate();
   const [searchedProperty, setSearchedProperty] = useState('');
   const { isLoading, properties } = useProperties();
 
   if (isLoading) return <FullPageSpinner />;
+  // console.log(properties);
 
   function handleSearch(value) {
     const searchedProperties = properties.filter((property) =>
@@ -83,11 +85,6 @@ function Properties() {
     );
 
     setSearchedProperty(searchedProperties);
-  }
-
-  function addProperty() {
-    searchParams.set('action', 'new');
-    setSearchParams(searchParams);
   }
 
   return (
@@ -137,7 +134,7 @@ function Properties() {
             ]}
           />
         </OperationsTab>
-        <Button onClick={addProperty}>
+        <Button onClick={() => navigate('/properties/add')}>
           Add new Property <HiPlus />{' '}
         </Button>
       </OperationPanel>

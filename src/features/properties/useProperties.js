@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useUser } from '../authentication/useUser';
 import { getProperties } from '../../services/apiProperties';
 import { useSearchParams } from 'react-router-dom';

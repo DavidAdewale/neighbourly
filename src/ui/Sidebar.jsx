@@ -130,12 +130,12 @@ function Sidebar() {
           <HiOutlineArrowRightOnRectangle />
         )}
       </StyledNavLink>
-      <StyledNavLink onClick={() => handleCreateProperties(id)}>
+      {/* <StyledNavLink onClick={() => handleCreateProperties(id)}>
         <HiOutlineArrowUpOnSquare />
       </StyledNavLink>
       <StyledNavLink onClick={() => deleteProperties()}>
         <HiOutlineArchiveBoxXMark />
-      </StyledNavLink>
+      </StyledNavLink> */}
       <Tooltip
         id="menulinks"
         hidden={window.innerWidth <= 1200 ? true : false}

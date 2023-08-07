@@ -57,6 +57,12 @@ const OccupancyStatus = styled.span`
     css`
       background-color: var(--color-partially-occupied);
     `}
+
+    ${(props) =>
+    props.type === 'vacant' &&
+    css`
+      background-color: var(--color-btn-text-faded);
+    `}
 `;
 
 function PropertiesCard({ property }) {
@@ -93,10 +99,14 @@ function PropertiesCard({ property }) {
         <h3> {formatCurrency(expectedRentalIncome)}</h3>
         <Address>
           <Paragraph size="regular">
-            {address}, {city}, {state}
+            {capitalizeFirstLetter(address)}, {capitalizeFirstLetter(city)},
+            {capitalizeFirstLetter(state)}
           </Paragraph>
           <Paragraph size="small" color="faded">
-            Amenities: {amenities.join(', ')}
+            Amenities:{' '}
+            {amenities
+              .map((amenity) => capitalizeFirstLetter(amenity))
+              .join(', ')}
           </Paragraph>
         </Address>
         <Paragraph size="small">
