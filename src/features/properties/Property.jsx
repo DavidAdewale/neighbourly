@@ -37,19 +37,11 @@ function Property() {
     <AppPage>
       <PropertyHeading property={property} />
       <PropertyImage propertyImages={propertyImage} />
-      {occupancyStatus === 'occupied' && propertyCategory === 'house' && (
-        <PropertyTenantOverview
-          propertyInfo={{
-            propertyCategory,
-            tenantName,
-            tenantEmail,
-          }}
-        />
+      {propertyCategory === 'house' && (
+        <PropertyTenantOverview property={property} />
       )}
       {propertyCategory === 'apartment-building' && (
-        <PropertyTenantOverview
-          propertyInfo={{ propertyDetails, propertyCategory }}
-        />
+        <PropertyTenantOverview property={property} />
       )}
     </AppPage>
   );

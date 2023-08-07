@@ -8,7 +8,12 @@ const StyledLayout = styled.div`
   display: flex;
 `;
 const StyledMain = styled.main`
-  width: 98%;
+  width: 100%;
+  padding-left: 5rem;
+
+  @media only screen and (max-width: 56.25em) {
+    padding-left: 0;
+  }
   @media only screen and (max-width: 37.5em) {
     width: 100%;
   }

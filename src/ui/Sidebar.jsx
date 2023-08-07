@@ -21,6 +21,7 @@ import { useOutsideClick } from '../hooks/useOutsideClick';
 const StyledAside = styled.aside`
   min-height: 100vh;
   max-width: 6rem;
+  background-color: var(--color-bg);
   border-right: 1px solid var(--color-light-accent);
   padding: 2rem 1rem;
 
@@ -29,10 +30,17 @@ const StyledAside = styled.aside`
   align-items: center;
   gap: 2.6rem;
 
+  position: fixed;
+  z-index: 1000;
+
   & img {
     width: 70%;
     margin-bottom: 2rem;
     cursor: pointer;
+  }
+
+  @media only screen and (max-width: 56.25em) {
+    position: static;
   }
 
   @media only screen and (max-width: 37.5em) {

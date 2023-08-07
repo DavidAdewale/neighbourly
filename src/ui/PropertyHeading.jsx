@@ -1,6 +1,10 @@
 import { css, styled } from 'styled-components';
 import OccupancyStatus from './OccupancyStatus';
-import { capitalizeFirstLetter, formatCurrency } from '../utilities/helpers';
+import {
+  capitalizeFirstLetter,
+  formatCurrency,
+  formatDateDistance,
+} from '../utilities/helpers';
 import Paragraph from './Paragraph';
 
 const Heading = styled.div`
@@ -89,7 +93,13 @@ function PropertyHeading({ property }) {
     amenities,
     expectedRentalIncome,
     actualRentalIncome,
+    leaseStartDate,
+    leaseExpiryDate,
+    propertyCategory,
   } = property;
+  const isLeaseExpired =
+    formatDateDistance(leaseStartDate, leaseExpiryDate) === '0 day';
+
   return (
     <Heading>
       <PropertyTitle>
@@ -123,7 +133,16 @@ function PropertyHeading({ property }) {
         <Income
           block={actualRentalIncome >= expectedRentalIncome ? 'full' : 'not'}
         >
-          <h3>{formatCurrency(actualRentalIncome)}</h3>
+          <h3>
+            {propertyCategory === 'house' && isLeaseExpired
+              ? occupancyStatus === 'vacant'
+                ? 'Vacant'
+                : 'Lease expired'
+              : propertyCategory === 'apartment-building' &&
+                occupancyStatus === 'vacant'
+              ? 'Vacant'
+              : formatCurrency(actualRentalIncome)}
+          </h3>
           <Paragraph size="small">Actual Rental Income</Paragraph>
         </Income>
       </IncomeBlock>

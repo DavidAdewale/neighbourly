@@ -34,8 +34,8 @@ function DisplaySettings() {
           toggleDisplay(e.target.value);
         }}
       >
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
+        <option value="dark">Dark Mode</option>
+        <option value="light">Light Mode</option>
         {/* <option value="system-default">System Default</option> */}
       </Select>
     </div>
