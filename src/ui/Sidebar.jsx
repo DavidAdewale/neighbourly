@@ -3,9 +3,7 @@ import { Tooltip } from 'react-tooltip';
 import { css, styled } from 'styled-components';
 
 import {
-  HiOutlineArchiveBoxXMark,
   HiOutlineArrowRightOnRectangle,
-  HiOutlineArrowUpOnSquare,
   HiOutlineChartBarSquare,
   HiOutlineCog6Tooth,
   HiOutlineHomeModern,
@@ -19,8 +17,6 @@ import SidebarLink from './SidebarLink';
 import Spinner from './Spinner';
 import { useSideBarMenu } from '../context/SidebarMenuContext';
 import { useOutsideClick } from '../hooks/useOutsideClick';
-import { deleteProperties, handleCreateProperties } from '../data/upload';
-import { useUser } from '../features/authentication/useUser';
 
 const StyledAside = styled.aside`
   min-height: 100vh;
@@ -99,13 +95,11 @@ function Sidebar() {
   const { isDark } = useDarkMode();
   const { isSidebarOpen, closeSidebar } = useSideBarMenu();
   const { logout, isLoggingOut } = useLogout();
-  const { user } = useUser();
-  const id = user.id;
   const ref = useOutsideClick(closeSidebar);
   const navigate = useNavigate();
 
   const sidebarState = isSidebarOpen ? 'shown' : 'hidden';
-  const imageSrc = isDark ? 'emblemGrad-dark.png' : 'emblemGrad-light.png';
+  const imageSrc = isDark ? '/emblemGrad-dark.png' : '/emblemGrad-light.png';
 
   return (
     <StyledAside type={sidebarState} ref={ref}>
@@ -130,12 +124,7 @@ function Sidebar() {
           <HiOutlineArrowRightOnRectangle />
         )}
       </StyledNavLink>
-      {/* <StyledNavLink onClick={() => handleCreateProperties(id)}>
-        <HiOutlineArrowUpOnSquare />
-      </StyledNavLink>
-      <StyledNavLink onClick={() => deleteProperties()}>
-        <HiOutlineArchiveBoxXMark />
-      </StyledNavLink> */}
+
       <Tooltip
         id="menulinks"
         hidden={window.innerWidth <= 1200 ? true : false}

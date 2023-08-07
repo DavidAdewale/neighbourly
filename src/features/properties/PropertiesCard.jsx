@@ -1,9 +1,10 @@
-import { css, styled } from 'styled-components';
+import { styled } from 'styled-components';
 import { capitalizeFirstLetter, formatCurrency } from '../../utilities/helpers';
 
 import Paragraph from '../../ui/Paragraph';
 import PropertyCard from './PropertyCard';
 import { useNavigate } from 'react-router-dom';
+import OccupancyStatus from '../../ui/OccupancyStatus';
 
 const PropertyName = styled.p`
   text-transform: uppercase;
@@ -37,32 +38,6 @@ const Address = styled.div`
 
   border-bottom: 1px solid var(--color-form-btn);
   margin-bottom: 1rem;
-`;
-
-const OccupancyStatus = styled.span`
-  display: inline-block;
-  /* background-color: var(--color-main); */
-  color: var(--color-btn-text);
-  padding: 0.2rem 2rem;
-  border-radius: 5em;
-
-  ${(props) =>
-    props.type === 'occupied' &&
-    css`
-      background-color: var(--color-occupied);
-    `}
-
-  ${(props) =>
-    props.type === 'partially-occupied' &&
-    css`
-      background-color: var(--color-partially-occupied);
-    `}
-
-    ${(props) =>
-    props.type === 'vacant' &&
-    css`
-      background-color: var(--color-btn-text-faded);
-    `}
 `;
 
 function PropertiesCard({ property }) {
@@ -99,7 +74,7 @@ function PropertiesCard({ property }) {
         <h3> {formatCurrency(expectedRentalIncome)}</h3>
         <Address>
           <Paragraph size="regular">
-            {capitalizeFirstLetter(address)}, {capitalizeFirstLetter(city)},
+            {capitalizeFirstLetter(address)}, {capitalizeFirstLetter(city)},{' '}
             {capitalizeFirstLetter(state)}
           </Paragraph>
           <Paragraph size="small" color="faded">
