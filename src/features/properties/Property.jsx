@@ -7,8 +7,11 @@ import { capitalizeFirstLetter, formatCurrency } from '../../utilities/helpers';
 import Paragraph from '../../ui/Paragraph';
 import PropertyHeading from '../../ui/PropertyHeading';
 import PropertyImage from '../../ui/PropertyImage';
+import PropertyTenantOverview from '../../ui/PropertyTenantOverview';
+import { useScrollToTop } from '../../hooks/useScrollToTop';
 
 function Property() {
+  useScrollToTop();
   const id = useParams().propertyId;
   const { isLoading, properties } = useProperties();
   if (isLoading) return <FullPageSpinner />;
@@ -16,11 +19,6 @@ function Property() {
   const property = properties.filter((property) => property.id === +id).at(0);
   // console.log(property);
   const {
-    actualRentalIncome,
-    address,
-    amenities,
-    city,
-    expectedRentalIncome,
     leaseExpiryDate,
     leaseStartDate,
     occupancyStatus,
@@ -34,10 +32,25 @@ function Property() {
     tenantEmail,
     tenantName,
   } = property;
+  // console.log(propertyDetails);
   return (
     <AppPage>
       <PropertyHeading property={property} />
       <PropertyImage propertyImages={propertyImage} />
+      {occupancyStatus === 'occupied' && propertyCategory === 'house' && (
+        <PropertyTenantOverview
+          propertyInfo={{
+            propertyCategory,
+            tenantName,
+            tenantEmail,
+          }}
+        />
+      )}
+      {propertyCategory === 'apartment-building' && (
+        <PropertyTenantOverview
+          propertyInfo={{ propertyDetails, propertyCategory }}
+        />
+      )}
     </AppPage>
   );
 }

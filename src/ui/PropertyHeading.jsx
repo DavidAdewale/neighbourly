@@ -7,8 +7,9 @@ const Heading = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* flex-direction: column; */
   gap: 2rem;
+
+  padding: 3rem 0;
 
   @media only screen and (max-width: 56.5em) {
     flex-direction: column;
@@ -55,7 +56,7 @@ const Income = styled.div`
   border-radius: 1rem;
   gap: 0.6rem;
 
-  border: 1px solid var(--color-light-accent);
+  border: 1px dashed var(--color-light-accent);
   background-color: var(--color-card-bg);
 
   h3 {
@@ -66,14 +67,14 @@ const Income = styled.div`
     props.block === 'full' &&
     css`
       background-color: var(--color-main);
-      border: 1px solid var(--color-main);
+      border: 1px dashed var(--color-main);
       color: var(--color-btn-text);
     `}
   ${(props) =>
     props.block === 'not' &&
     css`
       background-color: var(--color-danger);
-      border: 1px solid var(--color-danger);
+      border: 1px dashed var(--color-danger);
       color: var(--color-btn-text);
     `}
 `;

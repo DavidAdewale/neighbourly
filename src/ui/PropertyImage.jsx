@@ -19,6 +19,7 @@ const MainDisplay = styled.div`
   max-height: 450px;
   overflow: hidden;
   border-radius: 0.6rem;
+
   img {
     width: 100%;
     height: 100%;

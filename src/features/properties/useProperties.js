@@ -25,7 +25,7 @@ export function useProperties() {
       : { field: 'propertyCategory', value: propertyTypeFilter };
 
   // SORT
-  const sort = searchParams.get('sortBy') || 'created_at-asc';
+  const sort = searchParams.get('sortBy') || 'created_at-desc';
   const [field, direction] = sort.split('-') || '';
   const sortBy = { field, direction };
 

@@ -12,6 +12,7 @@ import FullPageSpinner from '../ui/FullPageSpinner';
 import Filter from '../ui/Filter';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 const SearchBar = styled.div`
   display: flex;
@@ -71,6 +72,7 @@ const OperationsTab = styled.div`
 
 function Properties() {
   useDocumentTitle('Properties');
+  useScrollToTop();
 
   const navigate = useNavigate();
   const [searchedProperty, setSearchedProperty] = useState('');

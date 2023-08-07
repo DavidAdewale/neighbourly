@@ -20,6 +20,12 @@ const ColumnFormRow = styled.fieldset`
 
   border: none;
 
+  @media only screen and (max-width: 37.5em) {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 100%;
+  }
+
   & legend {
     color: var(--color-light-accent);
     text-transform: uppercase;
@@ -36,6 +42,10 @@ const ColumnFormRow2 = styled.fieldset`
   gap: 1rem;
 
   border: none;
+
+  @media only screen and (max-width: 37.5em) {
+    width: 100%;
+  }
 
   & legend {
     color: var(--color-light-accent);
