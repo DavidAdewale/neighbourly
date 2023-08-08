@@ -15,9 +15,12 @@ import {
 } from './LeaseOverview';
 import Button from './Button';
 import { AddTenantBlock } from './AddTenantBlock';
+import { useNavigate } from 'react-router-dom';
 
 function PropertyTenantOverview({ property }) {
+  const navigate = useNavigate();
   const {
+    id,
     occupancyStatus,
     propertyCategory,
     tenantName,
@@ -90,7 +93,9 @@ function PropertyTenantOverview({ property }) {
         {!propertyDetails && (
           <AddTenantBlock>
             Add more information about this property{' '}
-            <Button>Add property details</Button>
+            <Button onClick={() => navigate(`/properties/${id}/adddetails`)}>
+              Add property details
+            </Button>
           </AddTenantBlock>
         )}
       </>

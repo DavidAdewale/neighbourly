@@ -29,11 +29,10 @@ const PropertyTitle = styled.div`
 
 const Title = styled.div`
   display: flex;
-  /* flex-direction: column; */
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.8rem;
   @media only screen and (max-width: 37.5em) {
-    flex-wrap: wrap;
     justify-content: center;
   }
 `;
@@ -100,6 +99,21 @@ function PropertyHeading({ property }) {
   const isLeaseExpired =
     formatDateDistance(leaseStartDate, leaseExpiryDate) === '0 day';
 
+  const apartmentTotalRental = property.propertyDetails?.apartments?.reduce(
+    (sum, cur) => (sum += +cur.expectedRentalIncome),
+    0
+  );
+
+  const apartmentActualRental = property.propertyDetails?.apartments
+    ?.filter((apartment) => apartment.occupancyStatus === 'occupied')
+    .reduce((sum, cur) => (sum += +cur.actualRentalIncome), 0);
+
+  // console.log(
+  //   property.propertyDetails.apartments
+  //     .filter((apartment) => apartment.occupancyStatus === 'occupied')
+  //     .reduce((sum, cur) => (sum += +cur.actualRentalIncome), 0)
+  // );
+
   return (
     <Heading>
       <PropertyTitle>
@@ -127,21 +141,35 @@ function PropertyHeading({ property }) {
       </PropertyTitle>
       <IncomeBlock>
         <Income>
-          <h3>{formatCurrency(expectedRentalIncome)}</h3>
+          <h3>
+            {apartmentTotalRental
+              ? formatCurrency(apartmentTotalRental)
+              : formatCurrency(expectedRentalIncome)}
+          </h3>
           <Paragraph size="small">Expected Rental Income</Paragraph>
         </Income>
         <Income
-          block={actualRentalIncome >= expectedRentalIncome ? 'full' : 'not'}
+          block={
+            actualRentalIncome >= expectedRentalIncome ||
+            apartmentActualRental >= apartmentTotalRental
+              ? 'full'
+              : 'not'
+          }
         >
           <h3>
-            {propertyCategory === 'house' && isLeaseExpired
-              ? occupancyStatus === 'vacant'
-                ? 'Vacant'
-                : 'Lease expired'
-              : propertyCategory === 'apartment-building' &&
-                occupancyStatus === 'vacant'
-              ? 'Vacant'
-              : formatCurrency(actualRentalIncome)}
+            {propertyCategory === 'house' &&
+              isLeaseExpired &&
+              occupancyStatus !== 'vacant' &&
+              'Lease Expired'}
+            {propertyCategory === 'house' &&
+              isLeaseExpired &&
+              occupancyStatus === 'vacant' &&
+              'Vacant'}
+            {propertyCategory === 'house' &&
+              occupancyStatus === 'occupied' &&
+              formatCurrency(actualRentalIncome)}
+            {propertyCategory === 'apartment-building' &&
+              formatCurrency(apartmentActualRental)}
           </h3>
           <Paragraph size="small">Actual Rental Income</Paragraph>
         </Income>

@@ -1,4 +1,4 @@
-import { intervalToDuration, intlFormatDistance } from 'date-fns';
+import { formatDistanceToNow, intervalToDuration } from 'date-fns';
 
 export const formatCurrency = (value) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'NGN' }).format(
@@ -18,22 +18,28 @@ export function capitalizeFirstLetter(str) {
 }
 
 export function formatDateDistance(startDate, endDate) {
-  const start = new Date(startDate);
+  const currentDate = new Date();
   const end = new Date(endDate);
 
-  const duration = intervalToDuration({ start, end });
-  const { years, months, weeks, days } = duration;
+  const isPast = end < currentDate;
 
   let formattedDistance;
 
-  if (years >= 1) {
-    formattedDistance = `${years} year${years > 1 ? 's' : ''}`;
-  } else if (months >= 1) {
-    formattedDistance = `${months} month${months > 1 ? 's' : ''}`;
-  } else if (weeks >= 1) {
-    formattedDistance = `${weeks} week${weeks > 1 ? 's' : ''}`;
+  if (isPast) {
+    formattedDistance = `Exp. ${formatDistanceToNow(end)} ago`;
   } else {
-    formattedDistance = `${days} day${days > 1 ? 's' : ''}`;
+    const duration = intervalToDuration({ start: currentDate, end });
+    const { years, months, weeks, days } = duration;
+
+    if (years >= 1) {
+      formattedDistance = `In ${years} year${years > 1 ? 's' : ''}`;
+    } else if (months >= 1) {
+      formattedDistance = `In ${months} month${months > 1 ? 's' : ''}`;
+    } else if (weeks >= 1) {
+      formattedDistance = `In ${weeks} week${weeks > 1 ? 's' : ''}`;
+    } else {
+      formattedDistance = `In ${days} day${days > 1 ? 's' : ''}`;
+    }
   }
 
   return formattedDistance;

@@ -9,6 +9,7 @@ import PropertyHeading from '../../ui/PropertyHeading';
 import PropertyImage from '../../ui/PropertyImage';
 import PropertyTenantOverview from '../../ui/PropertyTenantOverview';
 import { useScrollToTop } from '../../hooks/useScrollToTop';
+import ApartmentPropertyDetails from '../../ui/ApartmentPropertyDetails';
 
 function Property() {
   useScrollToTop();
@@ -37,11 +38,9 @@ function Property() {
     <AppPage>
       <PropertyHeading property={property} />
       <PropertyImage propertyImages={propertyImage} />
-      {propertyCategory === 'house' && (
-        <PropertyTenantOverview property={property} />
-      )}
-      {propertyCategory === 'apartment-building' && (
-        <PropertyTenantOverview property={property} />
+      <PropertyTenantOverview property={property} />
+      {propertyDetails && (
+        <ApartmentPropertyDetails propertyDetails={propertyDetails} />
       )}
     </AppPage>
   );

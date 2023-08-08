@@ -70,3 +70,15 @@ export async function uploadProperty(property) {
   if (error) console.log(error.message);
   // return propertyToUpload;
 }
+
+export async function updateProperty(rowName, rowToUpdate, id) {
+  const { data, error } = await supabase
+    .from('properties')
+    .update({ [rowName]: rowToUpdate })
+    .eq('id', id)
+    .select();
+
+  if (error) console.log(error.message);
+
+  return data;
+}

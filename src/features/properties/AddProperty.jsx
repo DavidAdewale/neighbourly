@@ -12,50 +12,8 @@ import Select from '../../ui/Select';
 import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import { useAddProperty } from './useAddProperty';
-
-const ColumnFormRow = styled.fieldset`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
-
-  border: none;
-
-  @media only screen and (max-width: 37.5em) {
-    flex-wrap: nowrap;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  & legend {
-    color: var(--color-light-accent);
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    letter-spacing: 0.2rem;
-
-    margin-bottom: 1rem;
-  }
-`;
-
-const ColumnFormRow2 = styled.fieldset`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-
-  border: none;
-
-  @media only screen and (max-width: 37.5em) {
-    width: 100%;
-  }
-
-  & legend {
-    color: var(--color-light-accent);
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    letter-spacing: 0.2rem;
-
-    margin-bottom: 1rem;
-  }
-`;
+import { ColumnFormRow } from './ColumnFormRow';
+import { ColumnFormRow2 } from './ColumnFormRow2';
 
 const PageTitle = styled.h3`
   margin-bottom: 3rem;
