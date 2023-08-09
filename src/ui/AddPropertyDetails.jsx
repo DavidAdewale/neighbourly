@@ -10,6 +10,8 @@ import Button from './Button';
 import Select from './Select';
 import { useUpdateProperty } from '../features/properties/useUpdateProperty';
 import Spinner from './Spinner';
+import { checkPropertyStatus } from '../utilities/helpers';
+import { toast } from 'react-hot-toast';
 
 const PageTitle = styled.h3`
   margin-bottom: 3rem;
@@ -52,29 +54,6 @@ function AddPropertyDetails() {
       }))
     );
   };
-
-  function checkPropertyStatus(apartmentsData) {
-    let hasOccupied = false;
-    let hasVacant = false;
-
-    for (const apartment of apartmentsData) {
-      if (apartment.occupancyStatus === 'occupied') {
-        hasOccupied = true;
-      } else if (apartment.occupancyStatus === 'vacant') {
-        hasVacant = true;
-      }
-    }
-
-    if (hasOccupied && hasVacant) {
-      return 'partially-occupied';
-    } else if (!hasOccupied && hasVacant) {
-      return 'vacant';
-    } else if (hasOccupied && !hasVacant) {
-      return 'occupied';
-    } else {
-      return 'unknown';
-    }
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -139,7 +118,10 @@ function AddPropertyDetails() {
     updateProperty([actualRentalIncome, totalActualRentalIncome, propertyId]);
     updateProperty([occupancyStatus, propertyStatus, propertyId]);
     updateProperty([propertyDetails, propertyDetailsJSON, propertyId], {
-      onSuccess: () => navigate(`/properties/${propertyId}`),
+      onSuccess: () => {
+        navigate(`/properties/${propertyId}`);
+        toast.success('Property successfully added');
+      },
     });
   }
 

@@ -12,7 +12,7 @@ export function useUpdateProperty() {
       updatePropertyApi(columnName, payload, id);
     },
     onSuccess: () => {
-      toast.success('Property successfully added!');
+      // toast.success('Property successfully added!');
       queryClient.invalidateQueries(['properties']);
     },
     onError: (err) => toast.error('Failed to upload', err.message),

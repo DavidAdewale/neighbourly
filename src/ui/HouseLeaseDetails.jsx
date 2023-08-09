@@ -49,10 +49,7 @@ function HouseLeaseDetails({ property }) {
 
         <OverviewMeter>
           <HiOutlineClock />
-          {formatDateDistance(
-            property.leaseStartDate,
-            property.leaseExpiryDate
-          )}
+          {formatDateDistance(property.leaseExpiryDate)}
           <StyledOverviewParagraph size="small">
             Left on lease
           </StyledOverviewParagraph>

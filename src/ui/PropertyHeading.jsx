@@ -99,15 +99,6 @@ function PropertyHeading({ property }) {
   const isLeaseExpired =
     formatDateDistance(leaseStartDate, leaseExpiryDate) === '0 day';
 
-  const apartmentTotalRental = property.propertyDetails?.apartments?.reduce(
-    (sum, cur) => (sum += +cur.expectedRentalIncome),
-    0
-  );
-
-  const apartmentActualRental = property.propertyDetails?.apartments
-    ?.filter((apartment) => apartment.occupancyStatus === 'occupied')
-    .reduce((sum, cur) => (sum += +cur.actualRentalIncome), 0);
-
   // console.log(
   //   property.propertyDetails.apartments
   //     .filter((apartment) => apartment.occupancyStatus === 'occupied')
@@ -141,35 +132,18 @@ function PropertyHeading({ property }) {
       </PropertyTitle>
       <IncomeBlock>
         <Income>
-          <h3>
-            {apartmentTotalRental
-              ? formatCurrency(apartmentTotalRental)
-              : formatCurrency(expectedRentalIncome)}
-          </h3>
+          <h3>{formatCurrency(expectedRentalIncome)}</h3>
           <Paragraph size="small">Expected Rental Income</Paragraph>
         </Income>
         <Income
-          block={
-            actualRentalIncome >= expectedRentalIncome ||
-            apartmentActualRental >= apartmentTotalRental
-              ? 'full'
-              : 'not'
-          }
+          block={actualRentalIncome >= expectedRentalIncome ? 'full' : 'not'}
         >
           <h3>
-            {propertyCategory === 'house' &&
-              isLeaseExpired &&
+            {isLeaseExpired && occupancyStatus !== 'vacant' && 'Lease Expired'}
+            {!isLeaseExpired &&
               occupancyStatus !== 'vacant' &&
-              'Lease Expired'}
-            {propertyCategory === 'house' &&
-              isLeaseExpired &&
-              occupancyStatus === 'vacant' &&
-              'Vacant'}
-            {propertyCategory === 'house' &&
-              occupancyStatus === 'occupied' &&
               formatCurrency(actualRentalIncome)}
-            {propertyCategory === 'apartment-building' &&
-              formatCurrency(apartmentActualRental)}
+            {!isLeaseExpired && occupancyStatus === 'vacant' && 'Vacant'}
           </h3>
           <Paragraph size="small">Actual Rental Income</Paragraph>
         </Income>

@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import AppPage from './AppPage';
 import { formatCurrency, formatDateDistance } from '../utilities/helpers';
 import Paragraph from './Paragraph';
@@ -6,9 +6,12 @@ import {
   HiOutlineExclamationCircle,
   HiOutlineIdentification,
 } from 'react-icons/hi2';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const StyledAppPage = styled(AppPage)`
+  padding: 2rem 0;
   border-top: 1px dashed var(--color-light-accent);
+  border-bottom: 1px dashed var(--color-light-accent);
 
   h4 {
     text-align: center;
@@ -33,47 +36,79 @@ const Detail = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem 4rem;
-  border: 1px dashed var(--color-btn-text-faded);
+  border: 1px dashed var(--color-btn-secondary-hover);
   /* text-align: center; */
   gap: 2rem;
   border-radius: 2rem;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  @media only screen and (max-width: 36.5em) {
+    min-width: 33rem;
+    max-width: 33rem;
+  }
 
   & svg {
     width: 2.8rem;
     height: 2.8rem;
     color: var(--color-light-accent);
   }
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  ${(props) =>
+    props.type === 'expired' &&
+    css`
+      background-color: var(--color-btn-reset);
+      color: var(--color-btn-text);
+
+      & svg {
+        color: var(--color-btn-text);
+      }
+
+      & p {
+        color: var(--color-btn-text);
+      }
+    `}
 `;
 
 const TenantInfo = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 `;
 
 const LeaseInfo = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 `;
 
 const RentDetails = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 `;
 
 const InfoContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   margin-bottom: 5rem;
 `;
 
 function ApartmentPropertyDetails({ propertyDetails }) {
   const { apartments } = propertyDetails;
+  const { propertyId } = useParams();
+  const navigate = useNavigate();
 
-  const occupiedApartments = apartments.filter(
+  const occupiedApartments = apartments?.filter(
     (apartment) => apartment.occupancyStatus === 'occupied'
   );
 
-  const vacantApartments = apartments.filter(
+  const vacantApartments = apartments?.filter(
     (apartment) => apartment.occupancyStatus === 'vacant'
   );
   return (
@@ -81,59 +116,77 @@ function ApartmentPropertyDetails({ propertyDetails }) {
       <h4>Property Details</h4>
       <InfoContainer>
         <Paragraph size="large">
-          Occupied apartments ({occupiedApartments.length})
+          Occupied apartments ({occupiedApartments?.length || 0})
         </Paragraph>
         <DetailsContainter>
-          {occupiedApartments.map((apartment) => (
-            <Detail key={apartment.apartmentNumber}>
-              <HiOutlineIdentification />
-              <Paragraph color="faded">
-                APARTMENT {apartment.apartmentNumber}
-              </Paragraph>
-              <TenantInfo>
-                <p>{apartment.tenantName}</p>
-                <Paragraph color="faded">{apartment.tenantEmail}</Paragraph>
-              </TenantInfo>
-              <LeaseInfo>
-                <Paragraph size="small">
-                  From {new Date(apartment.leaseStartDate).toDateString()}
+          {occupiedApartments &&
+            occupiedApartments.map((apartment) => (
+              <Detail
+                key={apartment.apartmentNumber}
+                type={
+                  formatDateDistance(apartment.leaseExpiryDate).includes('Exp.')
+                    ? 'expired'
+                    : 'valid'
+                }
+                onClick={() =>
+                  navigate(
+                    `/properties/${propertyId}/edit/${apartment.apartmentNumber}`
+                  )
+                }
+              >
+                <HiOutlineIdentification />
+                <Paragraph color="faded">
+                  APARTMENT {apartment.apartmentNumber}
                 </Paragraph>
-                <Paragraph size="small">
-                  to {new Date(apartment.leaseExpiryDate).toDateString()}
-                </Paragraph>
-                <Paragraph size="small">
-                  {formatDateDistance(
-                    apartment.leaseStartDate,
-                    apartment.leaseExpiryDate
-                  )}
-                </Paragraph>
-              </LeaseInfo>
-              <RentDetails>
-                <p>Paid: {formatCurrency(apartment.actualRentalIncome)}</p>
-                <p>Rent: {formatCurrency(apartment.expectedRentalIncome)}</p>
-              </RentDetails>
-            </Detail>
-          ))}
+                <TenantInfo>
+                  <p>{apartment.tenantName}</p>
+                  <Paragraph color="faded">{apartment.tenantEmail}</Paragraph>
+                </TenantInfo>
+                <LeaseInfo>
+                  <Paragraph size="small">
+                    From: {new Date(apartment.leaseStartDate).toDateString()}
+                  </Paragraph>
+                  <Paragraph size="small">
+                    To: {new Date(apartment.leaseExpiryDate).toDateString()}
+                  </Paragraph>
+                  <Paragraph size="small">
+                    {formatDateDistance(apartment.leaseExpiryDate)}
+                  </Paragraph>
+                </LeaseInfo>
+                <RentDetails>
+                  <p>Paid: {formatCurrency(apartment.actualRentalIncome)}</p>
+                  <p>Rent: {formatCurrency(apartment.expectedRentalIncome)}</p>
+                </RentDetails>
+              </Detail>
+            ))}
         </DetailsContainter>
       </InfoContainer>
 
       <InfoContainer>
         <Paragraph size="large">
-          Vacant apartment ({vacantApartments.length})
+          Vacant apartment ({vacantApartments?.length || 0})
         </Paragraph>
         <DetailsContainter>
-          {vacantApartments.map((apartment) => (
-            <Detail key={apartment.apartmentNumber}>
-              <HiOutlineExclamationCircle />
-              <Paragraph color="faded">
-                APARTMENT {apartment.apartmentNumber}
-              </Paragraph>
-              <Paragraph>Vacant</Paragraph>
-              <RentDetails>
-                <p>Rent: {formatCurrency(apartment.expectedRentalIncome)}</p>
-              </RentDetails>
-            </Detail>
-          ))}
+          {vacantApartments &&
+            vacantApartments.map((apartment) => (
+              <Detail
+                key={apartment.apartmentNumber}
+                onClick={() =>
+                  navigate(
+                    `/properties/${propertyId}/edit/${apartment.apartmentNumber}`
+                  )
+                }
+              >
+                <HiOutlineExclamationCircle />
+                <Paragraph color="faded">
+                  APARTMENT {apartment.apartmentNumber}
+                </Paragraph>
+                <Paragraph>Vacant</Paragraph>
+                <RentDetails>
+                  <p>Rent: {formatCurrency(apartment.expectedRentalIncome)}</p>
+                </RentDetails>
+              </Detail>
+            ))}
         </DetailsContainter>
       </InfoContainer>
     </StyledAppPage>

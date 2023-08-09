@@ -17,9 +17,9 @@ export function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-export function formatDateDistance(startDate, endDate) {
+export function formatDateDistance(endDate) {
   const currentDate = new Date();
-  const end = new Date(endDate);
+  const end = endDate ? new Date(endDate) : new Date();
 
   const isPast = end < currentDate;
 
@@ -43,4 +43,27 @@ export function formatDateDistance(startDate, endDate) {
   }
 
   return formattedDistance;
+}
+
+export function checkPropertyStatus(apartmentsData) {
+  let hasOccupied = false;
+  let hasVacant = false;
+
+  for (const apartment of apartmentsData) {
+    if (apartment.occupancyStatus === 'occupied') {
+      hasOccupied = true;
+    } else if (apartment.occupancyStatus === 'vacant') {
+      hasVacant = true;
+    }
+  }
+
+  if (hasOccupied && hasVacant) {
+    return 'partially-occupied';
+  } else if (!hasOccupied && hasVacant) {
+    return 'vacant';
+  } else if (hasOccupied && !hasVacant) {
+    return 'occupied';
+  } else {
+    return 'unknown';
+  }
 }

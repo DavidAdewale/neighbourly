@@ -10,6 +10,7 @@ import PropertyImage from '../../ui/PropertyImage';
 import PropertyTenantOverview from '../../ui/PropertyTenantOverview';
 import { useScrollToTop } from '../../hooks/useScrollToTop';
 import ApartmentPropertyDetails from '../../ui/ApartmentPropertyDetails';
+import ApartmentDetailsSummary from '../../ui/ApartmentDetailsSummary';
 
 function Property() {
   useScrollToTop();
@@ -17,7 +18,7 @@ function Property() {
   const { isLoading, properties } = useProperties();
   if (isLoading) return <FullPageSpinner />;
 
-  const property = properties.filter((property) => property.id === +id).at(0);
+  const property = properties?.filter((property) => property.id === +id).at(0);
   // console.log(property);
   const {
     leaseExpiryDate,
@@ -40,7 +41,10 @@ function Property() {
       <PropertyImage propertyImages={propertyImage} />
       <PropertyTenantOverview property={property} />
       {propertyDetails && (
-        <ApartmentPropertyDetails propertyDetails={propertyDetails} />
+        <>
+          <ApartmentPropertyDetails propertyDetails={propertyDetails} />
+          <ApartmentDetailsSummary propertyDetails={propertyDetails} />
+        </>
       )}
     </AppPage>
   );

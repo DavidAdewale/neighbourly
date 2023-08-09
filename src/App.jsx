@@ -20,6 +20,7 @@ import ProtectedRoutes from './ui/ProtectedRoutes';
 import Property from './features/properties/Property';
 import AddProperty from './features/properties/AddProperty';
 import AddPropertyDetails from './ui/AddPropertyDetails';
+import EditApartment from './ui/EditApartment';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,6 +54,10 @@ function App() {
               <Route
                 path="properties/:propertyId/addDetails"
                 element={<AddPropertyDetails />}
+              />
+              <Route
+                path="properties/:propertyId/edit/:apartmentName"
+                element={<EditApartment />}
               />
               <Route path="properties/add" element={<AddProperty />} />
               <Route path="tenants" element={<Tenants />} />
