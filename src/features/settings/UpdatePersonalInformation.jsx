@@ -75,7 +75,12 @@ function UpdatePersonalInformation() {
         >
           {isUpdating ? <Spinner /> : ''} Save Changes
         </Button>
-        <Button type="reset" disabled={isUpdating} onClick={handleReset}>
+        <Button
+          type="reset"
+          variation="reset"
+          disabled={isUpdating}
+          onClick={handleReset}
+        >
           Cancel
         </Button>
         {/* {formChange && (

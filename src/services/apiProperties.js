@@ -1,4 +1,4 @@
-import supabase, { supabaseKey, supabaseUrl } from './supabase';
+import supabase, { supabaseUrl } from './supabase';
 
 export async function getProperties({
   id,
@@ -80,10 +80,10 @@ export async function updateHouseTenant(data, id) {
   if (error) console.log(error.message);
 }
 
-export async function updateProperty(rowName, rowToUpdate, id) {
+export async function updatePropertyRow(columnName, payload, id) {
   const { data, error } = await supabase
     .from('properties')
-    .update({ [rowName]: rowToUpdate })
+    .update({ [columnName]: payload })
     .eq('id', id)
     .select();
 

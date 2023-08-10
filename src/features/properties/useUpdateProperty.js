@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import { updateProperty as updatePropertyApi } from '../../services/apiProperties';
+import { updatePropertyRow as updatePropertyApi } from '../../services/apiProperties';
 
 export function useUpdateProperty() {
   const queryClient = useQueryClient();
@@ -12,7 +12,6 @@ export function useUpdateProperty() {
       updatePropertyApi(columnName, payload, id);
     },
     onSuccess: () => {
-      // toast.success('Property successfully added!');
       queryClient.invalidateQueries(['properties']);
     },
     onError: (err) => toast.error('Failed to upload', err.message),

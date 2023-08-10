@@ -296,7 +296,7 @@ function AddPropertyDetails() {
             </ColumnFormRow>
           </FormTopLevel>
         ))}
-        <Button type="submit" disabled={isUpdating}>
+        <Button type="submit" variation="submit" disabled={isUpdating}>
           {isUpdating && <Spinner />} Submit
         </Button>
       </StyledFormBox>

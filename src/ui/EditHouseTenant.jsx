@@ -12,6 +12,8 @@ import Select from './Select';
 import Button from './Button';
 import { useEditHouseTenant } from '../features/properties/useEditHouseTenant';
 import Spinner from './Spinner';
+import Modal from './Modal';
+import ConfirmDelete from './ConfirmDelete';
 
 const PageTitle = styled.h3`
   margin-bottom: 2rem;
@@ -95,6 +97,7 @@ function EditHouseTenant() {
     <AppPage>
       <PageTitle>Edit tenant&lsquo;s details</PageTitle>
       <FormBox onSubmit={handleSubmit}>
+        {/* <FormBox onSubmit={(e) => e.preventDefault()}> */}
         <ColumnFormRow>
           <legend>Basic tenant information</legend>
 
@@ -155,13 +158,24 @@ function EditHouseTenant() {
           </FormRow>
         </ColumnFormRow>
         <ButtonBox>
-          <Button type="submit" disabled={isUpdating}>
+          <Button type="submit" variation="primary" disabled={isUpdating}>
             {isUpdating && <Spinner />} Submit
           </Button>
           {occupancyStatus === 'occupied' && (
-            <Button type="danger" onClick={handleRemoveTenant}>
-              Remove tenant
-            </Button>
+            <Modal>
+              <Modal.Open opens="remove">
+                <Button type="button" variation="reset">
+                  Remove tenant
+                </Button>
+              </Modal.Open>
+              <Modal.Window name="remove">
+                <ConfirmDelete
+                  resourceName="tenant"
+                  disabled={isUpdating}
+                  onConfirm={() => handleRemoveTenant()}
+                />
+              </Modal.Window>
+            </Modal>
           )}
         </ButtonBox>
       </FormBox>

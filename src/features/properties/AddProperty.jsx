@@ -196,6 +196,7 @@ function AddProperty() {
                 />
                 <Button
                   type="button"
+                  variation="danger"
                   function="remove"
                   onClick={() => removeAmenity(index)}
                 >
@@ -206,6 +207,7 @@ function AddProperty() {
           ))}
           <Button
             type="button"
+            variation="button"
             function="add"
             onClick={() => insertAmenity('')}
           >
@@ -224,6 +226,7 @@ function AddProperty() {
                 />
                 <Button
                   type="button"
+                  variation="danger"
                   function="remove"
                   onClick={() => removeImage(index)}
                 >
@@ -235,6 +238,7 @@ function AddProperty() {
           {propertyImage.length < 4 && (
             <Button
               type="button"
+              variation="button"
               function="add"
               onClick={() => insertImage({})}
             >
@@ -322,7 +326,7 @@ function AddProperty() {
           </ColumnFormRow>
         )}
 
-        <Button type="submit" disabled={isAdding}>
+        <Button type="submit" variation="submit" disabled={isAdding}>
           {isAdding && <Spinner />} Submit
         </Button>
       </StyledFormBox>

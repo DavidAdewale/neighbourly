@@ -16,7 +16,7 @@ const Button = styled.button`
   gap: 1rem;
 
   ${(props) =>
-    props.type === 'primary' &&
+    props.variation === 'primary' &&
     css`
       background-color: var(--color-main);
       color: var(--color-btn-text);
@@ -32,7 +32,7 @@ const Button = styled.button`
     `}
 
   ${(props) =>
-    props.type === 'secondary' &&
+    props.variation === 'secondary' &&
     css`
       background-color: var(--color-btn-secondary);
       color: var(--color-text);
@@ -44,7 +44,7 @@ const Button = styled.button`
     `}
 
     ${(props) =>
-    props.type === 'danger' &&
+    props.variation === 'danger' &&
     css`
       background-color: var(--color-danger);
       color: var(--color-btn-text);
@@ -56,7 +56,7 @@ const Button = styled.button`
     `}
 
     ${(props) =>
-    props.type === 'submit' &&
+    props.variation === 'submit' &&
     css`
       background-color: var(--color-main);
       color: var(--color-btn-text);
@@ -74,7 +74,7 @@ const Button = styled.button`
     `}
 
     ${(props) =>
-    props.type === 'reset' &&
+    props.variation === 'reset' &&
     css`
       background-color: var(--color-btn-reset);
       color: var(--color-btn-text);
@@ -93,7 +93,7 @@ const Button = styled.button`
     `}
 
     ${(props) =>
-    props.type === 'formSecondary' &&
+    props.variation === 'formSecondary' &&
     css`
       background-color: var(--color-form-btn);
       color: var(--color-text);
@@ -111,7 +111,7 @@ const Button = styled.button`
     `}
 
     ${(props) =>
-    props.type === 'button' &&
+    props.variation === 'button' &&
     props.function === 'remove' &&
     css`
       background-color: var(--color-danger);
@@ -124,7 +124,7 @@ const Button = styled.button`
     `}
 
     ${(props) =>
-    props.type === 'button' &&
+    props.variation === 'button' &&
     props.function === 'add' &&
     css`
       background-color: transparent;
@@ -140,7 +140,7 @@ const Button = styled.button`
 `;
 
 Button.defaultProps = {
-  type: 'primary',
+  variation: 'primary',
 };
 
 export default Button;

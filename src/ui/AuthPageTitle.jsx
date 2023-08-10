@@ -53,7 +53,7 @@ function AuthPageTitle({ title, paragraph }) {
         <h3>{title}</h3>
         <Paragraph>{paragraph}</Paragraph>
       </Title>
-      <Button type="formSecondary" onClick={handleGoogleLogIn}>
+      <Button variation="formSecondary" onClick={handleGoogleLogIn}>
         <AiOutlineGoogle /> Continue with Google
       </Button>
       <Divider>

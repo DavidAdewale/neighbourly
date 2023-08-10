@@ -88,7 +88,12 @@ function UpdatePassword() {
           <ButtonContainer>
             <Button>{isUpdating ? <Spinner /> : ''} Save Changes</Button>
 
-            <Button type="reset" disabled={isUpdating} onClick={reset}>
+            <Button
+              type="reset"
+              variation="reset"
+              disabled={isUpdating}
+              onClick={reset}
+            >
               Cancel
             </Button>
           </ButtonContainer>

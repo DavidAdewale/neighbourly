@@ -94,6 +94,7 @@ const GlobalStyles = createGlobalStyle`
         --heading-six: 1.8rem;
 
         --border-radius: .8rem;
+        --color-overlay:  rgba(0, 0, 0, 0.30);
 
     }
 

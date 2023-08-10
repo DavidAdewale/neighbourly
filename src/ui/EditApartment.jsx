@@ -15,6 +15,8 @@ import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 import Button from './Button';
 import { useUpdateProperty } from '../features/properties/useUpdateProperty';
 import { toast } from 'react-hot-toast';
+import Modal from './Modal';
+import ConfirmDelete from './ConfirmDelete';
 
 const PageTitle = styled.h3`
   margin-bottom: 3rem;
@@ -116,7 +118,7 @@ function EditApartment() {
     updateProperty([propertyDetailsName, propertyDetailsJSON, propertyId], {
       onSuccess: () => {
         navigate(`/properties/${propertyId}`);
-        toast.success('Apartment successfully edited!');
+        toast.success('Apartment successfully modified!');
       },
     });
   }
@@ -251,9 +253,20 @@ function EditApartment() {
         <ButtonBox>
           <Button type="submit">Submit</Button>
           {apartment?.occupancyStatus === 'occupied' && (
-            <Button type="danger" onClick={handleRemove}>
-              Remove tenant
-            </Button>
+            <Modal>
+              <Modal.Open opens="remove">
+                <Button type="button" variation="reset">
+                  Remove tenant
+                </Button>
+              </Modal.Open>
+              <Modal.Window name="remove">
+                <ConfirmDelete
+                  resourceName="tenant"
+                  disabled={isUpdating}
+                  onConfirm={() => handleRemove()}
+                />
+              </Modal.Window>
+            </Modal>
           )}
         </ButtonBox>
       </FormBox>

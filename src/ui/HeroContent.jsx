@@ -80,7 +80,7 @@ function HeroContent() {
             Sign up - it&lsquo;s free!
           </Button>
         )}
-        <Button type="secondary">Learn more</Button>
+        <Button variation="secondary">Learn more</Button>
       </ButtonContainer>
       <StyledBuildTools>
         <Paragraph size="small">Built with industry standard tools</Paragraph>
