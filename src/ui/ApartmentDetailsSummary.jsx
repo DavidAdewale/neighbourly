@@ -11,6 +11,11 @@ import {
 } from './LeaseOverview';
 import Paragraph from './Paragraph';
 import { formatDateDistance } from '../utilities/helpers';
+import { styled } from 'styled-components';
+
+const StyledAppPage = styled(AppPage)`
+  border-top: 1px dashed var(--color-light-accent);
+`;
 
 function ApartmentDetailsSummary({ propertyDetails }) {
   const apartments = propertyDetails.apartments;
@@ -32,7 +37,7 @@ function ApartmentDetailsSummary({ propertyDetails }) {
   }).length;
 
   return (
-    <AppPage>
+    <StyledAppPage>
       <OverviewContainer>
         <OverviewMeter>
           <HiOutlineUserPlus />
@@ -56,7 +61,7 @@ function ApartmentDetailsSummary({ propertyDetails }) {
           </StyledOverviewParagraph>
         </OverviewMeter>
       </OverviewContainer>
-    </AppPage>
+    </StyledAppPage>
   );
 }
 

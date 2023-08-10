@@ -59,11 +59,21 @@ function PropertyTenantOverview({ property }) {
           )}
         </OverviewContainer>
         {occupancyStatus === 'occupied' && (
-          <HouseLeaseDetails property={property} />
+          <>
+            <HouseLeaseDetails property={property} />
+            <OverviewContainer>
+              <Button onClick={() => navigate(`/properties/${id}/edit`)}>
+                Update tenant&lsquo;s record
+              </Button>
+            </OverviewContainer>
+          </>
         )}
         {occupancyStatus === 'vacant' && (
           <AddTenantBlock>
-            Has this property been rented? <Button>Add tenant</Button>
+            Has this property been rented?{' '}
+            <Button onClick={() => navigate(`/properties/${id}/edit`)}>
+              Add tenant
+            </Button>
           </AddTenantBlock>
         )}
       </>

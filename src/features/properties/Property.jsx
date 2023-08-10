@@ -42,8 +42,8 @@ function Property() {
       <PropertyTenantOverview property={property} />
       {propertyDetails && (
         <>
-          <ApartmentPropertyDetails propertyDetails={propertyDetails} />
           <ApartmentDetailsSummary propertyDetails={propertyDetails} />
+          <ApartmentPropertyDetails propertyDetails={propertyDetails} />
         </>
       )}
     </AppPage>
