@@ -24,7 +24,7 @@ const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--color-bg);
+  background-color: var(--color-form-btn);
   border-radius: 0.8rem;
   padding: 3.2rem 4rem;
   transition: all 0.5s;

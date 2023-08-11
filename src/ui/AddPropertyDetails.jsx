@@ -1,17 +1,23 @@
+import { styled } from 'styled-components';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import FormBox from './FormBox';
-import { styled } from 'styled-components';
-import AppPage from './AppPage';
+import { toast } from 'react-hot-toast';
+
 import { ColumnFormRow } from '../features/properties/ColumnFormRow';
+import { useUpdateProperty } from '../features/properties/useUpdateProperty';
+import {
+  accumulateIncome,
+  checkPropertyStatus,
+  updateSequence,
+} from '../utilities/helpers';
+
+import AppPage from './AppPage';
+import FormBox from './FormBox';
 import FormRow from './FormRow';
 import FormInput from './FormInput';
 import Button from './Button';
 import Select from './Select';
-import { useUpdateProperty } from '../features/properties/useUpdateProperty';
 import Spinner from './Spinner';
-import { checkPropertyStatus } from '../utilities/helpers';
-import { toast } from 'react-hot-toast';
 
 const PageTitle = styled.h3`
   margin-bottom: 3rem;
@@ -97,32 +103,41 @@ function AddPropertyDetails() {
     };
 
     const propertyDetailsJSON = JSON.stringify(propertyUpdate);
-    const propertyDetails = 'propertyDetails';
-    const expectedRentalIncome = 'expectedRentalIncome';
-    const actualRentalIncome = 'actualRentalIncome';
-    const occupancyStatus = 'occupancyStatus';
+    // const propertyDetails = 'propertyDetails';
+    // const expectedRentalIncome = 'expectedRentalIncome';
+    // const actualRentalIncome = 'actualRentalIncome';
+    // const occupancyStatus = 'occupancyStatus';
 
-    const totalRentalIncome = newData.reduce(
-      (sum, cur) => (sum += +cur.expectedRentalIncome),
-      0
-    );
-
-    const totalActualRentalIncome = newData.reduce(
-      (sum, cur) => (sum += +cur.actualRentalIncome),
-      0
+    const totalRentalIncome = accumulateIncome(newData, 'expectedRentalIncome');
+    const totalActualRentalIncome = accumulateIncome(
+      newData,
+      'actualRentalIncome'
     );
 
     const propertyStatus = checkPropertyStatus(newData);
+    const sequence = [
+      ['expectedRentalIncome', totalRentalIncome, propertyId],
+      ['actualRentalIncome', totalActualRentalIncome, propertyId],
+      ['occupancyStatus', propertyStatus, propertyId],
+      ['propertyDetails', propertyDetailsJSON, propertyId],
+    ];
 
-    updateProperty([expectedRentalIncome, totalRentalIncome, propertyId]);
-    updateProperty([actualRentalIncome, totalActualRentalIncome, propertyId]);
-    updateProperty([occupancyStatus, propertyStatus, propertyId]);
-    updateProperty([propertyDetails, propertyDetailsJSON, propertyId], {
-      onSuccess: () => {
-        navigate(`/properties/${propertyId}`);
-        toast.success('Property successfully added');
-      },
-    });
+    updateSequence(
+      updateProperty,
+      sequence,
+      toast.success('Property successfully added'),
+      navigate(`/properties/${propertyId}`)
+    );
+
+    // updateProperty([expectedRentalIncome, totalRentalIncome, propertyId]);
+    // updateProperty([actualRentalIncome, totalActualRentalIncome, propertyId]);
+    // updateProperty([occupancyStatus, propertyStatus, propertyId]);
+    // updateProperty([propertyDetails, propertyDetailsJSON, propertyId], {
+    //   onSuccess: () => {
+    //     navigate(`/properties/${propertyId}`);
+    //     toast.success('Property successfully added');
+    //   },
+    // });
   }
 
   const handleApartmentDataChange = (index, field, value) => {

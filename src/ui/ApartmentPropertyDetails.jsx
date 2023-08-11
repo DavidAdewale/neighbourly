@@ -92,6 +92,10 @@ const RentDetails = styled.div`
   gap: 1rem;
 `;
 
+const OweParagraph = styled.p`
+  color: var(--color-danger);
+`;
+
 const InfoContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -156,6 +160,16 @@ function ApartmentPropertyDetails({ propertyDetails }) {
                 <RentDetails>
                   <p>Paid: {formatCurrency(apartment.actualRentalIncome)}</p>
                   <p>Rent: {formatCurrency(apartment.expectedRentalIncome)}</p>
+                  {apartment.actualRentalIncome <
+                    apartment.expectedRentalIncome && (
+                    <OweParagraph>
+                      {apartment.tenantName.split(' ').at(0)} is owing{' '}
+                      {formatCurrency(
+                        apartment.expectedRentalIncome -
+                          apartment.actualRentalIncome
+                      )}
+                    </OweParagraph>
+                  )}
                 </RentDetails>
               </Detail>
             ))}

@@ -8,12 +8,12 @@ import { ColumnFormRow } from '../features/properties/ColumnFormRow';
 import FormRow from './FormRow';
 import FormInput from './FormInput';
 import { useState } from 'react';
-import Select from './Select';
 import Button from './Button';
 import { useEditHouseTenant } from '../features/properties/useEditHouseTenant';
 import Spinner from './Spinner';
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 const PageTitle = styled.h3`
   margin-bottom: 2rem;
@@ -25,6 +25,7 @@ const ButtonBox = styled.div`
 `;
 
 function EditHouseTenant() {
+  useScrollToTop();
   const { propertyId } = useParams();
   const navigate = useNavigate();
 
@@ -67,9 +68,6 @@ function EditHouseTenant() {
 
     if (data.tenantName === null) return;
 
-    console.log(data);
-
-    // console.log(propertyId);
     updateHouseTenant([data, propertyId], {
       onSettled: () => navigate(`/properties/${propertyId}`),
     });
@@ -84,8 +82,8 @@ function EditHouseTenant() {
       tenantName: tenant,
       tenantEmail: email,
       occupancyStatus: 'vacant',
-      leaseStartDate,
-      leaseExpiryDate,
+      leaseStartDate: null,
+      leaseExpiryDate: null,
       actualRentalIncome: paidRent,
     };
     updateHouseTenant([data, propertyId], {
@@ -97,7 +95,6 @@ function EditHouseTenant() {
     <AppPage>
       <PageTitle>Edit tenant&lsquo;s details</PageTitle>
       <FormBox onSubmit={handleSubmit}>
-        {/* <FormBox onSubmit={(e) => e.preventDefault()}> */}
         <ColumnFormRow>
           <legend>Basic tenant information</legend>
 

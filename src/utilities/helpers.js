@@ -67,3 +67,21 @@ export function checkPropertyStatus(apartmentsData) {
     return 'unknown';
   }
 }
+
+export function accumulateIncome(data, income) {
+  const accumulated = data.reduce((sum, cur) => (sum += +cur[income]), 0);
+  return accumulated;
+}
+
+//The updateSequence helper function only works with useMutation functions
+export function updateSequence(fn, arr, message, navigate) {
+  const lastCall = arr.at(-1);
+  const otherElements = arr.slice(0, -1);
+  otherElements.forEach((el) => fn(el));
+  fn(lastCall, {
+    onSettled: () => {
+      message;
+      navigate;
+    },
+  });
+}

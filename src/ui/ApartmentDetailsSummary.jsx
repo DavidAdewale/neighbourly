@@ -25,6 +25,11 @@ function ApartmentDetailsSummary({ propertyDetails }) {
   const occupiedApartments = apartments.filter(
     (occupied) => occupied.occupancyStatus === 'occupied'
   );
+
+  const owingTenants = occupiedApartments.filter(
+    (occupied) => occupied.actualRentalIncome < occupied.expectedRentalIncome
+  );
+
   const numVacant = vacantApartments.length;
   const numOccupied = occupiedApartments.length;
 
@@ -60,6 +65,15 @@ function ApartmentDetailsSummary({ propertyDetails }) {
             expired lease
           </StyledOverviewParagraph>
         </OverviewMeter>
+        {owingTenants.length > 0 && (
+          <OverviewMeter>
+            <HiOutlineExclamationCircle />
+            <Paragraph>{owingTenants.length}</Paragraph>
+            <StyledOverviewParagraph size="small">
+              Owing tenant{owingTenants.length > 1 ? 's' : ''}
+            </StyledOverviewParagraph>
+          </OverviewMeter>
+        )}
       </OverviewContainer>
     </StyledAppPage>
   );

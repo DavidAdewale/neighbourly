@@ -1,22 +1,30 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { styled } from 'styled-components';
+import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 import { useProperties } from '../features/properties/useProperties';
+import { useUpdateProperty } from '../features/properties/useUpdateProperty';
+
+import { ColumnFormRow } from '../features/properties/ColumnFormRow';
+
 import AppPage from './AppPage';
 import FullPageSpinner from './FullPageSpinner';
-import { styled } from 'styled-components';
-import { ColumnFormRow } from '../features/properties/ColumnFormRow';
 import FormRow from './FormRow';
 import FormBox from './FormBox';
 import FormInput from './FormInput';
-import { useState } from 'react';
 import Select from './Select';
-import { checkPropertyStatus, formatDateDistance } from '../utilities/helpers';
 import Paragraph from './Paragraph';
-import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 import Button from './Button';
-import { useUpdateProperty } from '../features/properties/useUpdateProperty';
-import { toast } from 'react-hot-toast';
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete';
+import {
+  accumulateIncome,
+  checkPropertyStatus,
+  formatDateDistance,
+  updateSequence,
+} from '../utilities/helpers';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 const PageTitle = styled.h3`
   margin-bottom: 3rem;
@@ -42,7 +50,13 @@ const ButtonBox = styled.div`
   gap: 2rem;
 `;
 
+const propertyDetailsName = 'propertyDetails';
+const expectedRentalIncome = 'expectedRentalIncome';
+const actualRentalIncome = 'actualRentalIncome';
+const occupancyStatus = 'occupancyStatus';
+
 function EditApartment() {
+  useScrollToTop();
   const { propertyId, apartmentName } = useParams();
   const { properties, isLoading } = useProperties();
 
@@ -58,6 +72,10 @@ function EditApartment() {
     ?.filter((apartment) => apartment.apartmentNumber === apartmentName)
     .at(0);
 
+  const otherApartments = propertyDetails.apartments.filter(
+    (apartment) => apartment.apartmentNumber !== apartmentName
+  );
+
   const [aptName, setAptName] = useState(apartmentName);
   const [tenant, setTenant] = useState(apartment?.tenantName || '');
   const [email, setEmail] = useState(apartment?.tenantEmail || '');
@@ -71,12 +89,7 @@ function EditApartment() {
 
   if (isLoading) return <FullPageSpinner />;
 
-  function handleSubmit(e) {
-    e?.preventDefault();
-    const otherApartments = propertyDetails.apartments.filter(
-      (apartment) => apartment.apartmentNumber !== apartmentName
-    );
-    // console.log(otherApartments);
+  function batchUpdates() {
     const update = {
       apartmentNumber: aptName,
       tenantName: tenant,
@@ -88,6 +101,10 @@ function EditApartment() {
       actualRentalIncome: paidRent,
     };
 
+    return update;
+  }
+
+  function processData(update, message) {
     const newData = [...otherApartments, update];
     const propertyUpdate = {
       totalApartments: newData.length,
@@ -95,43 +112,52 @@ function EditApartment() {
     };
 
     const propertyDetailsJSON = JSON.stringify(propertyUpdate);
-    const propertyDetailsName = 'propertyDetails';
-    const expectedRentalIncome = 'expectedRentalIncome';
-    const actualRentalIncome = 'actualRentalIncome';
-    const occupancyStatus = 'occupancyStatus';
 
-    const totalRentalIncome = newData.reduce(
-      (sum, cur) => (sum += +cur.expectedRentalIncome),
-      0
-    );
-
-    const totalActualRentalIncome = newData.reduce(
-      (sum, cur) => (sum += +cur.actualRentalIncome),
-      0
+    const totalRentalIncome = accumulateIncome(newData, expectedRentalIncome);
+    const totalActualRentalIncome = accumulateIncome(
+      newData,
+      actualRentalIncome
     );
 
     const propertyStatus = checkPropertyStatus(newData);
 
-    updateProperty([expectedRentalIncome, totalRentalIncome, propertyId]);
-    updateProperty([actualRentalIncome, totalActualRentalIncome, propertyId]);
-    updateProperty([occupancyStatus, propertyStatus, propertyId]);
-    updateProperty([propertyDetailsName, propertyDetailsJSON, propertyId], {
-      onSuccess: () => {
-        navigate(`/properties/${propertyId}`);
-        toast.success('Apartment successfully modified!');
-      },
-    });
+    const sequence = [
+      [expectedRentalIncome, totalRentalIncome, propertyId],
+      [actualRentalIncome, totalActualRentalIncome, propertyId],
+      [occupancyStatus, propertyStatus, propertyId],
+      [propertyDetailsName, propertyDetailsJSON, propertyId],
+    ];
+
+    updateSequence(
+      updateProperty,
+      sequence,
+      toast.success(message),
+      navigate(`/properties/${propertyId}`)
+    );
+  }
+
+  function handleSubmit(e) {
+    e?.preventDefault();
+
+    const update = batchUpdates();
+
+    if (JSON.stringify(update) === JSON.stringify(apartment)) return;
+
+    processData(update, 'Apartment successfully modified');
   }
 
   function handleRemove() {
-    setTenant('');
-    setEmail('');
-    setOccupancy('vacant');
-    setLeaseStart(new Date());
-    setLeaseExpiry(new Date());
-    setPaidRent(0);
-
-    handleSubmit();
+    const update = {
+      apartmentNumber: aptName,
+      tenantName: '',
+      tenantEmail: '',
+      occupancyStatus: 'vacant',
+      leaseStartDate: null,
+      leaseExpiryDate: null,
+      expectedRentalIncome: +rent,
+      actualRentalIncome: 0,
+    };
+    processData(update, 'Tenant successfully removed');
   }
 
   return (
@@ -263,7 +289,7 @@ function EditApartment() {
                 <ConfirmDelete
                   resourceName="tenant"
                   disabled={isUpdating}
-                  onConfirm={() => handleRemove()}
+                  onConfirm={handleRemove}
                 />
               </Modal.Window>
             </Modal>
