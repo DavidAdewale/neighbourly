@@ -58,13 +58,15 @@ function ApartmentDetailsSummary({ propertyDetails }) {
             vacant apartments
           </StyledOverviewParagraph>
         </OverviewMeter>
-        <OverviewMeter>
-          <HiOutlineExclamationCircle />
-          <Paragraph>{expiredRents}</Paragraph>
-          <StyledOverviewParagraph size="small">
-            expired lease
-          </StyledOverviewParagraph>
-        </OverviewMeter>
+        {expiredRents.length < 1 && (
+          <OverviewMeter>
+            <HiOutlineExclamationCircle />
+            <Paragraph>{expiredRents}</Paragraph>
+            <StyledOverviewParagraph size="small">
+              expired lease
+            </StyledOverviewParagraph>
+          </OverviewMeter>
+        )}
         {owingTenants.length > 0 && (
           <OverviewMeter>
             <HiOutlineExclamationCircle />

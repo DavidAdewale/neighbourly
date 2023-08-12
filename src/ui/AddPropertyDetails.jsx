@@ -103,10 +103,6 @@ function AddPropertyDetails() {
     };
 
     const propertyDetailsJSON = JSON.stringify(propertyUpdate);
-    // const propertyDetails = 'propertyDetails';
-    // const expectedRentalIncome = 'expectedRentalIncome';
-    // const actualRentalIncome = 'actualRentalIncome';
-    // const occupancyStatus = 'occupancyStatus';
 
     const totalRentalIncome = accumulateIncome(newData, 'expectedRentalIncome');
     const totalActualRentalIncome = accumulateIncome(
@@ -128,16 +124,6 @@ function AddPropertyDetails() {
       toast.success('Property successfully added'),
       navigate(`/properties/${propertyId}`)
     );
-
-    // updateProperty([expectedRentalIncome, totalRentalIncome, propertyId]);
-    // updateProperty([actualRentalIncome, totalActualRentalIncome, propertyId]);
-    // updateProperty([occupancyStatus, propertyStatus, propertyId]);
-    // updateProperty([propertyDetails, propertyDetailsJSON, propertyId], {
-    //   onSuccess: () => {
-    //     navigate(`/properties/${propertyId}`);
-    //     toast.success('Property successfully added');
-    //   },
-    // });
   }
 
   const handleApartmentDataChange = (index, field, value) => {

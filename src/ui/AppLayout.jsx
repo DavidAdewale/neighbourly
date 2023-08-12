@@ -3,6 +3,7 @@ import Sidebar from './Sidebar';
 import { styled } from 'styled-components';
 import Header from './Header';
 import { SideBarProvider } from '../context/SidebarMenuContext';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 const StyledLayout = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const StyledMain = styled.main`
   }
 `;
 function AppLayout() {
+  useScrollToTop();
   return (
     <SideBarProvider>
       <StyledLayout>
