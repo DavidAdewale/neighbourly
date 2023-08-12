@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import { useForm, useFieldArray, useWatch } from 'react-hook-form';
 import { HiXMark } from 'react-icons/hi2';
 
@@ -14,6 +14,8 @@ import Spinner from '../../ui/Spinner';
 import { useAddProperty } from './useAddProperty';
 import { ColumnFormRow } from './ColumnFormRow';
 import { ColumnFormRow2 } from './ColumnFormRow2';
+import { useState } from 'react';
+import FileInput from '../../ui/FileInput';
 
 const PageTitle = styled.h3`
   margin-bottom: 3rem;
@@ -23,31 +25,39 @@ const StyledFormBox = styled(FormBox)`
   align-items: flex-start;
 `;
 
+const ImagePreview = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  & img {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+
+    filter: brightness(80%);
+    border-radius: 1rem;
+    transition: all 0.3s;
+
+    &:hover {
+      filter: brightness(100%);
+    }
+  }
+`;
+
+const StyledColumnFormRow = styled(ColumnFormRow2)`
+  display: flex;
+  align-items: flex-start;
+`;
+
 function AddProperty() {
   const { register, control, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
+  const [imagePreviews, setImagePreviews] = useState([]);
 
   const { addProperty, isAdding } = useAddProperty();
 
   const { user } = useUser();
   const user_id = user.id;
-
-  function onSubmit(data) {
-    // console.log(data);
-    const { propertyImage: imageArray, leaseStartDate, leaseExpiryDate } = data;
-    const startDate = leaseStartDate ? new Date(leaseStartDate) : null;
-    const endDate = leaseExpiryDate ? new Date(leaseExpiryDate) : null;
-    const formData = {
-      ...data,
-      leaseStartDate: startDate?.toISOString() || null,
-      leaseExpiryDate: endDate?.toISOString() || null,
-      propertyImage: imageArray.map((image) => image[0]),
-      user_id,
-    };
-
-    // console.log(formData);
-    addProperty(formData, { onSuccess: () => reset() });
-  }
 
   const propertyCategory = useWatch({
     control,
@@ -81,6 +91,35 @@ function AddProperty() {
     control,
     name: 'propertyImage',
   });
+
+  function handleInsertImage(data) {
+    const newImage = data[0];
+    insertImage(data);
+    setImagePreviews((prev) => [...prev, URL.createObjectURL(newImage)]);
+  }
+
+  function handleRemoveImage(index) {
+    removeImage(index);
+    setImagePreviews((prev) => {
+      const updatedPreviews = [...prev];
+      updatedPreviews.splice(index, 1);
+      return updatedPreviews;
+    });
+  }
+
+  function onSubmit(data) {
+    const { propertyImage: imageArray, leaseStartDate, leaseExpiryDate } = data;
+    const startDate = leaseStartDate ? new Date(leaseStartDate) : null;
+    const endDate = leaseExpiryDate ? new Date(leaseExpiryDate) : null;
+    const formData = {
+      ...data,
+      leaseStartDate: startDate?.toISOString() || null,
+      leaseExpiryDate: endDate?.toISOString() || null,
+      propertyImage: imageArray.map((image) => image[0]),
+      user_id,
+    };
+    addProperty(formData, { onSuccess: () => reset() });
+  }
 
   return (
     <AppPage>
@@ -214,25 +253,36 @@ function AddProperty() {
             Add Amenity
           </Button>
         </ColumnFormRow>
-        <ColumnFormRow>
+        <StyledColumnFormRow>
           <legend>Property Images (Add up to 4 images)</legend>
           {propertyImage.map((image, index) => (
             <FormRow key={image.id}>
-              <ColumnFormRow2>
-                <FormInput
-                  type="file"
-                  accept="image/*"
-                  {...register(`propertyImage.${index}`)}
-                />
-                <Button
-                  type="button"
-                  variation="danger"
-                  function="remove"
-                  onClick={() => removeImage(index)}
-                >
-                  <HiXMark />
-                </Button>
-              </ColumnFormRow2>
+              <StyledColumnFormRow>
+                {!imagePreviews[index] && imagePreviews.length < 4 && (
+                  <FileInput
+                    type="file"
+                    accept="image/*"
+                    {...register(`propertyImage.${index}`)}
+                    onChange={(e) => handleInsertImage(e.target.files)}
+                  />
+                )}
+                {imagePreviews[index] && (
+                  <ImagePreview>
+                    <img
+                      src={imagePreviews[index]}
+                      alt={`Preview ${index + 1}`}
+                    />
+                    <Button
+                      type="button"
+                      variation="danger"
+                      function="remove"
+                      onClick={() => handleRemoveImage(index)}
+                    >
+                      <HiXMark />
+                    </Button>
+                  </ImagePreview>
+                )}
+              </StyledColumnFormRow>
             </FormRow>
           ))}
           {propertyImage.length < 4 && (
@@ -245,7 +295,7 @@ function AddProperty() {
               Add Image
             </Button>
           )}
-        </ColumnFormRow>
+        </StyledColumnFormRow>
         <ColumnFormRow>
           <legend>Occupancy</legend>
           <FormRow

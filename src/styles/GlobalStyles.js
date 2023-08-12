@@ -51,7 +51,8 @@ const GlobalStyles = createGlobalStyle`
     &.dark-mode{
         --color-main: #55A34B;
         --color-main-hover: #4F9746;
-        --color-bg: #070707;
+        /* --color-bg: #070707; */
+        --color-bg: #000;
         --color-card-bg: rgba(252, 252, 252, .05);
         --color-text: #FCFCFC;
         --color-danger:#FC6B5B;
