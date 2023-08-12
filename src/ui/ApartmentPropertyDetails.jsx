@@ -160,8 +160,8 @@ function ApartmentPropertyDetails({ propertyDetails }) {
                 <RentDetails>
                   <p>Paid: {formatCurrency(apartment.actualRentalIncome)}</p>
                   <p>Rent: {formatCurrency(apartment.expectedRentalIncome)}</p>
-                  {apartment.actualRentalIncome <
-                    apartment.expectedRentalIncome && (
+                  {+apartment.actualRentalIncome <
+                    +apartment.expectedRentalIncome && (
                     <OweParagraph>
                       {apartment.tenantName.split(' ').at(0)} is owing{' '}
                       {formatCurrency(
