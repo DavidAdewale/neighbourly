@@ -24,6 +24,7 @@ const StyledHeader = styled.header`
   top: 0;
   right: 0;
   width: 100%;
+  z-index: 900;
 
   @media only screen and (max-width: 37.5em) {
     justify-content: space-between;
