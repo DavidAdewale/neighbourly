@@ -12,11 +12,18 @@ const StyledHeader = styled.header`
   background: var(--color-hero-bg);
   background-position: center left;
   background-size: cover;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 3rem;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
 
   @media only screen and (max-width: 37.5em) {
     justify-content: space-between;

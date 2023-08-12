@@ -13,6 +13,7 @@ const Overlay = styled.div`
   height: 100vh;
   background-color: var(--color-overlay);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
     rgba(0, 0, 0, 0.05) 0px 5px 10px;
   z-index: 1000;

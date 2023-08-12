@@ -11,6 +11,7 @@ const StyledLayout = styled.div`
 const StyledMain = styled.main`
   width: 100%;
   padding-left: 5rem;
+  margin-top: 8rem;
 
   @media only screen and (max-width: 56.25em) {
     padding-left: 0;
