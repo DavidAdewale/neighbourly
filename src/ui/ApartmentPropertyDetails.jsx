@@ -1,12 +1,14 @@
 import { css, styled } from 'styled-components';
-import AppPage from './AppPage';
-import { formatCurrency, formatDateDistance } from '../utilities/helpers';
-import Paragraph from './Paragraph';
 import {
   HiOutlineExclamationCircle,
   HiOutlineIdentification,
 } from 'react-icons/hi2';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { formatCurrency, formatDateDistance } from '../utilities/helpers';
+
+import AppPage from './AppPage';
+import Paragraph from './Paragraph';
 
 const StyledAppPage = styled(AppPage)`
   padding: 2rem 0;
