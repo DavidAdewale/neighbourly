@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
 import { styled } from 'styled-components';
 import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 import { useProperties } from '../features/properties/useProperties';
 import { useUpdateProperty } from '../features/properties/useUpdateProperty';
 
-import { ColumnFormRow } from '../features/properties/ColumnFormRow';
+import {
+  accumulateIncome,
+  checkPropertyStatus,
+  formatDateDistance,
+} from '../utilities/helpers';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 import AppPage from './AppPage';
 import FullPageSpinner from './FullPageSpinner';
@@ -16,15 +20,9 @@ import FormInput from './FormInput';
 import Select from './Select';
 import Paragraph from './Paragraph';
 import Button from './Button';
+import { ColumnFormRow } from '../features/properties/ColumnFormRow';
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete';
-import {
-  accumulateIncome,
-  checkPropertyStatus,
-  formatDateDistance,
-  updateSequence,
-} from '../utilities/helpers';
-import { useScrollToTop } from '../hooks/useScrollToTop';
 
 const PageTitle = styled.h3`
   margin-bottom: 3rem;
@@ -49,11 +47,6 @@ const ButtonBox = styled.div`
   display: flex;
   gap: 2rem;
 `;
-
-const propertyDetailsName = 'propertyDetails';
-const expectedRentalIncome = 'expectedRentalIncome';
-const actualRentalIncome = 'actualRentalIncome';
-const occupancyStatus = 'occupancyStatus';
 
 function EditApartment() {
   useScrollToTop();
@@ -104,7 +97,7 @@ function EditApartment() {
     return update;
   }
 
-  function processData(update, message) {
+  function processData(update) {
     const newData = [...otherApartments, update];
     const propertyUpdate = {
       totalApartments: newData.length,
@@ -113,27 +106,24 @@ function EditApartment() {
 
     const propertyDetailsJSON = JSON.stringify(propertyUpdate);
 
-    const totalRentalIncome = accumulateIncome(newData, expectedRentalIncome);
+    const totalRentalIncome = accumulateIncome(newData, 'expectedRentalIncome');
     const totalActualRentalIncome = accumulateIncome(
       newData,
-      actualRentalIncome
+      'actualRentalIncome'
     );
 
     const propertyStatus = checkPropertyStatus(newData);
 
-    const sequence = [
-      [expectedRentalIncome, totalRentalIncome, propertyId],
-      [actualRentalIncome, totalActualRentalIncome, propertyId],
-      [occupancyStatus, propertyStatus, propertyId],
-      [propertyDetailsName, propertyDetailsJSON, propertyId],
-    ];
+    const data = {
+      expectedRentalIncome: totalRentalIncome,
+      actualRentalIncome: totalActualRentalIncome,
+      occupancyStatus: propertyStatus,
+      propertyDetails: propertyDetailsJSON,
+    };
 
-    updateSequence(
-      updateProperty,
-      sequence,
-      toast.success(message),
-      navigate(`/properties/${propertyId}`)
-    );
+    updateProperty([data, propertyId], {
+      onSettled: () => navigate(`/properties/${propertyId}`),
+    });
   }
 
   function handleSubmit(e) {

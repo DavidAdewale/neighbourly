@@ -12,10 +12,40 @@ import Select from '../../ui/Select';
 import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import { useAddProperty } from './useAddProperty';
-import { ColumnFormRow } from './ColumnFormRow';
-import { ColumnFormRow2 } from './ColumnFormRow2';
-import { useState } from 'react';
-import FileInput from '../../ui/FileInput';
+
+const ColumnFormRow = styled.fieldset`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+
+  border: none;
+
+  & legend {
+    color: var(--color-light-accent);
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+
+    margin-bottom: 1rem;
+  }
+`;
+
+const ColumnFormRow2 = styled.fieldset`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  border: none;
+
+  & legend {
+    color: var(--color-light-accent);
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+
+    margin-bottom: 1rem;
+  }
+`;
 
 const PageTitle = styled.h3`
   margin-bottom: 3rem;
@@ -25,39 +55,29 @@ const StyledFormBox = styled(FormBox)`
   align-items: flex-start;
 `;
 
-const ImagePreview = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  & img {
-    width: 15rem;
-    height: 15rem;
-    object-fit: cover;
-
-    filter: brightness(80%);
-    border-radius: 1rem;
-    transition: all 0.3s;
-
-    &:hover {
-      filter: brightness(100%);
-    }
-  }
-`;
-
-const StyledColumnFormRow = styled(ColumnFormRow2)`
-  display: flex;
-  align-items: flex-start;
-`;
-
 function AddProperty() {
   const { register, control, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
-  const [imagePreviews, setImagePreviews] = useState([]);
 
   const { addProperty, isAdding } = useAddProperty();
 
   const { user } = useUser();
   const user_id = user.id;
+
+  function onSubmit(data) {
+    const { propertyImage: imageArray, leaseStartDate, leaseExpiryDate } = data;
+    const startDate = leaseStartDate ? new Date(leaseStartDate) : null;
+    const endDate = leaseExpiryDate ? new Date(leaseExpiryDate) : null;
+    const formData = {
+      ...data,
+      leaseStartDate: startDate?.toISOString() || null,
+      leaseExpiryDate: endDate?.toISOString() || null,
+      propertyImage: imageArray.map((image) => image[0]),
+      user_id,
+    };
+
+    addProperty(formData, { onSuccess: () => reset() });
+  }
 
   const propertyCategory = useWatch({
     control,
@@ -91,35 +111,6 @@ function AddProperty() {
     control,
     name: 'propertyImage',
   });
-
-  function handleInsertImage(data) {
-    const newImage = data[0];
-    insertImage(data);
-    setImagePreviews((prev) => [...prev, URL.createObjectURL(newImage)]);
-  }
-
-  function handleRemoveImage(index) {
-    removeImage(index);
-    setImagePreviews((prev) => {
-      const updatedPreviews = [...prev];
-      updatedPreviews.splice(index, 1);
-      return updatedPreviews;
-    });
-  }
-
-  function onSubmit(data) {
-    const { propertyImage: imageArray, leaseStartDate, leaseExpiryDate } = data;
-    const startDate = leaseStartDate ? new Date(leaseStartDate) : null;
-    const endDate = leaseExpiryDate ? new Date(leaseExpiryDate) : null;
-    const formData = {
-      ...data,
-      leaseStartDate: startDate?.toISOString() || null,
-      leaseExpiryDate: endDate?.toISOString() || null,
-      propertyImage: imageArray.map((image) => image[0]),
-      user_id,
-    };
-    addProperty(formData, { onSuccess: () => reset() });
-  }
 
   return (
     <AppPage>
@@ -235,7 +226,6 @@ function AddProperty() {
                 />
                 <Button
                   type="button"
-                  variation="danger"
                   function="remove"
                   onClick={() => removeAmenity(index)}
                 >
@@ -246,56 +236,42 @@ function AddProperty() {
           ))}
           <Button
             type="button"
-            variation="button"
             function="add"
             onClick={() => insertAmenity('')}
           >
             Add Amenity
           </Button>
         </ColumnFormRow>
-        <StyledColumnFormRow>
+        <ColumnFormRow>
           <legend>Property Images (Add up to 4 images)</legend>
           {propertyImage.map((image, index) => (
             <FormRow key={image.id}>
-              <StyledColumnFormRow>
-                {!imagePreviews[index] && imagePreviews.length < 4 && (
-                  <FileInput
-                    type="file"
-                    accept="image/*"
-                    {...register(`propertyImage.${index}`)}
-                    onChange={(e) => handleInsertImage(e.target.files)}
-                  />
-                )}
-                {imagePreviews[index] && (
-                  <ImagePreview>
-                    <img
-                      src={imagePreviews[index]}
-                      alt={`Preview ${index + 1}`}
-                    />
-                    <Button
-                      type="button"
-                      variation="danger"
-                      function="remove"
-                      onClick={() => handleRemoveImage(index)}
-                    >
-                      <HiXMark />
-                    </Button>
-                  </ImagePreview>
-                )}
-              </StyledColumnFormRow>
+              <ColumnFormRow2>
+                <FormInput
+                  type="file"
+                  accept="image/*"
+                  {...register(`propertyImage.${index}`)}
+                />
+                <Button
+                  type="button"
+                  function="remove"
+                  onClick={() => removeImage(index)}
+                >
+                  <HiXMark />
+                </Button>
+              </ColumnFormRow2>
             </FormRow>
           ))}
           {propertyImage.length < 4 && (
             <Button
               type="button"
-              variation="button"
               function="add"
               onClick={() => insertImage({})}
             >
               Add Image
             </Button>
           )}
-        </StyledColumnFormRow>
+        </ColumnFormRow>
         <ColumnFormRow>
           <legend>Occupancy</legend>
           <FormRow
@@ -376,7 +352,7 @@ function AddProperty() {
           </ColumnFormRow>
         )}
 
-        <Button type="submit" variation="submit" disabled={isAdding}>
+        <Button type="submit" disabled={isAdding}>
           {isAdding && <Spinner />} Submit
         </Button>
       </StyledFormBox>

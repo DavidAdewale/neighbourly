@@ -1,15 +1,10 @@
 import { styled } from 'styled-components';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
 
 import { ColumnFormRow } from '../features/properties/ColumnFormRow';
 import { useUpdateProperty } from '../features/properties/useUpdateProperty';
-import {
-  accumulateIncome,
-  checkPropertyStatus,
-  updateSequence,
-} from '../utilities/helpers';
+import { accumulateIncome, checkPropertyStatus } from '../utilities/helpers';
 
 import AppPage from './AppPage';
 import FormBox from './FormBox';
@@ -35,10 +30,10 @@ const FormTopLevel = styled.div`
 function AddPropertyDetails() {
   const [numApartments, setNumApartments] = useState(1);
   const [apartmentsData, setApartmentsData] = useState([]);
+  const { updateProperty, isUpdating } = useUpdateProperty();
 
   const navigate = useNavigate();
 
-  const { updateProperty, isUpdating } = useUpdateProperty();
   const propertyId = +useParams().propertyId;
 
   const handleNumApartmentsChange = (e) => {
@@ -111,19 +106,17 @@ function AddPropertyDetails() {
     );
 
     const propertyStatus = checkPropertyStatus(newData);
-    const sequence = [
-      ['expectedRentalIncome', totalRentalIncome, propertyId],
-      ['actualRentalIncome', totalActualRentalIncome, propertyId],
-      ['occupancyStatus', propertyStatus, propertyId],
-      ['propertyDetails', propertyDetailsJSON, propertyId],
-    ];
 
-    updateSequence(
-      updateProperty,
-      sequence,
-      toast.success('Property successfully added'),
-      navigate(`/properties/${propertyId}`)
-    );
+    const data = {
+      expectedRentalIncome: totalRentalIncome,
+      actualRentalIncome: totalActualRentalIncome,
+      occupancyStatus: propertyStatus,
+      propertyDetails: propertyDetailsJSON,
+    };
+
+    updateProperty([data, propertyId], {
+      onSettled: () => navigate(`properties/${propertyId}`),
+    });
   }
 
   const handleApartmentDataChange = (index, field, value) => {

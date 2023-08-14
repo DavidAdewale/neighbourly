@@ -71,23 +71,11 @@ export async function uploadProperty(property) {
   // return propertyToUpload;
 }
 
-export async function updateHouseTenant(data, id) {
+export async function updateProperty(data, id) {
   const { error } = await supabase
     .from('properties')
     .update(data)
     .eq('id', id)
     .select();
   if (error) console.log(error.message);
-}
-
-export async function updatePropertyRow(columnName, payload, id) {
-  const { data, error } = await supabase
-    .from('properties')
-    .update({ [columnName]: payload })
-    .eq('id', id)
-    .select();
-
-  if (error) console.log(error.message);
-
-  return data;
 }

@@ -1,19 +1,22 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { styled } from 'styled-components';
+
 import { useProperties } from '../features/properties/useProperties';
+import { useUpdateProperty } from '../features/properties/useUpdateProperty';
+import { useScrollToTop } from '../hooks/useScrollToTop';
+
+import { ColumnFormRow } from '../features/properties/ColumnFormRow';
+
 import FullPageSpinner from './FullPageSpinner';
 import AppPage from './AppPage';
-import { styled } from 'styled-components';
 import FormBox from './FormBox';
-import { ColumnFormRow } from '../features/properties/ColumnFormRow';
 import FormRow from './FormRow';
 import FormInput from './FormInput';
-import { useState } from 'react';
 import Button from './Button';
-import { useEditHouseTenant } from '../features/properties/useEditHouseTenant';
 import Spinner from './Spinner';
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete';
-import { useScrollToTop } from '../hooks/useScrollToTop';
 
 const PageTitle = styled.h3`
   margin-bottom: 2rem;
@@ -30,11 +33,10 @@ function EditHouseTenant() {
   const navigate = useNavigate();
 
   const { properties, isLoading } = useProperties();
-  const { updateHouseTenant, isUpdating } = useEditHouseTenant();
+  const { updateProperty, isUpdating } = useUpdateProperty();
 
   const [tenant, setTenant] = useState(null);
   const [email, setEmail] = useState(null);
-  const [occupancy, setOccupancy] = useState(null);
   const [leaseStart, setLeaseStart] = useState(null);
   const [leaseExp, setLeaseExp] = useState(null);
   const [rent, setRent] = useState(null);
@@ -68,7 +70,7 @@ function EditHouseTenant() {
 
     if (data.tenantName === null) return;
 
-    updateHouseTenant([data, propertyId], {
+    updateProperty([data, propertyId], {
       onSettled: () => navigate(`/properties/${propertyId}`),
     });
   }
@@ -86,7 +88,7 @@ function EditHouseTenant() {
       leaseExpiryDate: null,
       actualRentalIncome: paidRent,
     };
-    updateHouseTenant([data, propertyId], {
+    updateProperty([data, propertyId], {
       onSettled: () => navigate(`/properties/${propertyId}`),
     });
   }
