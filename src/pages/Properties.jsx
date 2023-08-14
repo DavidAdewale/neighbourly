@@ -11,63 +11,21 @@ import PropertiesDisplay from '../features/properties/PropertiesDisplay';
 import FullPageSpinner from '../ui/FullPageSpinner';
 import Filter from '../ui/Filter';
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useScrollToTop } from '../hooks/useScrollToTop';
-
-const SearchBar = styled.div`
-  display: flex;
-  position: relative;
-
-  & svg {
-    width: 1.8rem;
-    height: 1.8rem;
-    position: absolute;
-    top: 26%;
-    left: 1rem;
-    color: var(--color-btn-text-faded);
-  }
-
-  & input {
-    padding: 1rem 3rem;
-    font-family: inherit;
-    border-radius: 0.8rem;
-    border: 1px solid transparent;
-    outline: none;
-
-    background-color: var(--color-form-btn);
-    color: var(--color-text);
-
-    transition: all 0.3s;
-
-    &::placeholder {
-      color: var(--color-btn-text-faded);
-    }
-
-    &:focus {
-      padding: 1rem 3.5rem;
-      background-color: var(--color-input-focus);
-      border: 1px solid var(--color-btn-secondary-hover);
-    }
-  }
-`;
-
-const OperationPanel = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  padding: 2rem 0;
-
-  @media only screen and (max-width: 75em) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2rem;
-  }
-`;
+import Paragraph from '../ui/Paragraph';
+import { SearchBar } from './SearchBar';
+import { OperationPanel } from './OperationPanel';
 
 const OperationsTab = styled.div`
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+`;
+
+const Heading = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
 
 function Properties() {
@@ -79,7 +37,7 @@ function Properties() {
   const { isLoading, properties } = useProperties();
 
   if (isLoading) return <FullPageSpinner />;
-  // console.log(properties);
+  const numProperties = properties.length;
 
   function handleSearch(value) {
     const searchedProperties = properties.filter((property) =>
@@ -92,7 +50,10 @@ function Properties() {
   return (
     <AppPage>
       <AppPageTitle>
-        <h3>Properties</h3>
+        <Heading>
+          <h3>Properties</h3>
+          <Paragraph>({numProperties})</Paragraph>
+        </Heading>
       </AppPageTitle>
       <OperationPanel>
         <OperationsTab>

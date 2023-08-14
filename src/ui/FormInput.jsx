@@ -3,6 +3,7 @@ import { css, styled } from 'styled-components';
 const FormInput = styled.input`
   font-family: inherit;
   height: 3.8rem;
+  min-width: 20rem;
   padding: 1rem;
   border: 1px solid var(--color-light-accent);
   outline: none;
@@ -22,6 +23,7 @@ const FormInput = styled.input`
   ${(props) =>
     props.type === 'date' &&
     css`
+      text-transform: uppercase;
       &::-webkit-calendar-picker-indicator {
         color: transparent;
       }

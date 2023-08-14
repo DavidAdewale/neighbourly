@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-
 import { PiWarningThin } from 'react-icons/pi';
+
 import PropertiesCard from './PropertiesCard';
 import Paragraph from '../../ui/Paragraph';
 

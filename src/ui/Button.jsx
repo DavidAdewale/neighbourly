@@ -97,7 +97,6 @@ const Button = styled.button`
     css`
       background-color: var(--color-form-btn);
       color: var(--color-text);
-      padding: 1rem 0.5rem;
       border: 1px solid var(--color-light-accent);
 
       display: flex;
@@ -107,34 +106,6 @@ const Button = styled.button`
 
       &:hover {
         background-color: var(--color-btn-secondary-hover);
-      }
-    `}
-
-    ${(props) =>
-    props.variation === 'button' &&
-    props.function === 'remove' &&
-    css`
-      background-color: var(--color-danger);
-      color: var(--color-btn-text);
-      transition: all 0.3s;
-
-      &:hover {
-        background-color: var(--color-danger-hover);
-      }
-    `}
-
-    ${(props) =>
-    props.variation === 'button' &&
-    props.function === 'add' &&
-    css`
-      background-color: transparent;
-      color: var(--color-text);
-      border: 1px solid var(--color-btn-secondary-hover);
-
-      transition: all 0.3s;
-
-      &:hover {
-        background-color: var(--color-form-btn);
       }
     `}
 `;

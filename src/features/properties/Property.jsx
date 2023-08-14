@@ -1,14 +1,16 @@
 import { useParams } from 'react-router-dom';
+
 import { useProperties } from './useProperties';
+import { useScrollToTop } from '../../hooks/useScrollToTop';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+
 import FullPageSpinner from '../../ui/FullPageSpinner';
 import AppPage from '../../ui/AppPage';
 import PropertyHeading from '../../ui/PropertyHeading';
 import PropertyImage from '../../ui/PropertyImage';
 import PropertyTenantOverview from '../../ui/PropertyTenantOverview';
-import { useScrollToTop } from '../../hooks/useScrollToTop';
 import ApartmentPropertyDetails from '../../ui/ApartmentPropertyDetails';
 import ApartmentDetailsSummary from '../../ui/ApartmentDetailsSummary';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 function Property() {
   useScrollToTop();

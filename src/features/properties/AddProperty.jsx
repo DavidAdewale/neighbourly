@@ -226,7 +226,7 @@ function AddProperty() {
                 />
                 <Button
                   type="button"
-                  function="remove"
+                  variation="danger"
                   onClick={() => removeAmenity(index)}
                 >
                   <HiXMark />
@@ -236,7 +236,7 @@ function AddProperty() {
           ))}
           <Button
             type="button"
-            function="add"
+            variation="formSecondary"
             onClick={() => insertAmenity('')}
           >
             Add Amenity
@@ -254,7 +254,7 @@ function AddProperty() {
                 />
                 <Button
                   type="button"
-                  function="remove"
+                  variation="danger"
                   onClick={() => removeImage(index)}
                 >
                   <HiXMark />
@@ -265,7 +265,7 @@ function AddProperty() {
           {propertyImage.length < 4 && (
             <Button
               type="button"
-              function="add"
+              variation="formSecondary"
               onClick={() => insertImage({})}
             >
               Add Image
