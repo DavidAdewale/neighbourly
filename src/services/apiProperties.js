@@ -1,3 +1,4 @@
+import Compressor from 'compressorjs';
 import supabase, { supabaseUrl } from './supabase';
 
 export async function getProperties({
@@ -35,23 +36,70 @@ export async function getProperties({
   return properties;
 }
 
-async function uploadImages(imgs, id) {
-  const imageArray = await Promise.all(
-    imgs.map(async (img) => {
+// export async function uploadImages(imgs, id) {
+//   const imageArray = await Promise.all(
+//     imgs.map(async (img) => {
+//       const fileName = `img=${id}-${Math.random()}`;
+//       const { error: storageError } = await supabase.storage
+//         .from('property-images')
+//         .upload(fileName, img);
+
+//       if (storageError) {
+//         console.log(storageError.message);
+//         throw new Error(storageError.message);
+//       }
+//       return `${supabaseUrl}/storage/v1/object/public/property-images/${fileName}`;
+//     })
+//   );
+
+//   return await Promise.all(imageArray);
+// }
+
+export async function uploadImages(imgs, id) {
+  const compressedImages = [];
+
+  for (const img of imgs) {
+    try {
+      const compressedResult = await new Promise((resolve, reject) => {
+        new Compressor(img, {
+          quality: 0.6, // Adjust compression quality as needed
+          success: resolve,
+          error: reject,
+        });
+      });
+
       const fileName = `img=${id}-${Math.random()}`;
       const { error: storageError } = await supabase.storage
         .from('property-images')
-        .upload(fileName, img);
+        .upload(fileName, compressedResult);
 
       if (storageError) {
         console.log(storageError.message);
         throw new Error(storageError.message);
       }
-      return `${supabaseUrl}/storage/v1/object/public/property-images/${fileName}`;
-    })
-  );
 
-  return await Promise.all(imageArray);
+      const imageUrl = `${supabaseUrl}/storage/v1/object/public/property-images/${fileName}`;
+      compressedImages.push(imageUrl);
+    } catch (error) {
+      console.error('Error processing image:', error.message);
+      throw error;
+    }
+  }
+
+  return compressedImages;
+}
+
+export async function deleteImages(imgs) {
+  imgs.forEach(async (img) => {
+    const imgName = img.split('/').pop();
+    const { error: deleteError } = await supabase.storage
+      .from('property-images')
+      .remove([imgName]);
+
+    if (deleteError) {
+      console.log('Error deleting image:', deleteError.message);
+    }
+  });
 }
 
 export async function uploadProperty(property) {

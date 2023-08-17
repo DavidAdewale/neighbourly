@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 
 const FileInput = styled.input.attrs({ type: 'file' })`
   font-family: inherit;
+  max-width: 22rem;
   font-size: inherit;
   transition: all 0.3s;
 

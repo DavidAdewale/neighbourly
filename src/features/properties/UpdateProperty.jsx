@@ -12,6 +12,7 @@ import UpdateBasicPropertyInformation from './UpdateBasicPropertyInformation';
 import AppPageTitle from '../../ui/AppPageTitle';
 import { styled } from 'styled-components';
 import UpdateAmenities from './UpdateAmenities';
+import UpdateImages from './UpdateImages';
 
 const StyledAppPageTitle = styled(AppPageTitle)`
   margin-bottom: 3rem;
@@ -29,7 +30,7 @@ function UpdateProperty() {
   const { properties, isLoading } = useProperties();
   if (isLoading) return <FullPageSpinner />;
   const property = properties.filter((property) => property.id === +id).at(0);
-  console.log(property);
+  //   console.log(property);
   return (
     <AppPage>
       <StyledAppPageTitle>
@@ -44,6 +45,7 @@ function UpdateProperty() {
       <StyledForms>
         <UpdateBasicPropertyInformation property={property} />
         <UpdateAmenities property={property} />
+        <UpdateImages property={property} />
       </StyledForms>
     </AppPage>
   );

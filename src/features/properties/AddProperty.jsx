@@ -13,6 +13,7 @@ import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import { useAddProperty } from './useAddProperty';
 import Heading from '../../ui/Heading';
+import FileInput from '../../ui/FileInput';
 
 const ColumnFormRow = styled.fieldset`
   display: flex;
@@ -244,7 +245,7 @@ function AddProperty() {
           {propertyImage.map((image, index) => (
             <FormRow key={image.id}>
               <ColumnFormRow2>
-                <FormInput
+                <FileInput
                   type="file"
                   accept="image/*"
                   {...register(`propertyImage.${index}`)}
