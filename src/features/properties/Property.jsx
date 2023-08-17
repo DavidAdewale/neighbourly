@@ -11,6 +11,7 @@ import PropertyImage from '../../ui/PropertyImage';
 import PropertyTenantOverview from '../../ui/PropertyTenantOverview';
 import ApartmentPropertyDetails from '../../ui/ApartmentPropertyDetails';
 import ApartmentDetailsSummary from '../../ui/ApartmentDetailsSummary';
+import UpdatePropertyButton from './UpdatePropertyButton';
 
 function Property() {
   useScrollToTop();
@@ -28,6 +29,7 @@ function Property() {
     <AppPage>
       <PropertyHeading property={property} />
       <PropertyImage propertyImages={propertyImage} />
+      <UpdatePropertyButton id={id} />
       <PropertyTenantOverview property={property} />
       {propertyDetails && (
         <>

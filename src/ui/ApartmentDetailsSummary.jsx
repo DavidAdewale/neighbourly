@@ -1,17 +1,20 @@
+import { styled } from 'styled-components';
+
 import {
   HiOutlineExclamationCircle,
   HiOutlineUserMinus,
   HiOutlineUserPlus,
 } from 'react-icons/hi2';
-import AppPage from './AppPage';
 import {
   OverviewContainer,
   OverviewMeter,
   StyledOverviewParagraph,
 } from './LeaseOverview';
-import Paragraph from './Paragraph';
+
 import { formatDateDistance } from '../utilities/helpers';
-import { styled } from 'styled-components';
+
+import AppPage from './AppPage';
+import Paragraph from './Paragraph';
 
 const StyledAppPage = styled(AppPage)`
   border-top: 1px dashed var(--color-light-accent);

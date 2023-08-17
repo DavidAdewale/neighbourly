@@ -54,9 +54,11 @@ function HouseOverview({ property }) {
         <>
           <HouseLeaseDetails property={property} />
           <OverviewContainer>
-            <Button onClick={() => navigate(`/properties/${id}/edit`)}>
-              Update tenant&lsquo;s record
-            </Button>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button onClick={() => navigate(`/properties/${id}/edit`)}>
+                Update tenant&lsquo;s record
+              </Button>
+            </div>
           </OverviewContainer>
         </>
       )}

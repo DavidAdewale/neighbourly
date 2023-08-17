@@ -12,6 +12,7 @@ import Select from '../../ui/Select';
 import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import { useAddProperty } from './useAddProperty';
+import Heading from '../../ui/Heading';
 
 const ColumnFormRow = styled.fieldset`
   display: flex;
@@ -45,10 +46,6 @@ const ColumnFormRow2 = styled.fieldset`
 
     margin-bottom: 1rem;
   }
-`;
-
-const PageTitle = styled.h3`
-  margin-bottom: 3rem;
 `;
 
 const StyledFormBox = styled(FormBox)`
@@ -114,7 +111,7 @@ function AddProperty() {
 
   return (
     <AppPage>
-      <PageTitle>Add new property</PageTitle>
+      <Heading as="h3">Add new property</Heading>
       <StyledFormBox onSubmit={handleSubmit(onSubmit)}>
         <ColumnFormRow>
           <legend>General Property Information</legend>

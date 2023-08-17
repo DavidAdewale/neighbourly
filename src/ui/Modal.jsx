@@ -1,9 +1,21 @@
-import { cloneElement, createContext, useContext, useState } from 'react';
-import { useOutsideClick } from '../hooks/useOutsideClick';
 import { styled } from 'styled-components';
 import { createPortal } from 'react-dom';
+import { cloneElement, createContext, useContext, useState } from 'react';
+import { motion } from 'framer-motion';
 
-const Overlay = styled.div`
+import { useOutsideClick } from '../hooks/useOutsideClick';
+
+const overlayVariants = {
+  init: { opacity: 0 },
+  animate: { opacity: 1 },
+};
+
+const windowVariants = {
+  init: { opacity: 0 },
+  animate: { opacity: 1 },
+};
+
+const Overlay = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +30,7 @@ const Overlay = styled.div`
   transition: all 0.5s;
 `;
 
-const StyledModal = styled.div`
+const StyledModal = styled(motion.div)`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -68,8 +80,8 @@ function Window({ children, name }) {
   if (name !== openName) return null;
 
   return createPortal(
-    <Overlay>
-      <StyledModal ref={ref}>
+    <Overlay variants={overlayVariants} initial="init" animate="animate">
+      <StyledModal variants={windowVariants} ref={ref}>
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>
     </Overlay>,

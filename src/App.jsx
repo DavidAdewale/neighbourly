@@ -22,6 +22,7 @@ import AddProperty from './features/properties/AddProperty';
 import AddPropertyDetails from './ui/AddPropertyDetails';
 import EditApartment from './ui/EditApartment';
 import EditHouseTenant from './ui/EditHouseTenant';
+import UpdateProperty from './features/properties/UpdateProperty';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +56,10 @@ function App() {
               <Route
                 path="properties/:propertyId/edit"
                 element={<EditHouseTenant />}
+              />
+              <Route
+                path="properties/:propertyId/update"
+                element={<UpdateProperty />}
               />
               <Route
                 path="properties/:propertyId/addDetails"
