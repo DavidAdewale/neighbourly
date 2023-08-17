@@ -1,33 +1,80 @@
+import { useState } from 'react';
 import Button from '../../ui/Button';
 import FormBox from '../../ui/FormBox';
 import FormInput from '../../ui/FormInput';
 import FormRow from '../../ui/FormRow';
 import { ColumnFormRow } from './ColumnFormRow';
+import { useUpdateProperty } from './useUpdateProperty';
+import Spinner from '../../ui/Spinner';
 
 function UpdateBasicPropertyInformation({ property }) {
-  const { propertyName, address, city, state } = property;
+  const { id, propertyName, address, city, state } = property;
+  const { updateProperty, isUpdating } = useUpdateProperty();
+  const [name, setName] = useState(propertyName);
+  const [newAddress, setNewAddress] = useState(address);
+  const [cityName, setCityName] = useState(city);
+  const [stateName, setStateName] = useState(state);
+
+  const formerData = {
+    propertyName: propertyName,
+    address: address,
+    city: city,
+    state: state,
+  };
+
+  const newData = {
+    propertyName: name,
+    address: newAddress,
+    city: cityName,
+    state: stateName,
+  };
+
+  const isNotChanged = JSON.stringify(formerData) === JSON.stringify(newData);
+
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (isNotChanged) return;
+
+    updateProperty([newData, id]);
   }
   return (
     <FormBox onSubmit={handleSubmit}>
       <ColumnFormRow>
         <legend>Basic Property Information</legend>
         <FormRow label="Property Name">
-          <FormInput value={propertyName} id="propertyName" />
+          <FormInput
+            value={name}
+            id="propertyName"
+            onChange={(e) => setName(e.target.value)}
+          />
         </FormRow>
         <FormRow label="Address">
-          <FormInput value={address} id="address" />
+          <FormInput
+            value={newAddress}
+            id="address"
+            onChange={(e) => setNewAddress(e.target.value)}
+          />
         </FormRow>
         <FormRow label="City">
-          <FormInput value={city} id="city" />
+          <FormInput
+            value={cityName}
+            id="city"
+            onChange={(e) => setCityName(e.target.value)}
+          />
         </FormRow>
         <FormRow label="State">
-          <FormInput value={state} id="state" />
+          <FormInput
+            value={stateName}
+            id="state"
+            onChange={(e) => setStateName(e.target.value)}
+          />
         </FormRow>
       </ColumnFormRow>
       <div>
-        <Button type="submit"> Submit</Button>
+        <Button type="submit" disabled={isUpdating || isNotChanged}>
+          {isUpdating && <Spinner />} Save
+        </Button>
       </div>
     </FormBox>
   );

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useProperties } from './useProperties';
 import FullPageSpinner from '../../ui/FullPageSpinner';
 import AppPage from '../../ui/AppPage';
@@ -9,16 +9,28 @@ import FormInput from '../../ui/FormInput';
 import Heading from '../../ui/Heading';
 import Button from '../../ui/Button';
 import UpdateBasicPropertyInformation from './UpdateBasicPropertyInformation';
+import AppPageTitle from '../../ui/AppPageTitle';
+import { styled } from 'styled-components';
+
+const StyledAppPageTitle = styled(AppPageTitle)`
+  margin-bottom: 3rem;
+`;
 
 function UpdateProperty() {
   const id = useParams().propertyId;
+  const navigate = useNavigate();
   const { properties, isLoading } = useProperties();
   if (isLoading) return <FullPageSpinner />;
   const property = properties.filter((property) => property.id === +id).at(0);
   console.log(property);
   return (
     <AppPage>
-      <Heading as="h3">Edit {property.propertyName}</Heading>
+      <StyledAppPageTitle>
+        <h3>Edit {property.propertyName}</h3>
+        <Button variation="formSecondary" onClick={() => navigate(-1)}>
+          Go back
+        </Button>
+      </StyledAppPageTitle>
       <UpdateBasicPropertyInformation property={property} />
     </AppPage>
   );
