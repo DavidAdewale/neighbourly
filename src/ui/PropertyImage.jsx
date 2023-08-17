@@ -41,8 +41,8 @@ const Preview = styled.div`
 `;
 
 const PreviewDisplay = styled.div`
-  max-width: 150px;
-  max-height: 90px;
+  width: 150px;
+  height: 90px;
   overflow: hidden;
   border-radius: 0.6rem;
 
@@ -57,6 +57,16 @@ const PreviewDisplay = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media only screen and (max-width: 56.25em) {
+    width: 100px;
+    height: 65px;
+  }
+
+  @media only screen and (max-width: 37.5em) {
+    width: 70px;
+    height: 45px;
   }
 `;
 

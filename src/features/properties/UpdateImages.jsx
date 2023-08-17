@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { styled } from 'styled-components';
 
 import { deleteImages, uploadImages } from '../../services/apiProperties';
-import { useUploadImages } from './useUploadImages';
 import { useUser } from '../authentication/useUser';
 
 import { ColumnFormRow } from './ColumnFormRow';
@@ -37,7 +36,6 @@ function UpdateImages({ property }) {
   const [imgPrev, setImagePrev] = useState([...propertyImage]);
 
   const copyOfImages = [...propertyImage];
-  console.log(propertyImage.at(0).split('/').pop());
   const user_id = user.id;
   const isNotUpdated = JSON.stringify(propertyImage) === JSON.stringify(images);
 
@@ -72,7 +70,6 @@ function UpdateImages({ property }) {
     };
 
     updateProperty([newData, id]);
-    // console.log(newImages);
     setIsLoading(false);
   }
   return (
@@ -91,7 +88,7 @@ function UpdateImages({ property }) {
         ))}
       </ColumnFormRow>
       <div>
-        <Button disabled={isNotUpdated || isLoading}>
+        <Button disabled={isNotUpdated || isLoading || isUpdating}>
           {isLoading && <Spinner />}
           Save
         </Button>
