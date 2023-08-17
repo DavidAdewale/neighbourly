@@ -37,22 +37,31 @@ export async function getProperties({
 }
 
 // export async function uploadImages(imgs, id) {
-//   const imageArray = await Promise.all(
-//     imgs.map(async (img) => {
-//       const fileName = `img=${id}-${Math.random()}`;
-//       const { error: storageError } = await supabase.storage
-//         .from('property-images')
-//         .upload(fileName, img);
+//   const compressedPromises = imgs.map(async (img) => {
+//     const compressedResult = await new Promise((resolve, reject) => {
+//       new Compressor(img, {
+//         quality: 0.6,
+//         success: resolve,
+//         error: reject,
+//       });
+//     });
 
-//       if (storageError) {
-//         console.log(storageError.message);
-//         throw new Error(storageError.message);
-//       }
-//       return `${supabaseUrl}/storage/v1/object/public/property-images/${fileName}`;
-//     })
-//   );
+//     const fileName = `img=${id}-${Math.random()}`;
+//     const { error: storageError } = await supabase.storage
+//       .from('property-images')
+//       .upload(fileName, compressedResult);
 
-//   return await Promise.all(imageArray);
+//     if (storageError) {
+//       console.log(storageError.message);
+//       throw new Error(storageError.message);
+//     }
+
+//     const imageUrl = `${supabaseUrl}/storage/v1/object/public/property-images/${fileName}`;
+//     return imageUrl;
+//   });
+
+//   const compressedImages = await Promise.all(compressedPromises);
+//   return compressedImages;
 // }
 
 export async function uploadImages(imgs, id) {
@@ -62,7 +71,7 @@ export async function uploadImages(imgs, id) {
     try {
       const compressedResult = await new Promise((resolve, reject) => {
         new Compressor(img, {
-          quality: 0.6, // Adjust compression quality as needed
+          quality: 0.6,
           success: resolve,
           error: reject,
         });
