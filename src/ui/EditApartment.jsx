@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
+import { IoChevronBackOutline } from 'react-icons/io5';
 import { useProperties } from '../features/properties/useProperties';
 import { useUpdateProperty } from '../features/properties/useUpdateProperty';
 
@@ -23,9 +24,10 @@ import Button from './Button';
 import { ColumnFormRow } from '../features/properties/ColumnFormRow';
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete';
+import AppPageTitle from './AppPageTitle';
 
-const PageTitle = styled.h3`
-  margin-bottom: 3rem;
+const StyledFormBox = styled(FormBox)`
+  margin-top: 3rem;
 `;
 
 const Warning = styled.div`
@@ -152,8 +154,13 @@ function EditApartment() {
 
   return (
     <AppPage>
-      <PageTitle>Edit Apartment {apartmentName}</PageTitle>
-      <FormBox onSubmit={handleSubmit}>
+      <AppPageTitle>
+        <h3>Edit Apartment {apartmentName}</h3>
+        <Button variation="secondary" onClick={() => navigate(-1)}>
+          <IoChevronBackOutline /> Back
+        </Button>
+      </AppPageTitle>
+      <StyledFormBox onSubmit={handleSubmit}>
         <ColumnFormRow>
           <legend>Edit apartment details</legend>
           <FormRow label="Apartment number">
@@ -285,7 +292,7 @@ function EditApartment() {
             </Modal>
           )}
         </ButtonBox>
-      </FormBox>
+      </StyledFormBox>
     </AppPage>
   );
 }

@@ -1,4 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { IoChevronBackOutline } from 'react-icons/io5';
 
 import { useProperties } from './useProperties';
 import { useScrollToTop } from '../../hooks/useScrollToTop';
@@ -12,11 +14,23 @@ import PropertyTenantOverview from '../../ui/PropertyTenantOverview';
 import ApartmentPropertyDetails from '../../ui/ApartmentPropertyDetails';
 import ApartmentDetailsSummary from '../../ui/ApartmentDetailsSummary';
 import UpdatePropertyButton from './UpdatePropertyButton';
+import Button from '../../ui/Button';
+import { styled } from 'styled-components';
+
+const BackContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  @media only screen and (max-width: 56.25em) {
+    justify-content: flex-start;
+  }
+`;
 
 function Property() {
   useScrollToTop();
   const id = useParams().propertyId;
   const { isLoading, properties } = useProperties();
+  const navigate = useNavigate();
 
   const property = properties?.filter((property) => property.id === +id).at(0);
 
@@ -27,6 +41,12 @@ function Property() {
 
   return (
     <AppPage>
+      <BackContainer>
+        <Button variation="secondary" onClick={() => navigate('/properties')}>
+          <IoChevronBackOutline />
+          Back
+        </Button>
+      </BackContainer>
       <PropertyHeading property={property} />
       <PropertyImage propertyImages={propertyImage} />
       <UpdatePropertyButton id={id} />

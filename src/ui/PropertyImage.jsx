@@ -15,8 +15,8 @@ const PropertyImageBox = styled.div`
 `;
 
 const MainDisplay = styled.div`
-  max-width: 800px;
-  max-height: 450px;
+  width: 800px;
+  height: 450px;
   overflow: hidden;
   border-radius: 0.6rem;
 
@@ -26,7 +26,17 @@ const MainDisplay = styled.div`
     object-fit: cover;
   }
 
+  @media only screen and (max-width: 112em) {
+    width: 650px;
+    height: 350px;
+  }
+
+  @media only screen and (max-width: 56.25em) {
+    width: 500px;
+    height: 250px;
+  }
   @media only screen and (max-width: 37.5em) {
+    width: 300px;
     height: 180px;
   }
 `;

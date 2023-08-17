@@ -47,11 +47,26 @@ function HouseLeaseDetails({ property }) {
           </StyledOverviewParagraph>
         </OverviewMeter>
 
-        <OverviewMeter>
+        <OverviewMeter
+          type={
+            formatDateDistance(property.leaseExpiryDate).includes('Exp.')
+              ? 'expired'
+              : ''
+          }
+        >
           <HiOutlineClock />
-          {formatDateDistance(property.leaseExpiryDate)}
-          <StyledOverviewParagraph size="small">
-            Left on lease
+          {formatDateDistance(property.leaseExpiryDate).includes('Exp.')
+            ? 'Lease expired'
+            : 'Lease expires'}
+          <StyledOverviewParagraph
+            size="small"
+            type={
+              formatDateDistance(property.leaseExpiryDate).includes('Exp.')
+                ? 'expired'
+                : ''
+            }
+          >
+            {formatDateDistance(property.leaseExpiryDate).replace('Exp.', '')}
           </StyledOverviewParagraph>
         </OverviewMeter>
         <OverviewMeter>

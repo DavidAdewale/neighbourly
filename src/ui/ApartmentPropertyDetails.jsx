@@ -1,5 +1,6 @@
 import { css, styled } from 'styled-components';
 import {
+  HiMagnifyingGlass,
   HiOutlineExclamationCircle,
   HiOutlineIdentification,
 } from 'react-icons/hi2';
@@ -9,6 +10,9 @@ import { formatCurrency, formatDateDistance } from '../utilities/helpers';
 
 import AppPage from './AppPage';
 import Paragraph from './Paragraph';
+import { SearchBar } from '../pages/SearchBar';
+import { OperationPanel } from '../pages/OperationPanel';
+import { useState } from 'react';
 
 const StyledAppPage = styled(AppPage)`
   padding: 2rem 0;
@@ -21,6 +25,16 @@ const StyledAppPage = styled(AppPage)`
     letter-spacing: 0.3rem;
     color: var(--color-btn-text-faded);
     margin-bottom: 3rem;
+  }
+`;
+
+const StyledOperationsPanel = styled(OperationPanel)`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  @media only screen and (max-width: 37.5em) {
+    flex-direction: row;
   }
 `;
 
@@ -109,17 +123,40 @@ function ApartmentPropertyDetails({ propertyDetails }) {
   const { apartments } = propertyDetails;
   const { propertyId } = useParams();
   const navigate = useNavigate();
+  const [searchFilter, setSearchFilter] = useState(apartments);
 
-  const occupiedApartments = apartments?.filter(
-    (apartment) => apartment.occupancyStatus === 'occupied'
-  );
+  let searchedApartments;
 
-  const vacantApartments = apartments?.filter(
-    (apartment) => apartment.occupancyStatus === 'vacant'
-  );
+  function handleSearch(value) {
+    searchedApartments = apartments?.filter(
+      (apartment) =>
+        apartment.apartmentNumber.toLowerCase().includes(value) ||
+        apartment.tenantName?.toLowerCase().includes(value)
+    );
+    setSearchFilter(searchedApartments);
+  }
+
+  const occupiedApartments = searchFilter
+    ?.filter((apartment) => apartment.occupancyStatus === 'occupied')
+    .sort((a, b) => a.apartmentNumber.localeCompare(b.apartmentNumber));
+
+  const vacantApartments = searchFilter
+    ?.filter((apartment) => apartment.occupancyStatus === 'vacant')
+    .sort((a, b) => a.apartmentNumber.localeCompare(b.apartmentNumber));
   return (
     <StyledAppPage>
       <h4>Property Details</h4>
+      <StyledOperationsPanel>
+        <SearchBar>
+          <HiMagnifyingGlass />
+          <input
+            type="text"
+            id="search"
+            placeholder="Search apartment"
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+        </SearchBar>
+      </StyledOperationsPanel>
       <InfoContainer>
         <Paragraph size="large">
           Occupied apartments ({occupiedApartments?.length || 0})

@@ -9,6 +9,7 @@ import UpdateBasicPropertyInformation from './UpdateBasicPropertyInformation';
 import AppPageTitle from '../../ui/AppPageTitle';
 import UpdateAmenities from './UpdateAmenities';
 import UpdateImages from './UpdateImages';
+import { IoChevronBackOutline } from 'react-icons/io5';
 
 const StyledAppPageTitle = styled(AppPageTitle)`
   margin-bottom: 3rem;
@@ -31,10 +32,10 @@ function UpdateProperty() {
       <StyledAppPageTitle>
         <h3>Edit {property.propertyName}</h3>
         <Button
-          variation="formSecondary"
+          variation="secondary"
           onClick={() => navigate(`/properties/${id}`)}
         >
-          Go back
+          <IoChevronBackOutline /> Back
         </Button>
       </StyledAppPageTitle>
       <StyledForms>

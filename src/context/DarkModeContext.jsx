@@ -28,8 +28,10 @@ function DarkModeProvider({ children }) {
   function toggleDisplay(value) {
     if (value === 'dark') setisDark(true);
     if (value === 'light') setisDark(false);
-    if (value === 'system-default')
+    if (value === 'system-default') {
+      localStorage.removeItem('isDark');
       setisDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
   }
   return (
     <DarkModeContext.Provider

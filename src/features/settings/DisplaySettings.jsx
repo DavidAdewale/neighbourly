@@ -17,26 +17,30 @@ const Select = styled.select`
 
 function DisplaySettings() {
   const { isDark, toggleDisplay } = useDarkMode();
-  const [select, setSelect] = useState('');
-  useEffect(
-    function () {
-      if (isDark) setSelect('dark');
-      if (!isDark) setSelect('light');
-    },
-    [isDark]
-  );
+  const isLocalStorage = localStorage.getItem('isDark');
+  const initState = isLocalStorage
+    ? isDark
+      ? 'dark'
+      : 'light'
+    : 'system-default';
+  const [select, setSelect] = useState(initState);
+
+  function handleToggle(e) {
+    setSelect(e);
+    toggleDisplay(e);
+  }
 
   return (
     <div>
       <Select
         value={select}
         onChange={(e) => {
-          toggleDisplay(e.target.value);
+          handleToggle(e.target.value);
         }}
       >
         <option value="dark">Dark Mode</option>
         <option value="light">Light Mode</option>
-        {/* <option value="system-default">System Default</option> */}
+        <option value="system-default">System Default</option>
       </Select>
     </div>
   );

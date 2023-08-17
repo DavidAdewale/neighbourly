@@ -39,6 +39,18 @@ export const OverviewMeter = styled.div`
     height: 2.8rem;
     color: var(--color-btn-text-faded);
   }
+
+  ${(props) =>
+    props.type === 'expired' &&
+    css`
+      background-color: var(--color-btn-reset);
+      color: var(--color-btn-text);
+      border-color: transparent;
+
+      & svg {
+        color: var(--color-btn-text);
+      }
+    `}
 `;
 export const StyledOverviewParagraph = styled(Paragraph)`
   ${(props) =>
@@ -47,5 +59,11 @@ export const StyledOverviewParagraph = styled(Paragraph)`
       text-transform: uppercase;
       color: var(--color-light-accent);
       letter-spacing: 0.2rem;
+    `}
+
+  ${(props) =>
+    props.type === 'expired' &&
+    css`
+      color: var(--color-btn-text);
     `}
 `;
