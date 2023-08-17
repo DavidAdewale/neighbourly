@@ -6,9 +6,10 @@ import FormRow from '../../ui/FormRow';
 import { ColumnFormRow } from './ColumnFormRow';
 import { useUpdateProperty } from './useUpdateProperty';
 import Spinner from '../../ui/Spinner';
+import { capitalizeFirstLetter } from '../../utilities/helpers';
 
 function UpdateBasicPropertyInformation({ property }) {
-  const { id, propertyName, address, city, state } = property;
+  const { id, propertyName, address, city, state, amenities } = property;
   const { updateProperty, isUpdating } = useUpdateProperty();
   const [name, setName] = useState(propertyName);
   const [newAddress, setNewAddress] = useState(address);
@@ -38,6 +39,7 @@ function UpdateBasicPropertyInformation({ property }) {
 
     updateProperty([newData, id]);
   }
+
   return (
     <FormBox onSubmit={handleSubmit}>
       <ColumnFormRow>
@@ -71,6 +73,7 @@ function UpdateBasicPropertyInformation({ property }) {
           />
         </FormRow>
       </ColumnFormRow>
+
       <div>
         <Button type="submit" disabled={isUpdating || isNotChanged}>
           {isUpdating && <Spinner />} Save

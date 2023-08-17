@@ -77,12 +77,14 @@ function PropertiesCard({ property }) {
             {capitalizeFirstLetter(address)}, {capitalizeFirstLetter(city)},{' '}
             {capitalizeFirstLetter(state)}
           </Paragraph>
-          <Paragraph size="small" color="faded">
-            Amenities:{' '}
-            {amenities
-              .map((amenity) => capitalizeFirstLetter(amenity))
-              .join(', ')}
-          </Paragraph>
+          {amenities.length > 0 && (
+            <Paragraph size="small" color="faded">
+              Amenities:{' '}
+              {amenities
+                .map((amenity) => capitalizeFirstLetter(amenity))
+                .join(', ')}
+            </Paragraph>
+          )}
         </Address>
         <Paragraph size="small">
           <OccupancyStatus type={occupancyStatus.toLowerCase()}>

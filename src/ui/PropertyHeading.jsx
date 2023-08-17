@@ -94,7 +94,6 @@ function PropertyHeading({ property }) {
     actualRentalIncome,
     leaseStartDate,
     leaseExpiryDate,
-    propertyCategory,
   } = property;
   const isLeaseExpired =
     formatDateDistance(leaseStartDate, leaseExpiryDate) === '0 day';
@@ -122,12 +121,14 @@ function PropertyHeading({ property }) {
             {' '}
             {address}, {city}, {state}{' '}
           </Paragraph>
-          <Paragraph color="faded">
-            Amenities:{' '}
-            {amenities
-              .map((amenity) => capitalizeFirstLetter(amenity))
-              .join(', ')}
-          </Paragraph>
+          {amenities.length > 0 && (
+            <Paragraph color="faded">
+              Amenities:{' '}
+              {amenities
+                .map((amenity) => capitalizeFirstLetter(amenity))
+                .join(', ')}
+            </Paragraph>
+          )}
         </AddressBlock>
       </PropertyTitle>
       <IncomeBlock>

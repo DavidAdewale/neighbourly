@@ -11,9 +11,16 @@ import Button from '../../ui/Button';
 import UpdateBasicPropertyInformation from './UpdateBasicPropertyInformation';
 import AppPageTitle from '../../ui/AppPageTitle';
 import { styled } from 'styled-components';
+import UpdateAmenities from './UpdateAmenities';
 
 const StyledAppPageTitle = styled(AppPageTitle)`
   margin-bottom: 3rem;
+`;
+
+const StyledForms = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 `;
 
 function UpdateProperty() {
@@ -27,11 +34,17 @@ function UpdateProperty() {
     <AppPage>
       <StyledAppPageTitle>
         <h3>Edit {property.propertyName}</h3>
-        <Button variation="formSecondary" onClick={() => navigate(-1)}>
+        <Button
+          variation="formSecondary"
+          onClick={() => navigate(`/properties/${id}`)}
+        >
           Go back
         </Button>
       </StyledAppPageTitle>
-      <UpdateBasicPropertyInformation property={property} />
+      <StyledForms>
+        <UpdateBasicPropertyInformation property={property} />
+        <UpdateAmenities property={property} />
+      </StyledForms>
     </AppPage>
   );
 }
