@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { useDarkMode } from '../../context/DarkModeContext';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const Select = styled.select`
   font-family: inherit;
@@ -17,6 +17,7 @@ const Select = styled.select`
 
 function DisplaySettings() {
   const { isDark, toggleDisplay } = useDarkMode();
+
   const isLocalStorage = localStorage.getItem('isDark');
   const initState = isLocalStorage
     ? isDark

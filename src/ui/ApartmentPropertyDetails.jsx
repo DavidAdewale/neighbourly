@@ -130,8 +130,8 @@ function ApartmentPropertyDetails({ propertyDetails }) {
   function handleSearch(value) {
     searchedApartments = apartments?.filter(
       (apartment) =>
-        apartment.apartmentNumber.toLowerCase().includes(value) ||
-        apartment.tenantName?.toLowerCase().includes(value)
+        apartment.apartmentNumber.toLowerCase().includes(value.toLowerCase()) ||
+        apartment.tenantName?.toLowerCase().includes(value.toLowerCase())
     );
     setSearchFilter(searchedApartments);
   }

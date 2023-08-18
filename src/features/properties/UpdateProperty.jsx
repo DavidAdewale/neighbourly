@@ -10,6 +10,8 @@ import AppPageTitle from '../../ui/AppPageTitle';
 import UpdateAmenities from './UpdateAmenities';
 import UpdateImages from './UpdateImages';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import UpdatePropertyDetails from './UpdatePropertyDetails';
+import DeleteProperty from './DeleteProperty';
 
 const StyledAppPageTitle = styled(AppPageTitle)`
   margin-bottom: 3rem;
@@ -27,6 +29,8 @@ function UpdateProperty() {
   const { properties, isLoading } = useProperties();
   if (isLoading) return <FullPageSpinner />;
   const property = properties.filter((property) => property.id === +id).at(0);
+  const propertyDetails = property.propertyDetails;
+
   return (
     <AppPage>
       <StyledAppPageTitle>
@@ -42,6 +46,8 @@ function UpdateProperty() {
         <UpdateBasicPropertyInformation property={property} />
         <UpdateAmenities property={property} />
         <UpdateImages property={property} />
+        {propertyDetails && <UpdatePropertyDetails property={property} />}
+        <DeleteProperty id={+id} property={property} />
       </StyledForms>
     </AppPage>
   );

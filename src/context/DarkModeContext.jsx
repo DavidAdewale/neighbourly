@@ -29,8 +29,11 @@ function DarkModeProvider({ children }) {
     if (value === 'dark') setisDark(true);
     if (value === 'light') setisDark(false);
     if (value === 'system-default') {
+      setisDark(
+        window.matchMedia('(prefers-color-scheme: dark)').matches,
+        'isDark'
+      );
       localStorage.removeItem('isDark');
-      setisDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
   }
   return (

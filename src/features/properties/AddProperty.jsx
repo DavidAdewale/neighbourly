@@ -14,21 +14,26 @@ import Spinner from '../../ui/Spinner';
 import { useAddProperty } from './useAddProperty';
 import Heading from '../../ui/Heading';
 import FileInput from '../../ui/FileInput';
+import { useEffect, useState } from 'react';
+import { ColumnFormRow } from './ColumnFormRow';
 
-const ColumnFormRow = styled.fieldset`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
+const StyledImagePreview = styled.img`
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  filter: brightness(0.7);
+  transition: all 0.3s;
 
-  border: none;
+  &:hover {
+    filter: brightness(1);
+  }
+`;
 
-  & legend {
-    color: var(--color-light-accent);
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    letter-spacing: 0.2rem;
-
-    margin-bottom: 1rem;
+const StyledColumnFormRow = styled(ColumnFormRow)`
+  align-items: center;
+  @media only screen and (max-width: 37.5em) {
+    align-items: flex-start;
   }
 `;
 
@@ -58,9 +63,36 @@ function AddProperty() {
   const { errors } = formState;
 
   const { addProperty, isAdding } = useAddProperty();
+  const [imagePreviews, setImagePreviews] = useState([]);
 
   const { user } = useUser();
   const user_id = user.id;
+
+  const selectedImages = useWatch({
+    control,
+    name: 'propertyImage',
+    defaultValue: [],
+  });
+
+  useEffect(() => {
+    const newImagePreviews = selectedImages.map((selectedFile) =>
+      selectedFile && selectedFile[0]
+        ? URL.createObjectURL(selectedFile[0])
+        : '/no-image.jpg'
+    );
+    setImagePreviews(newImagePreviews);
+
+    // Clean up the object URLs when the component unmounts or selectedImages changes
+    return () => {
+      newImagePreviews.forEach((objectURL) => URL.revokeObjectURL(objectURL));
+    };
+  }, [selectedImages]);
+
+  function handleImagePreviewChange(index, selectedFile) {
+    const newImagePreviews = [...imagePreviews];
+    newImagePreviews[index] = URL.createObjectURL(selectedFile);
+    setImagePreviews(newImagePreviews);
+  }
 
   function onSubmit(data) {
     const { propertyImage: imageArray, leaseStartDate, leaseExpiryDate } = data;
@@ -240,14 +272,18 @@ function AddProperty() {
             Add Amenity
           </Button>
         </ColumnFormRow>
-        <ColumnFormRow>
+        <StyledColumnFormRow>
           <legend>Property Images (Add up to 4 images)</legend>
           {propertyImage.map((image, index) => (
             <FormRow key={image.id}>
+              <StyledImagePreview src={imagePreviews[index]} />
               <ColumnFormRow2>
                 <FileInput
                   type="file"
                   accept="image/*"
+                  onChange={(e) =>
+                    handleImagePreviewChange(index, e.target.files[0])
+                  }
                   {...register(`propertyImage.${index}`)}
                 />
                 <Button
@@ -269,7 +305,7 @@ function AddProperty() {
               Add Image
             </Button>
           )}
-        </ColumnFormRow>
+        </StyledColumnFormRow>
         <ColumnFormRow>
           <legend>Occupancy</legend>
           <FormRow
