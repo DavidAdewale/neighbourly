@@ -30,6 +30,8 @@ function UpdateProperty() {
   if (isLoading) return <FullPageSpinner />;
   const property = properties.filter((property) => property.id === +id).at(0);
   const propertyDetails = property.propertyDetails;
+  const isApartment =
+    propertyDetails !== null && propertyDetails.totalApartments !== 0;
 
   return (
     <AppPage>
@@ -46,7 +48,9 @@ function UpdateProperty() {
         <UpdateBasicPropertyInformation property={property} />
         <UpdateAmenities property={property} />
         <UpdateImages property={property} />
-        {propertyDetails && <UpdatePropertyDetails property={property} />}
+        {propertyDetails && isApartment && (
+          <UpdatePropertyDetails property={property} />
+        )}
         <DeleteProperty id={+id} property={property} />
       </StyledForms>
     </AppPage>

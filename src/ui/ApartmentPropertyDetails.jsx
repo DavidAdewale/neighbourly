@@ -124,6 +124,7 @@ function ApartmentPropertyDetails({ propertyDetails }) {
   const { propertyId } = useParams();
   const navigate = useNavigate();
   const [searchFilter, setSearchFilter] = useState(apartments);
+  const noApartments = propertyDetails.totalApartments === 0;
 
   let searchedApartments;
 
@@ -143,6 +144,9 @@ function ApartmentPropertyDetails({ propertyDetails }) {
   const vacantApartments = searchFilter
     ?.filter((apartment) => apartment.occupancyStatus === 'vacant')
     .sort((a, b) => a.apartmentNumber.localeCompare(b.apartmentNumber));
+
+  if (noApartments) return;
+
   return (
     <StyledAppPage>
       <h4>Property Details</h4>

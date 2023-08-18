@@ -17,9 +17,11 @@ import Button from './Button';
 import Spinner from './Spinner';
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete';
+import AppPageTitle from './AppPageTitle';
+import { IoChevronBackOutline } from 'react-icons/io5';
 
-const PageTitle = styled.h3`
-  margin-bottom: 2rem;
+const StyledAppPageTitle = styled(AppPageTitle)`
+  margin-bottom: 3rem;
 `;
 
 const ButtonBox = styled.div`
@@ -100,7 +102,12 @@ function EditHouseTenant() {
 
   return (
     <AppPage>
-      <PageTitle>Edit tenant&lsquo;s details</PageTitle>
+      <StyledAppPageTitle>
+        <h3>Edit tenant&lsquo;s details</h3>
+        <Button variation="secondary" onClick={() => navigate(-1)}>
+          <IoChevronBackOutline /> Back
+        </Button>
+      </StyledAppPageTitle>
       <FormBox onSubmit={handleSubmit}>
         <ColumnFormRow>
           <legend>Basic tenant information</legend>

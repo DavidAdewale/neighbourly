@@ -6,21 +6,21 @@ import FormRow from '../../ui/FormRow';
 import { ColumnFormRow } from './ColumnFormRow';
 import { useUpdateProperty } from './useUpdateProperty';
 import Spinner from '../../ui/Spinner';
-import { capitalizeFirstLetter } from '../../utilities/helpers';
+// import { capitalizeFirstLetter } from '../../utilities/helpers';
 
 function UpdateBasicPropertyInformation({ property }) {
   const { id, propertyName, address, city, state, amenities } = property;
   const { updateProperty, isUpdating } = useUpdateProperty();
-  const [name, setName] = useState(propertyName);
-  const [newAddress, setNewAddress] = useState(address);
-  const [cityName, setCityName] = useState(city);
-  const [stateName, setStateName] = useState(state);
+  const [name, setName] = useState(propertyName || '');
+  const [newAddress, setNewAddress] = useState(address || '');
+  const [cityName, setCityName] = useState(city || '');
+  const [stateName, setStateName] = useState(state || '');
 
   const formerData = {
-    propertyName: propertyName,
-    address: address,
-    city: city,
-    state: state,
+    propertyName: propertyName || '',
+    address: address || '',
+    city: city || '',
+    state: state || '',
   };
 
   const newData = {

@@ -12,6 +12,9 @@ import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import { useUpdateProperty } from './useUpdateProperty';
 import { ImagePreview } from '../../ui/ImagePreview';
+import { ButtonContainer } from '../../ui/ButtonContainer';
+import { ImageContainer } from '../../ui/ImageContainer';
+import { HiOutlineTrash } from 'react-icons/hi2';
 
 function UpdateImages({ property }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +36,20 @@ function UpdateImages({ property }) {
     newImages[index] = selectedFile;
     setImages(newImages);
     setImagePrev(imagePrev);
+  }
+
+  function handleAddImage() {
+    const newImageArr = [...images, ''];
+    const newImagePrev = [...imgPrev, '/no-image.jpg'];
+    setImages(newImageArr);
+    setImagePrev(newImagePrev);
+  }
+
+  function handleRemoveImage(index) {
+    const newImageArr = images.filter((_, i) => i !== index);
+    const ImagePreviewArr = imgPrev.filter((_, i) => i !== index);
+    setImages(newImageArr);
+    setImagePrev(ImagePreviewArr);
   }
 
   async function handleSubmit(e) {
@@ -65,7 +82,16 @@ function UpdateImages({ property }) {
         <legend>Property Images</legend>
         {images.map((image, index) => (
           <FormRow key={index}>
-            <ImagePreview src={imgPrev.at(index)} />
+            <ImageContainer>
+              <ImagePreview src={imgPrev.at(index)} />
+              <Button
+                type="button"
+                variation="reset"
+                onClick={() => handleRemoveImage(index)}
+              >
+                <HiOutlineTrash />
+              </Button>
+            </ImageContainer>
             <FileInput
               type="file"
               accept="image/*"
@@ -74,12 +100,17 @@ function UpdateImages({ property }) {
           </FormRow>
         ))}
       </ColumnFormRow>
-      <div>
+      <ButtonContainer>
+        {images.length < 4 && (
+          <Button variation="secondary" onClick={handleAddImage} type="button">
+            Add image
+          </Button>
+        )}
         <Button disabled={isNotUpdated || isLoading || isUpdating}>
           {isLoading && <Spinner />}
           Save
         </Button>
-      </div>
+      </ButtonContainer>
     </FormBox>
   );
 }

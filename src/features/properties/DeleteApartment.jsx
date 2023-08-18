@@ -4,7 +4,10 @@ import FormInput from '../../ui/FormInput';
 import FormRow from '../../ui/FormRow';
 import Modal from '../../ui/Modal';
 import Spinner from '../../ui/Spinner';
-import { capitalizeFirstLetter } from '../../utilities/helpers';
+import {
+  accumulateIncome,
+  capitalizeFirstLetter,
+} from '../../utilities/helpers';
 import { ColumnFormRow } from './ColumnFormRow';
 import { useUpdateProperty } from './useUpdateProperty';
 import ConfirmDelete from '../../ui/ConfirmDelete';
@@ -13,7 +16,7 @@ function DeleteApartment({ apartments, currentApartment, id }) {
   const { updateProperty, isUpdating } = useUpdateProperty();
   const navigate = useNavigate();
 
-  const isOccupied = currentApartment.occupancyStatus === 'occupied';
+  const isOccupied = currentApartment?.occupancyStatus === 'occupied';
 
   function handleDelete(e) {
     const notDeletedApartments = apartments.filter(
@@ -23,8 +26,19 @@ function DeleteApartment({ apartments, currentApartment, id }) {
       totalApartments: notDeletedApartments.length,
       apartments: notDeletedApartments,
     };
-
-    const newDataJSON = { propertyDetails: JSON.stringify(newData) };
+    const totalRentalIncome = accumulateIncome(
+      notDeletedApartments,
+      'expectedRentalIncome'
+    );
+    const totalActualRentalIncome = accumulateIncome(
+      notDeletedApartments,
+      'actualRentalIncome'
+    );
+    const newDataJSON = {
+      expectedRentalIncome: totalRentalIncome,
+      actualRentalIncome: totalActualRentalIncome,
+      propertyDetails: JSON.stringify(newData),
+    };
     updateProperty([newDataJSON, id], { onSettled: () => navigate(-1) });
   }
   return (

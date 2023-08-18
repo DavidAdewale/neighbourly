@@ -13,11 +13,13 @@ import FormInput from './FormInput';
 import Button from './Button';
 import Select from './Select';
 import Spinner from './Spinner';
+import Heading from './Heading';
+import { IoChevronBackOutline } from 'react-icons/io5';
+import AppPageTitle from './AppPageTitle';
 
-const PageTitle = styled.h3`
+const StyledAppPageTitle = styled(AppPageTitle)`
   margin-bottom: 3rem;
 `;
-
 const StyledFormBox = styled(FormBox)`
   align-items: flex-start;
 `;
@@ -28,13 +30,14 @@ const FormTopLevel = styled.div`
 `;
 
 function AddPropertyDetails() {
-  const [numApartments, setNumApartments] = useState(1);
+  const [numApartments, setNumApartments] = useState(0);
   const [apartmentsData, setApartmentsData] = useState([]);
   const { updateProperty, isUpdating } = useUpdateProperty();
 
   const navigate = useNavigate();
 
   const propertyId = +useParams().propertyId;
+  const isNoApartment = numApartments === 0;
 
   const handleNumApartmentsChange = (e) => {
     const num = e.target.value === '' ? 1 : parseInt(e.target.value);
@@ -92,6 +95,8 @@ function AddPropertyDetails() {
       };
     });
 
+    if (newData.length === 0) return;
+
     const propertyUpdate = {
       totalApartments: newData.length,
       apartments: newData,
@@ -115,7 +120,7 @@ function AddPropertyDetails() {
     };
 
     updateProperty([data, propertyId], {
-      onSettled: () => navigate(`properties/${propertyId}`),
+      onSettled: () => navigate(`/properties/${propertyId}`),
     });
   }
 
@@ -127,7 +132,12 @@ function AddPropertyDetails() {
 
   return (
     <AppPage>
-      <PageTitle>Property Details</PageTitle>
+      <StyledAppPageTitle>
+        <h3>Property Details</h3>
+        <Button variation="secondary" onClick={() => navigate(-1)}>
+          <IoChevronBackOutline /> Back
+        </Button>
+      </StyledAppPageTitle>
       <StyledFormBox onSubmit={handleSubmit}>
         <ColumnFormRow>
           <legend>Apartment Details</legend>
@@ -176,7 +186,7 @@ function AddPropertyDetails() {
                   }
                 />
               </FormRow>
-              <FormRow label="Amenities">
+              {/* <FormRow label="Amenities">
                 <FormInput
                   type="text"
                   id="amenities"
@@ -190,7 +200,7 @@ function AddPropertyDetails() {
                     )
                   }
                 />
-              </FormRow>
+              </FormRow> */}
               <FormRow label="Occupancy Status">
                 <Select
                   id="occupancyStatus"
@@ -290,7 +300,11 @@ function AddPropertyDetails() {
             </ColumnFormRow>
           </FormTopLevel>
         ))}
-        <Button type="submit" variation="submit" disabled={isUpdating}>
+        <Button
+          type="submit"
+          variation="submit"
+          disabled={isUpdating || isNoApartment}
+        >
           {isUpdating && <Spinner />} Submit
         </Button>
       </StyledFormBox>

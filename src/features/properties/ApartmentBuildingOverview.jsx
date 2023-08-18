@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 function ApartmentBuildingOverview({ propertyCategory, propertyDetails, id }) {
   const navigate = useNavigate();
+  const noApartments = propertyDetails && propertyDetails.totalApartments === 0;
   return (
     <>
       <OverviewContainer>
@@ -22,18 +23,19 @@ function ApartmentBuildingOverview({ propertyCategory, propertyDetails, id }) {
             Property Category
           </StyledOverviewParagraph>
         </OverviewMeter>
-        {propertyDetails && (
-          <OverviewMeter>
-            <HiOutlineBuildingOffice />
-            <Paragraph>{propertyDetails.totalApartments}</Paragraph>
-            <StyledOverviewParagraph size="small">
-              apartments
-            </StyledOverviewParagraph>
-          </OverviewMeter>
-        )}
+        {propertyDetails &&
+          propertyDetails.totalApartments.length !== undefined && (
+            <OverviewMeter>
+              <HiOutlineBuildingOffice />
+              <Paragraph>{propertyDetails.totalApartments}</Paragraph>
+              <StyledOverviewParagraph size="small">
+                apartments
+              </StyledOverviewParagraph>
+            </OverviewMeter>
+          )}
       </OverviewContainer>
 
-      {!propertyDetails && (
+      {(!propertyDetails || noApartments) && (
         <AddTenantBlock>
           Add more information about this property{' '}
           <Button onClick={() => navigate(`/properties/${id}/adddetails`)}>

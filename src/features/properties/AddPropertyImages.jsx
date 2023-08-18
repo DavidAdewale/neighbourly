@@ -6,13 +6,7 @@ import { ImagePreview } from '../../ui/ImagePreview';
 import Button from '../../ui/Button';
 import { ButtonContainer } from '../../ui/ButtonContainer';
 import { HiOutlineTrash } from 'react-icons/hi2';
-import { styled } from 'styled-components';
-
-const ImageContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-`;
+import { ImageContainer } from '../../ui/ImageContainer';
 
 function AddPropertyImages({ dispatch }) {
   const [images, setImages] = useState([]);

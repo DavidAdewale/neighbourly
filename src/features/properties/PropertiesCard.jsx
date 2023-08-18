@@ -61,7 +61,11 @@ function PropertiesCard({ property }) {
   }
   return (
     <PropertyCard onClick={handleClick}>
-      <img src={image} alt={`${propertyName}`} />
+      {property.propertyImage.length === 0 ? (
+        <img src="/no-image.jpg" alt="no-image" />
+      ) : (
+        <img src={image} alt={`${propertyName}`} />
+      )}
 
       <CardBody>
         <CardTitle>

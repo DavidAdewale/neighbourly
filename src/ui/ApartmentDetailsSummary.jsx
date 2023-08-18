@@ -22,6 +22,8 @@ const StyledAppPage = styled(AppPage)`
 
 function ApartmentDetailsSummary({ propertyDetails }) {
   const apartments = propertyDetails.apartments;
+  const noApartments = propertyDetails.totalApartments === 0;
+
   const vacantApartments = apartments.filter(
     (vacant) => vacant.occupancyStatus === 'vacant'
   );
@@ -43,6 +45,8 @@ function ApartmentDetailsSummary({ propertyDetails }) {
       formatDateDistance(endDate).includes('Exp.')
     );
   }).length;
+
+  if (noApartments) return;
 
   return (
     <StyledAppPage>

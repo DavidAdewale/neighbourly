@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
+import { Empty } from './Empty';
+import { PiWarningThin } from 'react-icons/pi';
+import Paragraph from './Paragraph';
 
 const PropertyImageBox = styled.div`
   margin-top: 4rem;
@@ -82,24 +85,36 @@ const PreviewDisplay = styled.div`
 
 function PropertyImage({ propertyImages }) {
   const [mainImage, setMainImage] = useState(propertyImages.at(0));
-  //   console.log(propertyImages);
-  return (
-    <PropertyImageBox>
-      <MainDisplay>
-        <img src={mainImage} />
-      </MainDisplay>
-      <Preview>
-        {propertyImages.map((img, index) => (
-          <PreviewDisplay
-            key={img}
-            onClick={() => setMainImage(propertyImages.at(index))}
-          >
-            <img src={img} />
-          </PreviewDisplay>
-        ))}
-      </Preview>
-    </PropertyImageBox>
-  );
+  if (propertyImages.length === 0)
+    return (
+      <Empty>
+        <PiWarningThin />
+        <Paragraph color="faded">
+          No image to display - Please upload images of property
+        </Paragraph>
+      </Empty>
+    );
+  {
+    if (propertyImages.length > 0) {
+      return (
+        <PropertyImageBox>
+          <MainDisplay>
+            <img src={mainImage} />
+          </MainDisplay>
+          <Preview>
+            {propertyImages.map((img, index) => (
+              <PreviewDisplay
+                key={img}
+                onClick={() => setMainImage(propertyImages.at(index))}
+              >
+                <img src={img} />
+              </PreviewDisplay>
+            ))}
+          </Preview>
+        </PropertyImageBox>
+      );
+    }
+  }
 }
 
 export default PropertyImage;

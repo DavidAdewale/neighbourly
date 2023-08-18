@@ -62,7 +62,7 @@ function App() {
                 element={<UpdateProperty />}
               />
               <Route
-                path="properties/:propertyId/addDetails"
+                path="properties/:propertyId/adddetails"
                 element={<AddPropertyDetails />}
               />
               <Route

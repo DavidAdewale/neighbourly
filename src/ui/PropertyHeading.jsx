@@ -98,7 +98,8 @@ function PropertyHeading({ property }) {
   const isLeaseExpired =
     formatDateDistance(leaseStartDate, leaseExpiryDate) === '0 day';
 
-  console.log(expectedRentalIncome);
+  // const isRed =
+  //   actualRentalIncome <= expectedRentalIncome || occupancyStatus === 'vacant';
 
   return (
     <Heading>
@@ -132,7 +133,9 @@ function PropertyHeading({ property }) {
           <h3>{formatCurrency(expectedRentalIncome)}</h3>
           <Paragraph size="small">Expected Rental Income</Paragraph>
         </Income>
-        <Income block={occupancyStatus !== 'vacant' ? 'full' : 'not'}>
+        <Income
+          block={actualRentalIncome >= expectedRentalIncome ? 'full' : 'not'}
+        >
           <h3>
             {isLeaseExpired && occupancyStatus !== 'vacant' && 'Lease Expired'}
             {!isLeaseExpired &&
