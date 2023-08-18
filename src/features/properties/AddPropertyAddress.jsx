@@ -20,20 +20,6 @@ function AddPropertyAddress({ state, dispatch }) {
           }
         />
       </FormRow>
-      <FormRow label="State">
-        <FormInput
-          id="state"
-          type="text"
-          value={state.state}
-          onChange={(e) =>
-            dispatch({
-              type: 'field/update',
-              field: 'state',
-              payload: e.target.value,
-            })
-          }
-        />
-      </FormRow>
       <FormRow label="City">
         <FormInput
           id="city"
@@ -43,6 +29,20 @@ function AddPropertyAddress({ state, dispatch }) {
             dispatch({
               type: 'field/update',
               field: 'city',
+              payload: e.target.value,
+            })
+          }
+        />
+      </FormRow>
+      <FormRow label="State">
+        <FormInput
+          id="state"
+          type="text"
+          value={state.state}
+          onChange={(e) =>
+            dispatch({
+              type: 'field/update',
+              field: 'state',
               payload: e.target.value,
             })
           }
