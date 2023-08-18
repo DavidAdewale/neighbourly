@@ -121,7 +121,7 @@ export async function uploadProperty(property) {
     actualRentalIncome:
       property.paymentStatus === 'paid' ? property.expectedRentalIncome : null,
   };
-  console.log(propertyToUpload);
+  // console.log(propertyToUpload);
 
   const { error } = await supabase.from('properties').insert(propertyToUpload);
   if (error) console.log(error.message);

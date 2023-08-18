@@ -7,6 +7,7 @@ import { styled } from 'styled-components';
 import { useUpdateProperty } from './useUpdateProperty';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../ui/Spinner';
+import { ButtonContainer } from '../../ui/ButtonContainer';
 
 const StyledRows = styled.div`
   display: flex;
@@ -18,11 +19,6 @@ const StyledRows = styled.div`
     flex-direction: column;
     align-items: flex-start;
   }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 2rem;
 `;
 
 function AddApartments({ propertyDetails, id }) {

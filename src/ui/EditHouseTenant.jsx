@@ -66,6 +66,11 @@ function EditHouseTenant() {
       leaseExpiryDate: leaseExp === null ? leaseExpiryDate : leaseExp,
       expectedRentalIncome: rent === null ? expectedRentalIncome : rent,
       actualRentalIncome: paidRent === null ? actualRentalIncome : paidRent,
+      paymentStatus: actualRentalIncome
+        ? actualRentalIncome === expectedRentalIncome
+          ? 'paid'
+          : 'partially-paid'
+        : 'not-paid',
     };
 
     if (data.tenantName === null) return;

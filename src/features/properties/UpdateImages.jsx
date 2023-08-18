@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { styled } from 'styled-components';
 
 import { deleteImages, uploadImages } from '../../services/apiProperties';
 import { useUser } from '../authentication/useUser';
@@ -12,19 +11,7 @@ import FileInput from '../../ui/FileInput';
 import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import { useUpdateProperty } from './useUpdateProperty';
-
-const ImagePreview = styled.img`
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 1.5rem;
-  filter: brightness(0.7);
-  transition: all 0.3s;
-
-  &:hover {
-    filter: brightness(1);
-  }
-`;
+import { ImagePreview } from '../../ui/ImagePreview';
 
 function UpdateImages({ property }) {
   const [isLoading, setIsLoading] = useState(false);
