@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import Paragraph from '../ui/Paragraph';
 import { SearchBar } from './SearchBar';
-import { OperationPanel } from './OperationPanel';
+import { OperationPanel } from '../ui/OperationPanel';
 
 const OperationsTab = styled.div`
   display: flex;

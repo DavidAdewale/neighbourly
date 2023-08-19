@@ -11,7 +11,7 @@ import { formatCurrency, formatDateDistance } from '../utilities/helpers';
 import AppPage from './AppPage';
 import Paragraph from './Paragraph';
 import { SearchBar } from '../pages/SearchBar';
-import { OperationPanel } from '../pages/OperationPanel';
+import { OperationPanel } from './OperationPanel';
 import { useState } from 'react';
 
 const StyledAppPage = styled(AppPage)`

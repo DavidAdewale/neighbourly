@@ -13,7 +13,7 @@ import FormInput from './FormInput';
 import Button from './Button';
 import Select from './Select';
 import Spinner from './Spinner';
-import Heading from './Heading';
+// import Heading from './Heading';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import AppPageTitle from './AppPageTitle';
 
@@ -40,7 +40,7 @@ function AddPropertyDetails() {
   const isNoApartment = numApartments === 0;
 
   const handleNumApartmentsChange = (e) => {
-    const num = e.target.value === '' ? 1 : parseInt(e.target.value);
+    const num = e.target.value === '' ? 0 : parseInt(e.target.value);
     setNumApartments(num);
 
     setApartmentsData(
