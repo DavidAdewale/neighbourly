@@ -23,7 +23,7 @@ const FilterButton = styled.button`
   background-color: var(--color-card-bg);
   border: 1px solid var(--color-light-accent);
   color: var(--color-light-accent);
-  padding: 1rem 4rem;
+  padding: 1rem 2rem;
   border-radius: 2.5rem;
   cursor: pointer;
   transition: all 0.3s;
@@ -161,7 +161,7 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
               setActive('short');
             }}
           >
-            1-6 months left on lease
+            Near Expiry
           </FilterButton>
           <FilterButton
             type={active === 'exp' ? 'active' : ''}
