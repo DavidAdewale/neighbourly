@@ -4,6 +4,7 @@ import { css, styled } from 'styled-components';
 
 import {
   HiOutlineArrowRightOnRectangle,
+  HiOutlineBanknotes,
   HiOutlineChartBarSquare,
   HiOutlineCog6Tooth,
   HiOutlineHomeModern,
@@ -95,6 +96,7 @@ const links = [
     to: '/properties',
   },
   { icon: <HiOutlineUsers />, content: 'Tenants', to: '/tenants' },
+  { icon: <HiOutlineBanknotes />, content: 'Finances', to: '/finances' },
   { icon: <HiOutlineChartBarSquare />, content: 'Reports', to: '/reports' },
   { icon: <HiOutlineCog6Tooth />, content: 'Settings', to: '/settings' },
 ];

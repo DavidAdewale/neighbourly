@@ -6,7 +6,7 @@ import {
   OverviewMeter,
   StyledOverviewParagraph,
 } from '../../ui/LeaseOverview';
-import { AddTenantBlock } from '../../ui/AddTenantBlock';
+import { AddTenantBlock } from './AddTenantBlock';
 import { capitalizeFirstLetter } from '../../utilities/helpers';
 
 import Button from '../../ui/Button';

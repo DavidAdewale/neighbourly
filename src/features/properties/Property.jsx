@@ -8,11 +8,11 @@ import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 import FullPageSpinner from '../../ui/FullPageSpinner';
 import AppPage from '../../ui/AppPage';
-import PropertyHeading from '../../ui/PropertyHeading';
-import PropertyImage from '../../ui/PropertyImage';
-import PropertyTenantOverview from '../../ui/PropertyTenantOverview';
-import ApartmentPropertyDetails from '../../ui/ApartmentPropertyDetails';
-import ApartmentDetailsSummary from '../../ui/ApartmentDetailsSummary';
+import PropertyHeading from './PropertyHeading';
+import PropertyImage from './PropertyImage';
+import PropertyTenantOverview from './PropertyTenantOverview';
+import ApartmentPropertyDetails from './ApartmentPropertyDetails';
+import ApartmentDetailsSummary from './ApartmentDetailsSummary';
 import UpdatePropertyButton from './UpdatePropertyButton';
 import Button from '../../ui/Button';
 import { styled } from 'styled-components';

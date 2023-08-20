@@ -19,10 +19,11 @@ import GlobalStyles from './styles/GlobalStyles';
 import ProtectedRoutes from './ui/ProtectedRoutes';
 import Property from './features/properties/Property';
 import AddProperty from './features/properties/AddProperty';
-import AddPropertyDetails from './ui/AddPropertyDetails';
-import EditApartment from './ui/EditApartment';
-import EditHouseTenant from './ui/EditHouseTenant';
+import EditApartment from './features/properties/EditApartment';
+import EditHouseTenant from './features/properties/EditHouseTenant';
 import UpdateProperty from './features/properties/UpdateProperty';
+import Finances from './pages/Finances';
+import AddPropertyDetails from './features/properties/AddPropertyDetails';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -71,6 +72,7 @@ function App() {
               />
               <Route path="properties/add" element={<AddProperty />} />
               <Route path="tenants" element={<Tenants />} />
+              <Route path="finances" element={<Finances />} />
               <Route path="reports" element={<Reports />} />
               <Route path="settings" element={<Settings />} />
             </Route>

@@ -1,12 +1,14 @@
-import { HiOutlineHome, HiOutlineIdentification } from 'react-icons/hi2';
 import { css, styled } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { HiOutlineHome, HiOutlineIdentification } from 'react-icons/hi2';
+
 import Paragraph from '../../ui/Paragraph';
+
 import {
   capitalizeFirstLetter,
   formatCurrency,
   formatDateDistance,
 } from '../../utilities/helpers';
-import { useNavigate } from 'react-router-dom';
 
 const TenantCard = styled.div`
   width: 40rem;
