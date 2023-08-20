@@ -1,5 +1,5 @@
-import ApartmentBuilding from '../features/properties/ApartmentBuildingOverview';
-import HouseOverview from '../features/properties/HouseOverview';
+import ApartmentBuilding from './ApartmentBuildingOverview';
+import HouseOverview from './HouseOverview';
 
 function PropertyTenantOverview({ property }) {
   const { id, propertyCategory, propertyDetails } = property;

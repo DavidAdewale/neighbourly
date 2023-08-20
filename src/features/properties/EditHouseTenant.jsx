@@ -2,22 +2,22 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { useProperties } from '../features/properties/useProperties';
-import { useUpdateProperty } from '../features/properties/useUpdateProperty';
-import { useScrollToTop } from '../hooks/useScrollToTop';
+import { useProperties } from './useProperties';
+import { useUpdateProperty } from './useUpdateProperty';
+import { useScrollToTop } from '../../hooks/useScrollToTop';
 
-import { ColumnFormRow } from '../features/properties/ColumnFormRow';
+import { ColumnFormRow } from './ColumnFormRow';
 
-import FullPageSpinner from './FullPageSpinner';
-import AppPage from './AppPage';
-import FormBox from './FormBox';
-import FormRow from './FormRow';
-import FormInput from './FormInput';
-import Button from './Button';
-import Spinner from './Spinner';
-import Modal from './Modal';
-import ConfirmDelete from './ConfirmDelete';
-import AppPageTitle from './AppPageTitle';
+import FullPageSpinner from '../../ui/FullPageSpinner';
+import AppPage from '../../ui/AppPage';
+import FormBox from '../../ui/FormBox';
+import FormRow from '../../ui/FormRow';
+import FormInput from '../../ui/FormInput';
+import Button from '../../ui/Button';
+import Spinner from '../../ui/Spinner';
+import Modal from '../../ui/Modal';
+import ConfirmDelete from '../../ui/ConfirmDelete';
+import AppPageTitle from '../../ui/AppPageTitle';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
 const StyledAppPageTitle = styled(AppPageTitle)`

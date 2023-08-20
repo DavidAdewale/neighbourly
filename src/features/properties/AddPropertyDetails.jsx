@@ -2,20 +2,20 @@ import { styled } from 'styled-components';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { ColumnFormRow } from '../features/properties/ColumnFormRow';
-import { useUpdateProperty } from '../features/properties/useUpdateProperty';
-import { accumulateIncome, checkPropertyStatus } from '../utilities/helpers';
+import { ColumnFormRow } from './ColumnFormRow';
+import { useUpdateProperty } from './useUpdateProperty';
+import { accumulateIncome, checkPropertyStatus } from '../../utilities/helpers';
 
-import AppPage from './AppPage';
-import FormBox from './FormBox';
-import FormRow from './FormRow';
-import FormInput from './FormInput';
-import Button from './Button';
-import Select from './Select';
-import Spinner from './Spinner';
+import AppPage from '../../ui/AppPage';
+import FormBox from '../../ui/FormBox';
+import FormRow from '../../ui/FormRow';
+import FormInput from '../../ui/FormInput';
+import Button from '../../ui/Button';
+import Select from '../../ui/Select';
+import Spinner from '../../ui/Spinner';
 // import Heading from './Heading';
 import { IoChevronBackOutline } from 'react-icons/io5';
-import AppPageTitle from './AppPageTitle';
+import AppPageTitle from '../../ui/AppPageTitle';
 
 const StyledAppPageTitle = styled(AppPageTitle)`
   margin-bottom: 3rem;

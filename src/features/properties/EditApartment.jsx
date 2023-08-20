@@ -3,28 +3,28 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 import { IoChevronBackOutline } from 'react-icons/io5';
-import { useProperties } from '../features/properties/useProperties';
-import { useUpdateProperty } from '../features/properties/useUpdateProperty';
+import { useProperties } from './useProperties';
+import { useUpdateProperty } from './useUpdateProperty';
 
 import {
   accumulateIncome,
   checkPropertyStatus,
   formatDateDistance,
-} from '../utilities/helpers';
-import { useScrollToTop } from '../hooks/useScrollToTop';
+} from '../../utilities/helpers';
+import { useScrollToTop } from '../../hooks/useScrollToTop';
 
-import AppPage from './AppPage';
-import FullPageSpinner from './FullPageSpinner';
-import FormRow from './FormRow';
-import FormBox from './FormBox';
-import FormInput from './FormInput';
-import Select from './Select';
-import Paragraph from './Paragraph';
-import Button from './Button';
-import { ColumnFormRow } from '../features/properties/ColumnFormRow';
-import Modal from './Modal';
-import ConfirmDelete from './ConfirmDelete';
-import AppPageTitle from './AppPageTitle';
+import AppPage from '../../ui/AppPage';
+import FullPageSpinner from '../../ui/FullPageSpinner';
+import FormRow from '../../ui/FormRow';
+import FormBox from '../../ui/FormBox';
+import FormInput from '../../ui/FormInput';
+import Select from '../../ui/Select';
+import Paragraph from '../../ui/Paragraph';
+import Button from '../../ui/Button';
+import { ColumnFormRow } from './ColumnFormRow';
+import Modal from '../../ui/Modal';
+import ConfirmDelete from '../../ui/ConfirmDelete';
+import AppPageTitle from '../../ui/AppPageTitle';
 
 const StyledFormBox = styled(FormBox)`
   margin-top: 3rem;

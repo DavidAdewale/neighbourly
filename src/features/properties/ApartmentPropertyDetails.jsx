@@ -6,12 +6,12 @@ import {
 } from 'react-icons/hi2';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { formatCurrency, formatDateDistance } from '../utilities/helpers';
+import { formatCurrency, formatDateDistance } from '../../utilities/helpers';
 
-import AppPage from './AppPage';
-import Paragraph from './Paragraph';
-import { SearchBar } from '../pages/SearchBar';
-import { OperationPanel } from './OperationPanel';
+import AppPage from '../../ui/AppPage';
+import Paragraph from '../../ui/Paragraph';
+import { SearchBar } from '../../pages/SearchBar';
+import { OperationPanel } from '../../ui/OperationPanel';
 import { useState } from 'react';
 
 const StyledAppPage = styled(AppPage)`

@@ -9,12 +9,12 @@ import {
   OverviewContainer,
   OverviewMeter,
   StyledOverviewParagraph,
-} from './LeaseOverview';
+} from '../../ui/LeaseOverview';
 
-import { formatDateDistance } from '../utilities/helpers';
+import { formatDateDistance } from '../../utilities/helpers';
 
-import AppPage from './AppPage';
-import Paragraph from './Paragraph';
+import AppPage from '../../ui/AppPage';
+import Paragraph from '../../ui/Paragraph';
 
 const StyledAppPage = styled(AppPage)`
   border-top: 1px dashed var(--color-light-accent);

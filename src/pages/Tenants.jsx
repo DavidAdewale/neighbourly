@@ -48,16 +48,16 @@ function Tenants() {
     };
   });
 
-  const allVacantApartments = allApartments.map((building) => {
-    return {
-      id: building.id,
-      propertyName: building.propertyName,
-      propertyCategory: building.propertyCategory,
-      apartments: building.propertyDetails.apartments.filter(
-        (apartment) => apartment.occupancyStatus === 'vacant'
-      ),
-    };
-  });
+  // const allVacantApartments = allApartments.map((building) => {
+  //   return {
+  //     id: building.id,
+  //     propertyName: building.propertyName,
+  //     propertyCategory: building.propertyCategory,
+  //     apartments: building.propertyDetails.apartments.filter(
+  //       (apartment) => apartment.occupancyStatus === 'vacant'
+  //     ),
+  //   };
+  // });
 
   const numOccupiedHouses = occupiedHouses.length;
   const numOccupiedApartments = allOccupiedApartments.reduce(

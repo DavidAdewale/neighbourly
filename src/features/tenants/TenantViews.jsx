@@ -105,7 +105,6 @@ const ExpiresSoon = styled.p`
 `;
 
 function TenantViews({ properties }) {
-  // console.log(properties);
   const navigate = useNavigate();
 
   return (

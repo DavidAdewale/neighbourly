@@ -1,11 +1,11 @@
 import { css, styled } from 'styled-components';
-import OccupancyStatus from './OccupancyStatus';
+import OccupancyStatus from '../../ui/OccupancyStatus';
 import {
   capitalizeFirstLetter,
   formatCurrency,
   formatDateDistance,
-} from '../utilities/helpers';
-import Paragraph from './Paragraph';
+} from '../../utilities/helpers';
+import Paragraph from '../../ui/Paragraph';
 
 const Heading = styled.div`
   display: flex;

@@ -1,14 +1,8 @@
 import { css, styled } from 'styled-components';
-import {
-  HiMagnifyingGlass,
-  HiOutlineHome,
-  HiOutlineIdentification,
-  HiOutlineUser,
-} from 'react-icons/hi2';
+import { HiMagnifyingGlass } from 'react-icons/hi2';
 import { OperationPanel } from '../../ui/OperationPanel';
 import { SearchBar } from '../../pages/SearchBar';
-import Paragraph from '../../ui/Paragraph';
-import { formatCurrency, formatDateDistance } from '../../utilities/helpers';
+import { formatDateDistance } from '../../utilities/helpers';
 import TenantViews from './TenantViews';
 import { useState } from 'react';
 import Filter from '../../ui/Filter';

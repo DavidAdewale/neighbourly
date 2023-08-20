@@ -11,11 +11,11 @@ import {
 } from '../../ui/LeaseOverview';
 
 import { capitalizeFirstLetter } from '../../utilities/helpers';
-import { AddTenantBlock } from '../../ui/AddTenantBlock';
 
 import Paragraph from '../../ui/Paragraph';
 import HouseLeaseDetails from '../../ui/HouseLeaseDetails';
 import Button from '../../ui/Button';
+import { AddTenantBlock } from './AddTenantBlock';
 
 function HouseOverview({ property }) {
   const navigate = useNavigate();

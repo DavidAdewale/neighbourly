@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
-import { Empty } from './Empty';
+import { Empty } from '../../ui/Empty';
 import { PiWarningThin } from 'react-icons/pi';
-import Paragraph from './Paragraph';
+import Paragraph from '../../ui/Paragraph';
 
 const PropertyImageBox = styled.div`
   margin-top: 4rem;
