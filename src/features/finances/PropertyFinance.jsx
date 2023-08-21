@@ -5,8 +5,9 @@ import AppPage from '../../ui/AppPage';
 import AppPageTitle from '../../ui/AppPageTitle';
 import Button from '../../ui/Button';
 import { HiOutlineChevronLeft } from 'react-icons/hi2';
-import FinanceInformation from './FinanceInformation';
 import { useFinances } from './useFinances';
+import FinanceOperations from './FinanceOperations';
+import FinanceInformation from './FinanceInformation';
 
 function PropertyFinance() {
   const { propertyId } = useParams();
@@ -21,9 +22,6 @@ function PropertyFinance() {
 
   const { propertyName } = property;
 
-  // const propertyFinanceRecord = records;
-  console.log(records);
-
   return (
     <AppPage>
       <AppPageTitle>
@@ -32,7 +30,8 @@ function PropertyFinance() {
           <HiOutlineChevronLeft /> Back
         </Button>
       </AppPageTitle>
-      <FinanceInformation property={property} />
+      <FinanceOperations property={property} records={records} />
+      <FinanceInformation property={property} records={records} />
     </AppPage>
   );
 }
