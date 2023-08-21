@@ -124,7 +124,7 @@ export async function uploadProperty(property) {
   // console.log(propertyToUpload);
 
   const { error } = await supabase.from('properties').insert(propertyToUpload);
-  if (error) console.log(error.message);
+  if (error) throw new Error(error.message);
   // return propertyToUpload;
 }
 

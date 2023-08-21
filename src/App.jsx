@@ -20,10 +20,11 @@ import ProtectedRoutes from './ui/ProtectedRoutes';
 import Property from './features/properties/Property';
 import AddProperty from './features/properties/AddProperty';
 import EditApartment from './features/properties/EditApartment';
-import EditHouseTenant from './features/properties/EditHouseTenant';
+import EditHouseTenant from './features/properties/editHouseTenant/EditHouseTenant';
 import UpdateProperty from './features/properties/UpdateProperty';
 import Finances from './pages/Finances';
 import AddPropertyDetails from './features/properties/AddPropertyDetails';
+import PropertyFinance from './features/finances/PropertyFinance';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -73,6 +74,10 @@ function App() {
               <Route path="properties/add" element={<AddProperty />} />
               <Route path="tenants" element={<Tenants />} />
               <Route path="finances" element={<Finances />} />
+              <Route
+                path="finances/:propertyId"
+                element={<PropertyFinance />}
+              />
               <Route path="reports" element={<Reports />} />
               <Route path="settings" element={<Settings />} />
             </Route>

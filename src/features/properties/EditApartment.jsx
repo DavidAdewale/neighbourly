@@ -84,6 +84,9 @@ function EditApartment() {
 
   if (isLoading) return <FullPageSpinner />;
 
+  // const isNotUpdated =
+  //   JSON.stringify(apartment) === JSON.stringify(batchUpdates());
+
   function batchUpdates() {
     const update = {
       apartmentNumber: aptName,

@@ -6,12 +6,7 @@ import { formatDateDistance } from '../../utilities/helpers';
 import TenantViews from './TenantViews';
 import { useState } from 'react';
 import Filter from '../../ui/Filter';
-
-const OperationsTab = styled.div`
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-`;
+import { OperationsTab } from '../../ui/OperationsTab';
 
 const LeaseFilterBox = styled.div`
   display: flex;
@@ -48,6 +43,7 @@ const FilterButton = styled.button`
 
 function TenantList({ occupiedApartments, occupiedHouses }) {
   const [search, setSearch] = useState('');
+  const [searchKeywords, setSearchKeyword] = useState('');
   const [active, setActive] = useState('all');
   const houses = occupiedHouses.map((house) => {
     return {
@@ -90,6 +86,7 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
   );
 
   const allRentedProperties = [...houses, ...apartments];
+  let propertiesArray;
 
   const filterExpiredRentals = allRentedProperties.filter((property) =>
     formatDateDistance(property.leaseExpiryDate).includes('Exp.')
@@ -103,15 +100,24 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
     return regex.test(leaseDurationString);
   });
 
+  if (active === 'all') {
+    propertiesArray = allRentedProperties;
+  } else if (active === 'short') {
+    propertiesArray = filterShortTermTenants;
+  } else if (active === 'exp') {
+    propertiesArray = filterExpiredRentals;
+  }
+
   const properties =
     search === ''
-      ? allRentedProperties.sort((a, b) =>
+      ? propertiesArray.sort((a, b) =>
           a.propertyName.localeCompare(b.propertyName)
         )
       : search;
 
   function handleSearch(value) {
-    const searchedTenant = allRentedProperties
+    setSearchKeyword(value);
+    const searchedTenant = propertiesArray
       .filter(
         (property) =>
           property.propertyName.toLowerCase().includes(value.toLowerCase()) ||
@@ -132,6 +138,7 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
               type="text"
               id="search"
               placeholder="Search tenant"
+              value={searchKeywords}
               onChange={(e) => handleSearch(e.target.value)}
             />
           </SearchBar>
@@ -148,6 +155,7 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
           <FilterButton
             type={active === 'all' ? 'active' : ''}
             onClick={() => {
+              setSearchKeyword('');
               setSearch('');
               setActive('all');
             }}
@@ -157,6 +165,7 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
           <FilterButton
             type={active === 'short' ? 'active' : ''}
             onClick={() => {
+              setSearchKeyword('');
               setSearch(filterShortTermTenants);
               setActive('short');
             }}
@@ -166,6 +175,7 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
           <FilterButton
             type={active === 'exp' ? 'active' : ''}
             onClick={() => {
+              setSearchKeyword('');
               setSearch(filterExpiredRentals);
               setActive('exp');
             }}

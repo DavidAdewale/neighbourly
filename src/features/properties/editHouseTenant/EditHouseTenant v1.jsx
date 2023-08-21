@@ -2,26 +2,32 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { useProperties } from './useProperties';
-import { useUpdateProperty } from './useUpdateProperty';
-import { useScrollToTop } from '../../hooks/useScrollToTop';
+import { useProperties } from '../useProperties';
+import { useUpdateProperty } from '../useUpdateProperty';
+import { useScrollToTop } from '../../../hooks/useScrollToTop';
 
-import { ColumnFormRow } from './ColumnFormRow';
+import { ColumnFormRow } from '../ColumnFormRow';
 
-import FullPageSpinner from '../../ui/FullPageSpinner';
-import AppPage from '../../ui/AppPage';
-import FormBox from '../../ui/FormBox';
-import FormRow from '../../ui/FormRow';
-import FormInput from '../../ui/FormInput';
-import Button from '../../ui/Button';
-import Spinner from '../../ui/Spinner';
-import Modal from '../../ui/Modal';
-import ConfirmDelete from '../../ui/ConfirmDelete';
-import AppPageTitle from '../../ui/AppPageTitle';
+import FullPageSpinner from '../../../ui/FullPageSpinner';
+import AppPage from '../../../ui/AppPage';
+import FormBox from '../../../ui/FormBox';
+import FormRow from '../../../ui/FormRow';
+import FormInput from '../../../ui/FormInput';
+import Button from '../../../ui/Button';
+import Spinner from '../../../ui/Spinner';
+import Modal from '../../../ui/Modal';
+import ConfirmDelete from '../../../ui/ConfirmDelete';
+import AppPageTitle from '../../../ui/AppPageTitle';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import { formatCurrency } from '../../../utilities/helpers';
 
 const StyledAppPageTitle = styled(AppPageTitle)`
   margin-bottom: 3rem;
+`;
+
+const OweBox = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
 
 const ButtonBox = styled.div`
@@ -44,6 +50,8 @@ function EditHouseTenant() {
   const [rent, setRent] = useState(null);
   const [paidRent, setPaidRent] = useState(null);
 
+  const [paidOustanding, setPaidOutstanding] = useState(false);
+
   if (isLoading) return <FullPageSpinner />;
   const property = properties
     .filter((property) => property.id === +propertyId)
@@ -57,6 +65,27 @@ function EditHouseTenant() {
     expectedRentalIncome,
     actualRentalIncome,
   } = property;
+
+  const oldData = {
+    leaseStartDate,
+    leaseExpiryDate,
+    expectedRentalIncome,
+    actualRentalIncome,
+  };
+
+  const changedData = {
+    leaseStartDate: leaseStart === null ? leaseStartDate : leaseStart,
+    leaseExpiryDate: leaseExp === null ? leaseExpiryDate : leaseExp,
+    expectedRentalIncome: rent === null ? expectedRentalIncome : +rent,
+    actualRentalIncome: paidRent === null ? actualRentalIncome : +paidRent,
+  };
+
+  const isChanged = JSON.stringify(oldData) === JSON.stringify(changedData);
+
+  function handleOutstanding() {
+    setPaidOutstanding(true);
+    setPaidRent(expectedRentalIncome);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -76,6 +105,19 @@ function EditHouseTenant() {
     };
 
     if (data.tenantName === null) return;
+    if (data.actualRentalIncome > 0) {
+      let income;
+      if (
+        leaseStartDate === data.leaseStartDate &&
+        leaseExpiryDate === data.leaseExpiryDate
+      ) {
+        income = data.actualRentalIncome - actualRentalIncome;
+      }
+
+      income = data.actualRentalIncome;
+
+      console.log(income);
+    }
 
     updateProperty([data, propertyId], {
       onSettled: () => navigate(`/properties/${propertyId}`),
@@ -124,7 +166,7 @@ function EditHouseTenant() {
             <FormInput
               id="tenantEmail"
               type="email"
-              value={email === null ? tenantEmail : email}
+              value={email === null ? tenantEmail : tenantEmail}
               onChange={(e) => setEmail(e.target.value)}
             />
           </FormRow>
@@ -165,11 +207,33 @@ function EditHouseTenant() {
               type="number"
               value={paidRent === null ? actualRentalIncome : paidRent}
               onChange={(e) => setPaidRent(e.target.value)}
+              disabled={actualRentalIncome > 0 && leaseStartDate}
             />
           </FormRow>
         </ColumnFormRow>
+        <ColumnFormRow>
+          {actualRentalIncome !== null &&
+            actualRentalIncome < expectedRentalIncome && (
+              <OweBox>
+                <input
+                  id="amountOwed"
+                  type="checkbox"
+                  value={expectedRentalIncome - actualRentalIncome}
+                  onChange={handleOutstanding}
+                />
+                <p>
+                  Tenant paid outstanding of{' '}
+                  {formatCurrency(expectedRentalIncome - actualRentalIncome)}
+                </p>
+              </OweBox>
+            )}
+        </ColumnFormRow>
         <ButtonBox>
-          <Button type="submit" variation="primary" disabled={isUpdating}>
+          <Button
+            type="submit"
+            variation="primary"
+            disabled={isUpdating || isChanged}
+          >
             {isUpdating && <Spinner />} Submit
           </Button>
           {occupancyStatus === 'occupied' && (

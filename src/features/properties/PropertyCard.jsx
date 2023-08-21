@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 const PropertyCard = styled.div`
-  width: 350px;
+  width: 45rem;
   border-radius: 0.8rem;
   background-color: var(--color-card-bg);
 
