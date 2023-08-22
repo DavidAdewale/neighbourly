@@ -1,9 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import { uploadFinance } from '../../services/apiFinances';
+import { updateFinance as updateFinanceApi } from '../../services/apiFinances';
+import { toast } from 'react-hot-toast';
 
 export function useUpdateFinance() {
   const { mutate: updateFinance, isLoading: isUpdating } = useMutation({
-    mutationFn: (id) => uploadFinance(id),
+    mutationFn: ({ data, id }) => updateFinanceApi(data, id),
+    onSuccess: () => toast.success('Record updated'),
+    onError: () => toast.error('Failed to update'),
   });
 
   return { updateFinance, isUpdating };

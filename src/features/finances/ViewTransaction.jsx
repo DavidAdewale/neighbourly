@@ -18,7 +18,7 @@ const Container = styled.div`
   gap: 2rem;
 `;
 
-function EditFinance() {
+function ViewTransaction() {
   const { propertyId, entryId } = useParams();
   const navigate = useNavigate();
   const { properties, isLoading } = useProperties();
@@ -34,7 +34,7 @@ function EditFinance() {
   return (
     <AppPage>
       <AppPageTitle>
-        <h3>Edit transaction #{entryId}</h3>
+        <h3>Transaction #{entryId}</h3>
         <Button variation="secondary" onClick={() => navigate(-1)}>
           <HiChevronLeft /> Back
         </Button>
@@ -47,4 +47,4 @@ function EditFinance() {
   );
 }
 
-export default EditFinance;
+export default ViewTransaction;

@@ -23,7 +23,24 @@ export async function getFinances({ id, categoryStatus, sort }) {
   return finances;
 }
 
+export async function updateFinance(data, id) {
+  const { error } = await supabase
+    .from('propertyFinancials')
+    .update(data)
+    .eq('id', id);
+
+  if (error) console.log(error.message);
+}
+
 export async function uploadFinance(data) {
   const { error } = await supabase.from('propertyFinancials').insert(data);
   if (error) throw new Error(error.message);
+}
+
+export async function deleteRecord(id) {
+  const { error } = await supabase
+    .from('propertyFinancials')
+    .delete()
+    .eq('id', id);
+  if (error) console.log(error.message);
 }

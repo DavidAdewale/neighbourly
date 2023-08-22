@@ -22,7 +22,7 @@ import BasicInformation from './BasicInformation';
 import LeaseDetails from './LeaseDetails';
 import RentInformation from './RentInformation';
 import UpdateRent from './UpdateRent';
-import { useUpdateFinance } from '../../finances/useUpdateFinance';
+import { useUploadFinance } from '../../finances/useUploadFinance';
 
 const StyledAppPage = styled(AppPage)`
   display: flex;
@@ -63,11 +63,11 @@ function EditHouseTenant() {
   const navigate = useNavigate();
   const { propertyId } = useParams();
   const { updateProperty, isUpdating } = useUpdateProperty();
-  const { updateFinance, isUpdating: isUpdatingFinance } = useUpdateFinance();
+  const { uploadFinance, isUploading } = useUploadFinance();
   const [state, dispatch] = useReducer(formReducer, initialState);
 
   const { properties, isLoading } = useProperties();
-  if (isLoading) return <FullPageSpinner />;
+  if (isLoading || isUploading || isUpdating) return <FullPageSpinner />;
 
   const property = properties
     .filter((property) => property.id === +propertyId)
@@ -148,7 +148,7 @@ function EditHouseTenant() {
       category: 'income',
       isRent: true,
     };
-    updateFinance(data);
+    uploadFinance(data);
   }
 
   function handleSubmit(e) {
@@ -230,9 +230,9 @@ function EditHouseTenant() {
           <Button
             type="submit"
             variation="primary"
-            disabled={isUpdating || isNotUpdated}
+            disabled={isUploading || isNotUpdated}
           >
-            {isUpdating && <Spinner />} Submit
+            {isUploading && <Spinner />} Submit
           </Button>
           {occupancyStatus === 'occupied' && (
             <Modal>
@@ -244,7 +244,7 @@ function EditHouseTenant() {
               <Modal.Window name="remove">
                 <ConfirmDelete
                   resourceName="tenant"
-                  disabled={isUpdating}
+                  disabled={isUploading}
                   onConfirm={() => handleRemoveTenant()}
                 />
               </Modal.Window>
