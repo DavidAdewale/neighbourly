@@ -97,7 +97,6 @@ const links = [
   },
   { icon: <HiOutlineUsers />, content: 'Tenants', to: '/tenants' },
   { icon: <HiOutlineBanknotes />, content: 'Finances', to: '/finances' },
-  { icon: <HiOutlineChartBarSquare />, content: 'Reports', to: '/reports' },
   { icon: <HiOutlineCog6Tooth />, content: 'Settings', to: '/settings' },
 ];
 

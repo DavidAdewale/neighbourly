@@ -12,7 +12,6 @@ import SignUp from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
 import Properties from './pages/Properties';
 import Tenants from './pages/Tenants';
-import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 
 import GlobalStyles from './styles/GlobalStyles';
@@ -25,6 +24,8 @@ import UpdateProperty from './features/properties/UpdateProperty';
 import Finances from './pages/Finances';
 import AddPropertyDetails from './features/properties/AddPropertyDetails';
 import PropertyFinance from './features/finances/PropertyFinance';
+import EditFinance from './features/finances/EditFinance';
+import EditTransaction from './features/finances/EditTransaction';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -78,7 +79,14 @@ function App() {
                 path="finances/:propertyId"
                 element={<PropertyFinance />}
               />
-              <Route path="reports" element={<Reports />} />
+              <Route
+                path="finances/:propertyId/entry/:entryId"
+                element={<EditFinance />}
+              />
+              <Route
+                path="finances/:propertyId/edit/:entryId"
+                element={<EditTransaction />}
+              />
               <Route path="settings" element={<Settings />} />
             </Route>
           </Routes>

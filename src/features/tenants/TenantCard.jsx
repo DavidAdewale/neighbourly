@@ -9,7 +9,7 @@ import { HiOutlineHome, HiOutlineIdentification } from 'react-icons/hi2';
 import Paragraph from '../../ui/Paragraph';
 
 const StyledTenantCard = styled.div`
-  width: 40rem;
+  width: 50rem;
   background-color: var(--color-card-bg);
   padding: 2rem 2rem;
   border-radius: 2.5rem;

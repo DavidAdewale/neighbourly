@@ -1,10 +1,20 @@
 import supabase from './supabase';
 
-export async function getFinances(id) {
-  const query = supabase
+export async function getFinances({ id, categoryStatus, sort }) {
+  let query = supabase
     .from('propertyFinancials')
     .select()
     .eq('property_id', id);
+
+  //filter
+  if (categoryStatus)
+    query = query.eq(categoryStatus.field, categoryStatus.value);
+
+  // SORT;
+  if (sort)
+    query = query.order(sort.field, {
+      ascending: sort.direction === 'asc',
+    });
 
   const { data: finances, error } = await query;
 

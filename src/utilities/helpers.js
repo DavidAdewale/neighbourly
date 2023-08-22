@@ -1,4 +1,10 @@
-import { formatDistanceToNow, intervalToDuration } from 'date-fns';
+import {
+  formatDistanceToNow,
+  intervalToDuration,
+  isToday,
+  isYesterday,
+  parse,
+} from 'date-fns';
 
 export const formatCurrency = (value) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'NGN' }).format(
@@ -71,4 +77,16 @@ export function checkPropertyStatus(apartmentsData) {
 export function accumulateIncome(data, income) {
   const accumulated = data.reduce((sum, cur) => (sum += +cur[income]), 0);
   return accumulated;
+}
+
+export function formatDateToRelative(dateString) {
+  const date = parse(dateString, 'yyyy-MM-dd', new Date());
+
+  if (isToday(date)) {
+    return 'today';
+  } else if (isYesterday(date)) {
+    return 'yesterday';
+  } else {
+    return formatDistanceToNow(date, { addSuffix: true });
+  }
 }

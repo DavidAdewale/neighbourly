@@ -146,6 +146,7 @@ function EditHouseTenant() {
             )}) `,
       amount: figure,
       category: 'income',
+      isRent: true,
     };
     updateFinance(data);
   }

@@ -31,7 +31,7 @@ function PropertyFinance() {
         </Button>
       </AppPageTitle>
       <FinanceOperations property={property} records={records} />
-      <FinanceInformation property={property} records={records} />
+      <FinanceInformation records={records} />
     </AppPage>
   );
 }

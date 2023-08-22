@@ -5,8 +5,7 @@ import { OperationsTab } from '../../ui/OperationsTab';
 import Button from '../../ui/Button';
 import Filter from '../../ui/Filter';
 
-function FinanceOperations({ property }) {
-  //   console.log(property);
+function FinanceOperations() {
   return (
     <>
       <OperationPanel>
@@ -21,6 +20,13 @@ function FinanceOperations({ property }) {
               { value: 'all', label: 'All' },
               { value: 'income', label: 'Income' },
               { value: 'expenses', label: 'Expenses' },
+            ]}
+          />
+          <Filter
+            filterField="sort"
+            options={[
+              { value: 'created_at-asc', label: 'Latest - Earliest' },
+              { value: 'created_at-desc', label: 'Earliest - Latest' },
             ]}
           />
         </OperationsTab>

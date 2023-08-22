@@ -1,79 +1,69 @@
 import { styled } from 'styled-components';
-import { capitalizeFirstLetter, formatCurrency } from '../../utilities/helpers';
+import Paragraph from '../../ui/Paragraph';
+import TableList from './TableList';
 
 const FinanceTable = styled.div`
   display: flex;
+  justify-content: center;
+`;
+
+const TableContainer = styled.div`
+  max-width: 90rem;
+  display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
 `;
 const TableHeader = styled.div`
   display: grid;
+  width: 100%;
   border: 1px solid var(--color-light-accent);
-  grid-template-columns: repeat(4, minmax(5rem, 40rem));
+  grid-template-columns: repeat(2, minmax(1rem, 1fr)) 2fr 4fr;
+  grid-column-gap: 2rem;
+  background-color: var(--color-card-bg);
+  border-radius: 0.5rem;
 
   & p {
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: uppercase;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     letter-spacing: 0.2rem;
     padding: 0.4rem 1rem;
     border-left: 1px solid var(--color-light-accent);
-    background-color: var(--color-card-bg);
 
-    @media only screen and (max-width: 36.7em) {
-      padding: 0.3rem 1rem;
-      max-width: 6rem;
+    &:first-of-type {
+      border-left: none;
     }
+  }
+
+  @media only screen and (max-width: 37.5em) {
+    display: none;
   }
 `;
 
-const TableList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, minmax(5rem, 40rem));
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:hover {
-    background-color: var(--color-card-bg);
-  }
-
-  & p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 1.4rem;
-    padding: 0.3rem 1rem;
-
-    @media only screen and (max-width: 36.7em) {
-      padding: 0.3rem 1rem;
-      max-width: 6rem;
-    }
-  }
-`;
-
-function FinanceInformation({ property, records }) {
-  console.log(records);
+function FinanceInformation({ records }) {
   return (
     <FinanceTable>
-      <TableHeader>
-        <p>Category</p>
-        <p>Date</p>
-        <p>Amount</p>
-        <p>Description</p>
-      </TableHeader>
-      {records.map((record) => {
-        const { category, transactionDate, amount, description } = record;
-        return (
-          <TableList key={transactionDate}>
-            <p>{capitalizeFirstLetter(category)}</p>
-            <p>{transactionDate}</p>
-            <p>{formatCurrency(amount)}</p>
-            <p>{description}</p>
-          </TableList>
-        );
-      })}
+      <TableContainer>
+        <TableHeader>
+          <Paragraph color="faded" size="small">
+            Type
+          </Paragraph>
+          <Paragraph color="faded" size="small">
+            Date
+          </Paragraph>
+          <Paragraph color="faded" size="small">
+            Amount
+          </Paragraph>
+          <Paragraph color="faded" size="small">
+            Description
+          </Paragraph>
+        </TableHeader>
+        {records.map((record) => (
+          <TableList record={record} key={record.id} />
+        ))}
+      </TableContainer>
     </FinanceTable>
   );
 }

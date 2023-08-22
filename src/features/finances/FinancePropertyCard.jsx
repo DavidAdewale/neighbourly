@@ -59,6 +59,7 @@ const CardImage = styled.div`
 `;
 
 const CardBody = styled.div`
+  color: var(--color-btn-text);
   position: absolute;
   width: 100%;
   text-align: center;
