@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
 import Paragraph from '../../ui/Paragraph';
 import TableList from './TableList';
+import { Empty } from '../../ui/Empty';
+import { PiWarningThin } from 'react-icons/pi';
 
 const FinanceTable = styled.div`
   display: flex;
@@ -8,11 +10,15 @@ const FinanceTable = styled.div`
 `;
 
 const TableContainer = styled.div`
-  max-width: 90rem;
+  width: 70rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (max-width: 56.25em) {
+    max-width: 50rem;
+  }
 `;
 const TableHeader = styled.div`
   display: grid;
@@ -43,6 +49,13 @@ const TableHeader = styled.div`
 `;
 
 function FinanceInformation({ records }) {
+  if (records.length === 0)
+    return (
+      <Empty>
+        <PiWarningThin />
+        <Paragraph color="faded">No data entry to display</Paragraph>
+      </Empty>
+    );
   return (
     <FinanceTable>
       <TableContainer>

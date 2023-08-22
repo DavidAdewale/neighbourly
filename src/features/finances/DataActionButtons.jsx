@@ -7,12 +7,14 @@ import { useDeleteRecord } from './useDeleteRecord';
 
 function DataActionButtons({ record }) {
   const navigate = useNavigate();
-  const { deleteRecord, isDeleting } = useDeleteRecord();
-  const { id, property_id: propertyId } = record;
+  const { deleteRecord } = useDeleteRecord();
+  const { id, property_id: propertyId, isRent } = record;
 
   function handleDelete() {
-    deleteRecord(id, { onSuccess: () => navigate(`/finances/${propertyId}`) });
+    deleteRecord(id, { onSettled: () => navigate(`/finances/${propertyId}`) });
   }
+
+  if (isRent) return;
   return (
     <ButtonContainer>
       <Button

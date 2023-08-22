@@ -1,19 +1,17 @@
-import { HiMagnifyingGlass, HiPlus } from 'react-icons/hi2';
-import { SearchBar } from '../../pages/SearchBar';
+import { HiPlus } from 'react-icons/hi2';
 import { OperationPanel } from '../../ui/OperationPanel';
 import { OperationsTab } from '../../ui/OperationsTab';
 import Button from '../../ui/Button';
 import Filter from '../../ui/Filter';
+import { useNavigate } from 'react-router-dom';
 
-function FinanceOperations() {
+function FinanceOperations({ property }) {
+  const { id } = property;
+  const navigate = useNavigate();
   return (
     <>
       <OperationPanel>
         <OperationsTab>
-          <SearchBar>
-            <HiMagnifyingGlass />
-            <input type="text" id="search" placeholder="Search record" />
-          </SearchBar>
           <Filter
             filterField="category"
             options={[
@@ -30,7 +28,7 @@ function FinanceOperations() {
             ]}
           />
         </OperationsTab>
-        <Button>
+        <Button onClick={() => navigate(`/finances/${id}/add`)}>
           <HiPlus /> Add Entry
         </Button>
       </OperationPanel>

@@ -26,6 +26,7 @@ import AddPropertyDetails from './features/properties/AddPropertyDetails';
 import PropertyFinance from './features/finances/PropertyFinance';
 import EditTransaction from './features/finances/EditTransaction';
 import ViewTransaction from './features/finances/ViewTransaction';
+import AddEntry from './features/finances/AddEntry';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -79,6 +80,7 @@ function App() {
                 path="finances/:propertyId"
                 element={<PropertyFinance />}
               />
+              <Route path="finances/:propertyId/add" element={<AddEntry />} />
               <Route
                 path="finances/:propertyId/entry/:entryId"
                 element={<ViewTransaction />}

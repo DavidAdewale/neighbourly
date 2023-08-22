@@ -4,10 +4,20 @@ import FullPageSpinner from '../../ui/FullPageSpinner';
 import AppPage from '../../ui/AppPage';
 import AppPageTitle from '../../ui/AppPageTitle';
 import Button from '../../ui/Button';
-import { HiOutlineChevronLeft } from 'react-icons/hi2';
+import { HiMagnifyingGlass, HiOutlineChevronLeft } from 'react-icons/hi2';
 import { useFinances } from './useFinances';
 import FinanceOperations from './FinanceOperations';
 import FinanceInformation from './FinanceInformation';
+import { SearchBar } from '../../pages/SearchBar';
+import { styled } from 'styled-components';
+import { useState } from 'react';
+
+const Search = styled.div`
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+`;
 
 function PropertyFinance() {
   const { propertyId } = useParams();
@@ -15,12 +25,26 @@ function PropertyFinance() {
   const { properties, isLoading } = useProperties();
   const { records, isLoadingRecords } = useFinances(+propertyId);
 
+  const [search, setSearch] = useState('');
+
   if (isLoading || isLoadingRecords) return <FullPageSpinner />;
   const property = properties
     .filter((property) => property.id === +propertyId)
     .at(0);
 
   const { propertyName } = property;
+
+  const isEmpty = records.length === 0;
+
+  function handleSearch(value) {
+    const searchedRecord = records.filter((record) =>
+      record.description.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setSearch(searchedRecord);
+  }
+
+  const financeRecord = search === '' ? records : search;
 
   return (
     <AppPage>
@@ -31,7 +55,20 @@ function PropertyFinance() {
         </Button>
       </AppPageTitle>
       <FinanceOperations property={property} records={records} />
-      <FinanceInformation records={records} />
+      {!isEmpty && (
+        <Search>
+          <SearchBar>
+            <HiMagnifyingGlass />
+            <input
+              type="text"
+              id="search"
+              placeholder="Search record"
+              onChange={(e) => handleSearch(e.target.value)}
+            />
+          </SearchBar>
+        </Search>
+      )}
+      <FinanceInformation records={financeRecord} />
     </AppPage>
   );
 }
