@@ -1,4 +1,4 @@
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useProperties } from '../properties/useProperties';
 import FullPageSpinner from '../../ui/FullPageSpinner';
 import AppPage from '../../ui/AppPage';
@@ -10,9 +10,8 @@ import FinanceOperations from './FinanceOperations';
 import FinanceInformation from './FinanceInformation';
 import { SearchBar } from '../../pages/SearchBar';
 import { styled } from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FinanceSummary from './FinanceSummary';
-import Pagination from '../../ui/Pagination';
 
 const Search = styled.div`
   width: 100%;

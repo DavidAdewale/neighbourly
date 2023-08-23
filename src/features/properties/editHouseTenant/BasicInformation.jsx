@@ -2,7 +2,7 @@ import FormInput from '../../../ui/FormInput';
 import FormRow from '../../../ui/FormRow';
 import { ColumnFormRow } from '../ColumnFormRow';
 
-function BasicInformation({ state, dispatch, property, propertyDiffers }) {
+function BasicInformation({ state, dispatch, property }) {
   const { tenantName, tenantEmail } = property;
   return (
     <ColumnFormRow>

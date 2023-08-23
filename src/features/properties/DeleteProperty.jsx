@@ -10,6 +10,7 @@ function DeleteProperty({ id, property }) {
   const { deleteProperty, isDeleting } = useDeleteProperty();
 
   async function handleDelete() {
+    console.log(id);
     await deleteImages(property.propertyImage);
     deleteProperty(id);
   }

@@ -1,5 +1,4 @@
 import { useSearchParams } from 'react-router-dom';
-import { styled } from 'styled-components';
 import Select from './Select';
 
 function Filter({ filterField, options }) {

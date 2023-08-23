@@ -8,7 +8,7 @@ function RentInformation({ dispatch, property }) {
     property;
 
   const isExpired = formatDateDistance(leaseExpiryDate).includes('Exp.');
-  const isFullyPaid = expectedRentalIncome === actualRentalIncome;
+  // const isFullyPaid = expectedRentalIncome === actualRentalIncome;
   return (
     <ColumnFormRow>
       <legend>Rent Information</legend>
@@ -25,6 +25,7 @@ function RentInformation({ dispatch, property }) {
           id="actualRentalIncome"
           type="number"
           defaultValue={isExpired ? 0 : actualRentalIncome || 0}
+          max={expectedRentalIncome}
           onChange={(e) =>
             dispatch({
               type: 'field/update',

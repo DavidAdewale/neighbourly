@@ -57,7 +57,7 @@ function DetailsForm({ details }) {
 
   function processData() {
     let data;
-    if (state.occupancyStatus !== null)
+    if (state.occupancyStatus === 'occupied')
       data = {
         apartmentNumber:
           state.apartmentNumber === null
@@ -69,10 +69,7 @@ function DetailsForm({ details }) {
           state.tenantEmail === null
             ? apartment.tenantEmail
             : state.tenantEmail,
-        occupancyStatus:
-          state.occupancyStatus === null
-            ? apartment.occupancyStatus
-            : state.occupancyStatus,
+        occupancyStatus: state.occupancyStatus,
         leaseStartDate:
           state.leaseStartDate === null
             ? apartment.leaseStartDate
@@ -109,6 +106,7 @@ function DetailsForm({ details }) {
 
     if (
       apartment.occupancyStatus === 'vacant' &&
+      state.occupancyStatus === null &&
       apartment.expectedRentalIncome !== state.expectedRentalIncome
     )
       data = {
@@ -125,8 +123,8 @@ function DetailsForm({ details }) {
             : state.expectedRentalIncome,
         actualRentalIncome: +state.actualRentalIncome,
       };
-
-    console.log(data);
+    // console.log(state);
+    // console.log(data);
 
     return data;
   }
@@ -170,9 +168,12 @@ function DetailsForm({ details }) {
       return;
     }
 
-    if (apartment.actualRentalIncome !== data.actualRentalIncome) {
+    if (
+      apartment.actualRentalIncome !== data.actualRentalIncome &&
+      state.expectedRentalIncome !== data.expectedRentalIncome
+    ) {
       const newPayment = data.actualRentalIncome - apartment.actualRentalIncome;
-      if (newPayment === 0) return;
+      if (newPayment === 0 && data.actualRentalIncome === null) return;
       updateFinanceRecords(newPayment);
     }
 

@@ -44,6 +44,7 @@ function RentDetails({ actions, apartment }) {
           type="number"
           id="actualRentalIncome"
           defaultValue={isExpired ? 0 : actualRentalIncome}
+          max={expectedRentalIncome}
           disabled={!isExpired}
           onChange={(e) => handleAmount(e.target.value)}
         />

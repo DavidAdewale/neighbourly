@@ -23,6 +23,7 @@ import LeaseDetails from './LeaseDetails';
 import RentInformation from './RentInformation';
 import UpdateRent from './UpdateRent';
 import { useUploadFinance } from '../../finances/useUploadFinance';
+import DataControlPanel from './DataControlPanel';
 
 const StyledAppPage = styled(AppPage)`
   display: flex;
@@ -168,7 +169,6 @@ function EditHouseTenant() {
         onSettled: () => navigate(`/properties/${propertyId}`),
       });
     }
-
     if (isNotUpdated) {
       alert('Please complete the form');
       return;
@@ -205,52 +205,24 @@ function EditHouseTenant() {
           state={state}
           dispatch={dispatch}
           property={property}
-          propertyDiffers={propertyDataDiffers}
         />
-        <LeaseDetails
-          state={state}
-          dispatch={dispatch}
-          property={property}
-          propertyDiffers={propertyDataDiffers}
-        />
+        <LeaseDetails state={state} dispatch={dispatch} property={property} />
         <RentInformation
           state={state}
           dispatch={dispatch}
           property={property}
-          propertyDiffers={propertyDataDiffers}
         />
-        <UpdateRent
-          state={state}
-          dispatch={dispatch}
-          property={property}
-          propertyDiffers={propertyDataDiffers}
-        />
+        <UpdateRent state={state} dispatch={dispatch} property={property} />
 
-        <ButtonContainer>
-          <Button
-            type="submit"
-            variation="primary"
-            disabled={isUploading || isNotUpdated}
-          >
-            {isUploading && <Spinner />} Submit
-          </Button>
-          {occupancyStatus === 'occupied' && (
-            <Modal>
-              <Modal.Open opens="remove">
-                <Button type="button" variation="reset">
-                  Remove tenant
-                </Button>
-              </Modal.Open>
-              <Modal.Window name="remove">
-                <ConfirmDelete
-                  resourceName="tenant"
-                  disabled={isUploading}
-                  onConfirm={() => handleRemoveTenant()}
-                />
-              </Modal.Window>
-            </Modal>
-          )}
-        </ButtonContainer>
+        <DataControlPanel
+          operations={{
+            isUploading,
+            isNotUpdated,
+            occupancyStatus,
+            handleRemoveTenant,
+            leaseExpiryDate,
+          }}
+        />
       </FormBox>
     </StyledAppPage>
   );

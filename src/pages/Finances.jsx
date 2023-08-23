@@ -7,14 +7,23 @@ import { OperationsTab } from '../ui/OperationsTab';
 import { SearchBar } from './SearchBar';
 import FullPageSpinner from '../ui/FullPageSpinner';
 import FinancesHome from '../features/finances/FinancesHome';
+import { useState } from 'react';
 
 function Finances() {
   const { properties, isLoading } = useProperties();
+  const [search, setSearch] = useState('');
+
   if (isLoading) return <FullPageSpinner />;
 
   function handleSearch(e) {
-    console.log(e);
+    const results = properties.filter((property) =>
+      property.propertyName.toLowerCase().includes(e.toLowerCase())
+    );
+
+    setSearch(results);
   }
+
+  const filteredProperties = search === '' ? properties : search;
   return (
     <AppPage>
       <AppPageTitle>
@@ -33,7 +42,7 @@ function Finances() {
           </SearchBar>
         </OperationsTab>
       </OperationPanel>
-      <FinancesHome properties={properties} />
+      <FinancesHome properties={filteredProperties} />
     </AppPage>
   );
 }

@@ -14,6 +14,8 @@ function LeaseDetails({ dispatch, property }) {
     ? null
     : leaseStartDate;
 
+  const isExpired = formatDateDistance(leaseExpiryDate).includes('Exp.');
+
   return (
     <ColumnFormRow>
       <legend>Lease details</legend>
@@ -21,6 +23,7 @@ function LeaseDetails({ dispatch, property }) {
         <FormInput
           id="leaseStartDate"
           type="date"
+          disabled={!isExpired}
           defaultValue={leaseStart || null}
           onChange={(e) =>
             dispatch({
@@ -35,6 +38,7 @@ function LeaseDetails({ dispatch, property }) {
         <FormInput
           id="leaseExpiryDate"
           type="date"
+          disabled={!isExpired}
           defaultValue={leaseExpDate || null}
           onChange={(e) =>
             dispatch({
