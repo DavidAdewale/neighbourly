@@ -7,7 +7,10 @@ import Select from '../../ui/Select';
 import { useReducer } from 'react';
 import Button from '../../ui/Button';
 import { useUpdateFinance } from './useUpdateFinance';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAllFinanceRecords } from './useAllFinanceRecords';
+import FullPageSpinner from '../../ui/FullPageSpinner';
+import Spinner from '../../ui/Spinner';
 
 const FormContainer = styled.div`
   margin-top: 2rem;
@@ -41,7 +44,18 @@ function formReducer(state, action) {
   }
 }
 
-function EditForm({ record }) {
+function EditForm() {
+  const { propertyId, entryId } = useParams();
+  const { allRecords, isLoadingAllRecords } = useAllFinanceRecords(+propertyId);
+  const { updateFinance, isUpdating } = useUpdateFinance();
+  const [state, dispatch] = useReducer(formReducer, initialState);
+
+  const navigate = useNavigate();
+
+  if (isLoadingAllRecords) return <FullPageSpinner />;
+
+  const record = allRecords.filter((record) => record.id === +entryId).at(0);
+
   const {
     id,
     property_id,
@@ -51,8 +65,6 @@ function EditForm({ record }) {
     transactionDate,
     isRent,
   } = record;
-  const { updateFinance, isUpdating } = useUpdateFinance();
-  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -77,7 +89,6 @@ function EditForm({ record }) {
     );
   }
 
-  const [state, dispatch] = useReducer(formReducer, initialState);
   return (
     <FormContainer>
       <FormBox onSubmit={handleSubmit}>
@@ -148,7 +159,9 @@ function EditForm({ record }) {
           </FormRow>
         </ColumnFormRow>
         <div>
-          <Button disabled={isRent}>Submit</Button>
+          <Button disabled={isRent || isUpdating}>
+            {isUpdating && <Spinner />} Submit
+          </Button>
         </div>
       </FormBox>
     </FormContainer>

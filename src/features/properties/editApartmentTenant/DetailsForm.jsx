@@ -8,7 +8,10 @@ import RentDetails from './RentDetails';
 import FormDataControlPanel from './FormDataControlPanel';
 import RentUpdatingPanel from './RentUpdatingPanel';
 import { useNavigate } from 'react-router-dom';
-import { accumulateIncome } from '../../../utilities/helpers';
+import {
+  accumulateIncome,
+  checkPropertyStatus,
+} from '../../../utilities/helpers';
 import { useUploadFinance } from '../../finances/useUploadFinance';
 
 const initialState = {
@@ -104,6 +107,25 @@ function DetailsForm({ details }) {
         actualRentalIncome: +state.actualRentalIncome,
       };
 
+    if (
+      apartment.occupancyStatus === 'vacant' &&
+      apartment.expectedRentalIncome !== state.expectedRentalIncome
+    )
+      data = {
+        apartmentNumber: apartment.apartmentNumber,
+
+        tenantName: apartment.tenantName,
+        tenantEmail: apartment.tenantEmail,
+        occupancyStatus: apartment.occupancyStatus,
+        leaseStartDate: apartment.leaseStartDate,
+        leaseExpiryDate: apartment.leaseExpiryDate,
+        expectedRentalIncome:
+          state.expectedRentalIncome === null
+            ? apartment.expectedRentalIncome
+            : state.expectedRentalIncome,
+        actualRentalIncome: +state.actualRentalIncome,
+      };
+
     console.log(data);
 
     return data;
@@ -150,13 +172,22 @@ function DetailsForm({ details }) {
 
     if (apartment.actualRentalIncome !== data.actualRentalIncome) {
       const newPayment = data.actualRentalIncome - apartment.actualRentalIncome;
+      if (newPayment === 0) return;
       updateFinanceRecords(newPayment);
     }
 
     const updatedApartments = [...otherApartments, data];
+
+    const propertyStatus = checkPropertyStatus(updatedApartments);
+
     const newExpectedIncome = accumulateIncome(
       updatedApartments,
       'expectedRentalIncome'
+    );
+
+    const actualRentalIncome = accumulateIncome(
+      updatedApartments,
+      'actualRentalIncome'
     );
 
     const newDetails = {
@@ -166,6 +197,8 @@ function DetailsForm({ details }) {
 
     const dataToUpload = {
       expectedRentalIncome: newExpectedIncome,
+      occupancyStatus: propertyStatus,
+      actualRentalIncome: actualRentalIncome,
       propertyDetails: JSON.stringify(newDetails),
     };
 
@@ -174,6 +207,45 @@ function DetailsForm({ details }) {
     });
   }
 
+  function handleRemoveTenant() {
+    const data = {
+      apartmentNumber: apartment.apartmentNumber,
+      tenantName: null,
+      tenantEmail: null,
+      occupancyStatus: 'vacant',
+      leaseStartDate: null,
+      leaseExpiryDate: null,
+      actualRentalIncome: null,
+      expectedRentalIncome: apartment.expectedRentalIncome,
+    };
+    const updatedApartments = [...otherApartments, data];
+    const newExpectedIncome = accumulateIncome(
+      updatedApartments,
+      'expectedRentalIncome'
+    );
+
+    const actualRentalIncome = accumulateIncome(
+      updatedApartments,
+      'actualRentalIncome'
+    );
+    const propertyStatus = checkPropertyStatus(updatedApartments);
+
+    const newDetails = {
+      totalApartments: updatedApartments.length,
+      apartments: updatedApartments,
+    };
+
+    const dataToUpload = {
+      occupancyStatus: propertyStatus,
+      expectedRentalIncome: newExpectedIncome,
+      actualRentalIncome: actualRentalIncome,
+      propertyDetails: JSON.stringify(newDetails),
+    };
+
+    updateProperty([dataToUpload, propertyId], {
+      onSettled: () => navigate(`/properties/${propertyId}`),
+    });
+  }
   return (
     <StyledFormBox onSubmit={handleSubmit}>
       <ApartmentDetailForm actions={actions} apartment={apartment} />
@@ -183,7 +255,11 @@ function DetailsForm({ details }) {
       )}
       <RentDetails actions={actions} apartment={apartment} />
       <RentUpdatingPanel actions={actions} apartment={apartment} />
-      <FormDataControlPanel isNotUpdated={isNotUpdated} />
+      <FormDataControlPanel
+        isNotUpdated={isNotUpdated}
+        removeTenant={handleRemoveTenant}
+        apartment={apartment}
+      />
     </StyledFormBox>
   );
 }

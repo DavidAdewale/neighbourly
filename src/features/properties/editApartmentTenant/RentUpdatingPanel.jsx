@@ -45,8 +45,7 @@ function RentUpdatingPanel({ actions, apartment }) {
 
   return (
     <ColumnFormRow>
-      <legend>Update rent information</legend>
-      {isOutstanding && (
+      {isOutstanding && isOccupied && (
         <Box>
           <CheckBox>
             <input
@@ -69,7 +68,7 @@ function RentUpdatingPanel({ actions, apartment }) {
           )}
         </Box>
       )}
-      {isOccupied && (
+      {!isOccupied && (
         <Box>
           <CheckBox>
             <input type="checkbox" onChange={handleRentUpdate} />
