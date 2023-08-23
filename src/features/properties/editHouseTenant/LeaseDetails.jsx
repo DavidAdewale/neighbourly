@@ -4,7 +4,7 @@ import FormInput from '../../../ui/FormInput';
 import FormRow from '../../../ui/FormRow';
 
 function LeaseDetails({ dispatch, property }) {
-  const { leaseStartDate, leaseExpiryDate } = property;
+  const { leaseStartDate, leaseExpiryDate, occupancyStaus } = property;
 
   const leaseExpDate = formatDateDistance(leaseExpiryDate).includes('Exp.')
     ? null
@@ -16,6 +16,9 @@ function LeaseDetails({ dispatch, property }) {
 
   const isExpired = formatDateDistance(leaseExpiryDate).includes('Exp.');
 
+  const isOccupiedAndLease = occupancyStaus !== 'vacant' || !isExpired;
+  console.log(isOccupiedAndLease);
+
   return (
     <ColumnFormRow>
       <legend>Lease details</legend>
@@ -23,7 +26,7 @@ function LeaseDetails({ dispatch, property }) {
         <FormInput
           id="leaseStartDate"
           type="date"
-          disabled={!isExpired}
+          disabled={isExpired || isOccupiedAndLease}
           defaultValue={leaseStart || null}
           onChange={(e) =>
             dispatch({
@@ -38,7 +41,7 @@ function LeaseDetails({ dispatch, property }) {
         <FormInput
           id="leaseExpiryDate"
           type="date"
-          disabled={!isExpired}
+          disabled={isExpired || isOccupiedAndLease}
           defaultValue={leaseExpDate || null}
           onChange={(e) =>
             dispatch({

@@ -142,9 +142,9 @@ function EditHouseTenant() {
       description:
         expectedRentalIncome === actualRentalIncome + figure
           ? 'Rent payment (full)'
-          : `Rent payment (${formatCurrency(figure)} out of ${formatCurrency(
-              expectedRentalIncome
-            )}) `,
+          : `Rent payment (${Math.round(
+              (figure / expectedRentalIncome) * 100
+            )}%) `,
       amount: figure,
       category: 'income',
       isRent: true,

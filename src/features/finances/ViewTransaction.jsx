@@ -26,11 +26,13 @@ function ViewTransaction() {
 
   if (isLoading || isLoadingAllRecords) return <FullPageSpinner />;
   const property = properties
-    .filter((property) => property.id === +propertyId)
+    ?.filter((property) => property.id === +propertyId)
     .at(0);
   const financeRecord = allRecords
-    .filter((record) => record.id === +entryId)
+    ?.filter((record) => record.id === +entryId)
     .at(0);
+
+  if (!financeRecord) return <FullPageSpinner />;
   return (
     <AppPage>
       <AppPageTitle>
