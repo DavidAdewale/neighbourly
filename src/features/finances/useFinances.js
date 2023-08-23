@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getFinances } from '../../services/apiFinances';
 import { useSearchParams } from 'react-router-dom';
 import {
@@ -8,8 +8,10 @@ import {
   subQuarters,
   subYears,
 } from 'date-fns';
+import { PAGE_SIZE } from '../../utilities/config';
 
 export function useFinances(id) {
+  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
   //filter by category
@@ -74,10 +76,29 @@ export function useFinances(id) {
       break;
   }
 
-  const { data: records, isLoading: isLoadingRecords } = useQuery({
-    queryKey: ['finances', id, categoryStatus, sort, timeInterval],
-    queryFn: () => getFinances({ id, categoryStatus, sort, timeInterval }),
+  //PAGINATION
+  const page = !searchParams.get('page') ? 1 : +searchParams.get('page');
+
+  const { isLoading, data: { finances: records, count } = {} } = useQuery({
+    queryKey: ['finances', id, categoryStatus, sort, timeInterval, page],
+    queryFn: () =>
+      getFinances({ id, categoryStatus, sort, timeInterval, page }),
   });
 
-  return { records, isLoadingRecords };
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+  if (page < pageCount)
+    queryClient.prefetchQuery({
+      queryKey: ['finances', id, categoryStatus, sort, timeInterval, page + 1],
+      queryFn: () =>
+        getFinances({ id, categoryStatus, sort, timeInterval, page: page + 1 }),
+    });
+
+  if (page > 1)
+    queryClient.prefetchQuery({
+      queryKey: ['finances', id, categoryStatus, sort, timeInterval, page - 1],
+      queryFn: () =>
+        getFinances({ id, categoryStatus, sort, timeInterval, page: page - 1 }),
+    });
+
+  return { records, isLoadingRecords: isLoading, count };
 }

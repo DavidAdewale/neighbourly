@@ -1,9 +1,16 @@
+import { PAGE_SIZE } from '../utilities/config';
 import supabase from './supabase';
 
-export async function getFinances({ id, categoryStatus, sort, timeInterval }) {
+export async function getFinances({
+  id,
+  categoryStatus,
+  sort,
+  timeInterval,
+  page,
+}) {
   let query = supabase
     .from('propertyFinancials')
-    .select()
+    .select('*', { count: 'exact' })
     .eq('property_id', id);
 
   //filter
@@ -22,11 +29,18 @@ export async function getFinances({ id, categoryStatus, sort, timeInterval }) {
       .gte('transactionDate', timeInterval.startDate)
       .lte('transactionDate', timeInterval.endDate);
 
-  const { data: finances, error } = await query;
+  //page
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+
+  const { data: finances, error, count } = await query;
 
   if (error) throw new Error('Could not fetch data');
 
-  return finances;
+  return { finances, count };
 }
 
 export async function getAllFinanceRecords(id) {

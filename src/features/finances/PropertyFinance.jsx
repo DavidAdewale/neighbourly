@@ -12,6 +12,7 @@ import { SearchBar } from '../../pages/SearchBar';
 import { styled } from 'styled-components';
 import { useEffect, useState } from 'react';
 import FinanceSummary from './FinanceSummary';
+import Pagination from '../../ui/Pagination';
 
 const Search = styled.div`
   width: 100%;
@@ -24,7 +25,6 @@ function PropertyFinance() {
   const { propertyId } = useParams();
   const navigate = useNavigate();
   const { properties, isLoading } = useProperties();
-  const [searchParams, setSearchParams] = useSearchParams();
   const { records, isLoadingRecords } = useFinances(+propertyId);
 
   const [search, setSearch] = useState('');

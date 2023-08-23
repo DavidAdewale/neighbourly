@@ -7,6 +7,9 @@ function Filter({ filterField, options }) {
   const currentFilter = searchParams.get(filterField) || options.at(0).value;
 
   function handleChange(value) {
+    if (searchParams.get('page')) {
+      searchParams.set('page', '1');
+    }
     searchParams.set(filterField, value);
     setSearchParams(searchParams);
   }

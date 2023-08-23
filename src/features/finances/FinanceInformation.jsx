@@ -3,6 +3,9 @@ import Paragraph from '../../ui/Paragraph';
 import TableList from './TableList';
 import { Empty } from '../../ui/Empty';
 import { PiWarningThin } from 'react-icons/pi';
+import Pagination from '../../ui/Pagination';
+import { useFinances } from './useFinances';
+import { useParams } from 'react-router-dom';
 
 const FinanceTable = styled.div`
   display: flex;
@@ -49,6 +52,9 @@ const TableHeader = styled.div`
 `;
 
 function FinanceInformation({ records }) {
+  const { propertyId } = useParams();
+  const { isLoadingRecords, count } = useFinances(+propertyId);
+  if (isLoadingRecords) return;
   if (records.length === 0)
     return (
       <Empty>
@@ -76,6 +82,7 @@ function FinanceInformation({ records }) {
         {records.map((record) => (
           <TableList record={record} key={record.id} />
         ))}
+        <Pagination count={count} />
       </TableContainer>
     </FinanceTable>
   );
