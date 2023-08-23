@@ -18,7 +18,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import ProtectedRoutes from './ui/ProtectedRoutes';
 import Property from './features/properties/Property';
 import AddProperty from './features/properties/AddProperty';
-import EditApartment from './features/properties/EditApartment';
+import EditApartment from './features/properties/editApartmentTenant/EditApartment';
 import EditHouseTenant from './features/properties/editHouseTenant/EditHouseTenant';
 import UpdateProperty from './features/properties/UpdateProperty';
 import Finances from './pages/Finances';

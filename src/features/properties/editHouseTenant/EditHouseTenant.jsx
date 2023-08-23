@@ -156,7 +156,7 @@ function EditHouseTenant() {
 
     const data = processData();
 
-    console.log(data);
+    // console.log(data);
 
     const isNotUpdated =
       Object.values(data).filter((value) => value === null).length > 0 &&

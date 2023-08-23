@@ -3,28 +3,28 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 import { IoChevronBackOutline } from 'react-icons/io5';
-import { useProperties } from './useProperties';
-import { useUpdateProperty } from './useUpdateProperty';
+import { useProperties } from '../useProperties';
+import { useUpdateProperty } from '../useUpdateProperty';
 
 import {
   accumulateIncome,
   checkPropertyStatus,
   formatDateDistance,
-} from '../../utilities/helpers';
-import { useScrollToTop } from '../../hooks/useScrollToTop';
+} from '../../../utilities/helpers';
+import { useScrollToTop } from '../../../hooks/useScrollToTop';
 
-import AppPage from '../../ui/AppPage';
-import FullPageSpinner from '../../ui/FullPageSpinner';
-import FormRow from '../../ui/FormRow';
-import FormBox from '../../ui/FormBox';
-import FormInput from '../../ui/FormInput';
-import Select from '../../ui/Select';
-import Paragraph from '../../ui/Paragraph';
-import Button from '../../ui/Button';
-import { ColumnFormRow } from './ColumnFormRow';
-import Modal from '../../ui/Modal';
-import ConfirmDelete from '../../ui/ConfirmDelete';
-import AppPageTitle from '../../ui/AppPageTitle';
+import AppPage from '../../../ui/AppPage';
+import FullPageSpinner from '../../../ui/FullPageSpinner';
+import FormRow from '../../../ui/FormRow';
+import FormBox from '../../../ui/FormBox';
+import FormInput from '../../../ui/FormInput';
+import Select from '../../../ui/Select';
+import Paragraph from '../../../ui/Paragraph';
+import Button from '../../../ui/Button';
+import { ColumnFormRow } from '../ColumnFormRow';
+import Modal from '../../../ui/Modal';
+import ConfirmDelete from '../../../ui/ConfirmDelete';
+import AppPageTitle from '../../../ui/AppPageTitle';
 
 const StyledFormBox = styled(FormBox)`
   margin-top: 3rem;

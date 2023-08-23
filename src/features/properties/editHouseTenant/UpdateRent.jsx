@@ -4,17 +4,7 @@ import { ColumnFormRow } from '../ColumnFormRow';
 import { styled } from 'styled-components';
 import FormInput from '../../../ui/FormInput';
 import { formatDateDistance } from '../../../utilities/helpers';
-
-const Box = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2rem;
-`;
-const CheckBox = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
+import { CheckBox, Box } from '../../../ui/CheckBox';
 
 function UpdateRent({ dispatch, property }) {
   const { expectedRentalIncome, actualRentalIncome, leaseExpiryDate } =

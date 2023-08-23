@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useProperties } from '../properties/useProperties';
 import FullPageSpinner from '../../ui/FullPageSpinner';
 import AppPage from '../../ui/AppPage';
@@ -10,7 +10,8 @@ import FinanceOperations from './FinanceOperations';
 import FinanceInformation from './FinanceInformation';
 import { SearchBar } from '../../pages/SearchBar';
 import { styled } from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import FinanceSummary from './FinanceSummary';
 
 const Search = styled.div`
   width: 100%;
@@ -23,6 +24,7 @@ function PropertyFinance() {
   const { propertyId } = useParams();
   const navigate = useNavigate();
   const { properties, isLoading } = useProperties();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { records, isLoadingRecords } = useFinances(+propertyId);
 
   const [search, setSearch] = useState('');
@@ -50,7 +52,7 @@ function PropertyFinance() {
     <AppPage>
       <AppPageTitle>
         <h3>{propertyName}</h3>
-        <Button variation="secondary" onClick={() => navigate(-1)}>
+        <Button variation="secondary" onClick={() => navigate('/finances')}>
           <HiOutlineChevronLeft /> Back
         </Button>
       </AppPageTitle>
@@ -69,6 +71,7 @@ function PropertyFinance() {
         </Search>
       )}
       <FinanceInformation records={financeRecord} />
+      {financeRecord.length > 0 && <FinanceSummary records={financeRecord} />}
     </AppPage>
   );
 }

@@ -27,6 +27,17 @@ function FinanceOperations({ property }) {
               { value: 'created_at-desc', label: 'Earliest - Latest' },
             ]}
           />
+          <Filter
+            filterField="timeInterval"
+            options={[
+              { value: 'currentYear', label: 'This year' },
+              { value: 'past6Months', label: 'Past 6 months' },
+              { value: 'pastQuarter', label: 'Past quater' },
+              { value: 'pastTwoYears', label: 'Last 2 years' },
+              { value: 'pastFiveYears', label: 'Last 5 years' },
+              { value: 'all', label: 'All' },
+            ]}
+          />
         </OperationsTab>
         <Button onClick={() => navigate(`/finances/${id}/add`)}>
           <HiPlus /> Add Entry

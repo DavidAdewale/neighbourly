@@ -1,6 +1,6 @@
 import supabase from './supabase';
 
-export async function getFinances({ id, categoryStatus, sort }) {
+export async function getFinances({ id, categoryStatus, sort, timeInterval }) {
   let query = supabase
     .from('propertyFinancials')
     .select()
@@ -16,11 +16,26 @@ export async function getFinances({ id, categoryStatus, sort }) {
       ascending: sort.direction === 'asc',
     });
 
+  //Interval
+  if (timeInterval && timeInterval !== 'all')
+    query = query
+      .gte('transactionDate', timeInterval.startDate)
+      .lte('transactionDate', timeInterval.endDate);
+
   const { data: finances, error } = await query;
 
   if (error) throw new Error('Could not fetch data');
 
   return finances;
+}
+
+export async function getAllFinanceRecords(id) {
+  const { data, error } = await supabase
+    .from('propertyFinancials')
+    .select()
+    .eq('property_id', id);
+  if (error) throw new Error('Could not fetch data');
+  return data;
 }
 
 export async function updateFinance(data, id) {

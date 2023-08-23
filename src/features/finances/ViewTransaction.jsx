@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProperties } from '../properties/useProperties';
-import { useFinances } from './useFinances';
 import FullPageSpinner from '../../ui/FullPageSpinner';
 import AppPage from '../../ui/AppPage';
 import AppPageTitle from '../../ui/AppPageTitle';
@@ -9,6 +8,7 @@ import { HiChevronLeft } from 'react-icons/hi2';
 import FinanceData from './FinanceData';
 import DataActionButtons from './DataActionButtons';
 import { styled } from 'styled-components';
+import { useAllFinanceRecords } from './useAllFinanceRecords';
 
 const Container = styled.div`
   display: flex;
@@ -22,13 +22,13 @@ function ViewTransaction() {
   const { propertyId, entryId } = useParams();
   const navigate = useNavigate();
   const { properties, isLoading } = useProperties();
-  const { records, isLoadingRecords } = useFinances(+propertyId);
+  const { allRecords, isLoadingAllRecords } = useAllFinanceRecords(+propertyId);
 
-  if (isLoading || isLoadingRecords) return <FullPageSpinner />;
+  if (isLoading || isLoadingAllRecords) return <FullPageSpinner />;
   const property = properties
     .filter((property) => property.id === +propertyId)
     .at(0);
-  const financeRecord = records
+  const financeRecord = allRecords
     .filter((record) => record.id === +entryId)
     .at(0);
   return (

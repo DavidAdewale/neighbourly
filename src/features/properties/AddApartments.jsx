@@ -8,6 +8,7 @@ import { useUpdateProperty } from './useUpdateProperty';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../ui/Spinner';
 import { ButtonContainer } from '../../ui/ButtonContainer';
+import { accumulateIncome } from '../../utilities/helpers';
 
 const StyledRows = styled.div`
   display: flex;
@@ -74,8 +75,15 @@ function AddApartments({ propertyDetails, id }) {
       totalApartments: updatedApartments.length,
       apartments: updatedApartments,
     };
+    const newExpectedIncome = accumulateIncome(
+      updatedApartments,
+      'expectedRentalIncome'
+    );
 
-    const newData = { propertyDetails: JSON.stringify(newPropertyDetails) };
+    const newData = {
+      expectedRentalIncome: newExpectedIncome,
+      propertyDetails: JSON.stringify(newPropertyDetails),
+    };
     updateProperty([newData, id], { onSettled: () => navigate(-1) });
   }
   return (
