@@ -79,7 +79,6 @@ function ActivityList({ activity }) {
     activity;
   const navigate = useNavigate();
 
-  console.log(category);
   return (
     <Activity onClick={() => navigate(`/finances/${property_id}/entry/${id}`)}>
       <Icon type={category}>

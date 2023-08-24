@@ -13,7 +13,7 @@ const DataContainer = styled.div`
   flex-direction: column;
 `;
 
-function OtherData({ propertyIds }) {
+function OtherData({ propertyIds, properties }) {
   const { records, isLoadingRecords } = useFinances(propertyIds, true);
 
   if (isLoadingRecords) return <FullPageSpinner />;
@@ -43,7 +43,7 @@ function OtherData({ propertyIds }) {
           />
         </OperationsTab>
       </OperationPanel>
-      <NotificationPanel records={records} />
+      <NotificationPanel records={records} properties={properties} />
     </DataContainer>
   );
 }

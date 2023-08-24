@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
         --color-btn-reset:rgba(183, 35, 19, 0.70);
         --color-btn-reset-hover:rgba(183, 35, 19, 0.90);
         --color-btn-reset-border: rgba(183, 35, 19, 0.70);
+        --color-secondary: #2B91AB;
         --color-tertiary: #BF7FE3;
         --color-btn-text: #fcfcfc;
         --color-btn-text-faded: #9A9A9A;
@@ -66,6 +67,7 @@ const GlobalStyles = createGlobalStyle`
         --color-btn-reset-hover:rgba(183, 35, 19, 0.90);
         --color-btn-reset-border: #FF3924;
         --color-tertiary: #D48DFC;
+        --color-secondary: #2B91AB;
         --color-btn-text: #fcfcfc;
         --color-btn-text-faded: #747373;
         --color-btn-selection: #1e1e1e;

@@ -1,11 +1,14 @@
 import { styled } from 'styled-components';
 import RecentActivity from './RecentActivity';
+import OccupancyStatusChart from './OccupancyStatusChart';
+import IncomeExpensesContainer from './IncomeExpensesContainer';
 
 const Panel = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 3rem;
 `;
 
 const NotificationContainer = styled.div`
@@ -29,7 +32,13 @@ const Heading = styled.div`
   padding: 0 2rem;
 `;
 
-function NotificationPanel({ records }) {
+const SummaryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+`;
+
+function NotificationPanel({ records, properties }) {
   const currentDate = new Date().toISOString().split('T').at(0);
   const todaysActivity = records.filter(
     (record) => record.transactionDate === currentDate
@@ -43,11 +52,14 @@ function NotificationPanel({ records }) {
         </Heading>
         <RecentActivity activities={todaysActivity} />
       </NotificationContainer>
+      <SummaryContainer>
+        <IncomeExpensesContainer records={records} />
+      </SummaryContainer>
       <NotificationContainer>
         <Heading>
-          <h4>Occupancy rate summary</h4>
+          <h4>Occupancy rate summary (in %)</h4>
         </Heading>
-        Notifications
+        <OccupancyStatusChart properties={properties} />
       </NotificationContainer>
     </Panel>
   );

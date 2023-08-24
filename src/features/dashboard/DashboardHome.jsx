@@ -58,11 +58,6 @@ function DashboardHome({ properties }) {
     }
   );
 
-  //   const occupancyRatesApartments = allApartmentOccupancyRateInformation.map(
-  //     ({ totalOccupiedApartments, totalApartments }) =>
-  //       (totalOccupiedApartments / totalApartments) * 100
-  //   );
-
   const totalOccupiedApartments = allApartmentOccupancyRateInformation.reduce(
     (sum, { totalOccupiedApartments }) => sum + totalOccupiedApartments,
     0
@@ -87,7 +82,7 @@ function DashboardHome({ properties }) {
   return (
     <DashContent>
       <SummaryStats summaryData={summaryData} />
-      <OtherData propertyIds={allPropertyIds} />
+      <OtherData propertyIds={allPropertyIds} properties={properties} />
     </DashContent>
   );
 }

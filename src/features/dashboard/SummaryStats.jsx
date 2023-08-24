@@ -77,6 +77,10 @@ const StatValues = styled.div`
   }
 `;
 
+const StyledParagraph = styled(Paragraph)`
+  color: var(--color-light-accent);
+`;
+
 function SummaryStats({ summaryData }) {
   const { numProperties, totalRent, numTenants, overallOccupancyRate } =
     summaryData;
@@ -89,9 +93,7 @@ function SummaryStats({ summaryData }) {
           <HiOutlineBriefcase />
         </Icon>
         <StatValues>
-          <Paragraph color="faded" size="small">
-            properties
-          </Paragraph>
+          <StyledParagraph size="small">properties</StyledParagraph>
           <h3>{numProperties}</h3>
         </StatValues>
       </StatCard>
@@ -100,9 +102,7 @@ function SummaryStats({ summaryData }) {
           <HiOutlineBanknotes />
         </Icon>
         <StatValues>
-          <Paragraph color="faded" size="small">
-            rental income
-          </Paragraph>
+          <StyledParagraph size="small">rental income</StyledParagraph>
           <h3>{formatCurrency(totalRent)}</h3>
         </StatValues>
       </StatCard>
@@ -111,9 +111,7 @@ function SummaryStats({ summaryData }) {
           <HiOutlineUser />
         </Icon>
         <StatValues>
-          <Paragraph color="faded" size="small">
-            Tenants
-          </Paragraph>
+          <StyledParagraph size="small">Tenants</StyledParagraph>
           <h3>{numTenants}</h3>
         </StatValues>
       </StatCard>
@@ -122,9 +120,7 @@ function SummaryStats({ summaryData }) {
           <HiOutlineChartBar />
         </Icon>
         <StatValues>
-          <Paragraph color="faded" size="small">
-            occupancy rate
-          </Paragraph>
+          <StyledParagraph size="small">occupancy rate</StyledParagraph>
           <h3>{occupancyRate}%</h3>
         </StatValues>
       </StatCard>
