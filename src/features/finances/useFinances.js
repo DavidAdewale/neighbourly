@@ -10,7 +10,7 @@ import {
 } from 'date-fns';
 import { PAGE_SIZE } from '../../utilities/config';
 
-export function useFinances(id) {
+export function useFinances(id, fetchAll = false) {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
@@ -80,24 +80,62 @@ export function useFinances(id) {
   const page = !searchParams.get('page') ? 1 : +searchParams.get('page');
 
   const { isLoading, data: { finances: records, count } = {} } = useQuery({
-    queryKey: ['finances', id, categoryStatus, sort, timeInterval, page],
+    queryKey: [
+      'finances',
+      id,
+      categoryStatus,
+      sort,
+      timeInterval,
+      page,
+      fetchAll,
+    ],
     queryFn: () =>
-      getFinances({ id, categoryStatus, sort, timeInterval, page }),
+      getFinances({ id, categoryStatus, sort, timeInterval, page, fetchAll }),
   });
 
   const pageCount = Math.ceil(count / PAGE_SIZE);
-  if (page < pageCount)
+  if (!fetchAll && page < pageCount)
     queryClient.prefetchQuery({
-      queryKey: ['finances', id, categoryStatus, sort, timeInterval, page + 1],
+      queryKey: [
+        'finances',
+        id,
+        categoryStatus,
+        sort,
+        timeInterval,
+        page + 1,
+        fetchAll,
+      ],
       queryFn: () =>
-        getFinances({ id, categoryStatus, sort, timeInterval, page: page + 1 }),
+        getFinances({
+          id,
+          categoryStatus,
+          sort,
+          timeInterval,
+          page: page + 1,
+          fetchAll,
+        }),
     });
 
-  if (page > 1)
+  if (!fetchAll && page > 1)
     queryClient.prefetchQuery({
-      queryKey: ['finances', id, categoryStatus, sort, timeInterval, page - 1],
+      queryKey: [
+        'finances',
+        id,
+        categoryStatus,
+        sort,
+        timeInterval,
+        page - 1,
+        fetchAll,
+      ],
       queryFn: () =>
-        getFinances({ id, categoryStatus, sort, timeInterval, page: page - 1 }),
+        getFinances({
+          id,
+          categoryStatus,
+          sort,
+          timeInterval,
+          page: page - 1,
+          fetchAll,
+        }),
     });
 
   return { records, isLoadingRecords: isLoading, count };

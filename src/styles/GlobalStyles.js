@@ -45,6 +45,11 @@ const GlobalStyles = createGlobalStyle`
         --color-partially-occupied: rgba(163, 130, 67, 0.50);
 ;
 
+        --color-green:#A5BDA2;
+        --color-purple: #CFADE3;
+        --color-blue: #80B6C4;
+        --color-orange: #F0B4AA;
+
 
         }
 
@@ -84,6 +89,11 @@ const GlobalStyles = createGlobalStyle`
         --color-partially-occupied: rgba(163, 130, 67, 0.50);
 
         --box-shadow: 0px 5px 19px 3px rgba(252, 252, 252, 0.07);
+
+        --color-green:#55A34B;
+        --color-purple: #BF7FE3;
+        --color-blue: #2B91AB;
+        --color-orange: #F08B7A;
 
         }
 

@@ -7,11 +7,17 @@ export async function getFinances({
   sort,
   timeInterval,
   page,
+  fetchAll,
 }) {
   let query = supabase
     .from('propertyFinancials')
-    .select('*', { count: 'exact' })
-    .eq('property_id', id);
+    .select('*', { count: 'exact' });
+
+  //if id is an array
+  if (Array.isArray(id)) query = query.in('property_id', id);
+
+  //if id is a single number
+  if (typeof id === 'number') query = query.eq('property_id', id);
 
   //filter
   if (categoryStatus)
@@ -30,7 +36,7 @@ export async function getFinances({
       .lte('transactionDate', timeInterval.endDate);
 
   //page
-  if (page) {
+  if (!fetchAll && page) {
     const from = (page - 1) * PAGE_SIZE;
     const to = from + PAGE_SIZE - 1;
     query = query.range(from, to);
