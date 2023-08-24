@@ -28,6 +28,7 @@ function ViewTransaction() {
   const property = properties
     ?.filter((property) => property.id === +propertyId)
     .at(0);
+
   const financeRecord = allRecords
     ?.filter((record) => record.id === +entryId)
     .at(0);

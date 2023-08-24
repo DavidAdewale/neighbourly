@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import FormRow from '../../../ui/FormRow';
 import { ColumnFormRow } from '../ColumnFormRow';
-import { styled } from 'styled-components';
 import FormInput from '../../../ui/FormInput';
 import { formatDateDistance } from '../../../utilities/helpers';
 import { CheckBox, Box } from '../../../ui/CheckBox';
 
-function UpdateRent({ dispatch, property }) {
+function UpdateRent({ actions, property }) {
   const { expectedRentalIncome, actualRentalIncome, leaseExpiryDate } =
     property;
+  const { dispatch } = actions;
 
   const [increase, setIncrease] = useState(false);
   const [payOutstanding, setPayOutstanding] = useState(false);

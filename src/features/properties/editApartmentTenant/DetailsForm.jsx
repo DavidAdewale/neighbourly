@@ -57,7 +57,10 @@ function DetailsForm({ details }) {
 
   function processData() {
     let data;
-    if (state.occupancyStatus === 'occupied')
+    if (
+      state.occupancyStatus === 'occupied' ||
+      apartment.occupancyStatus === 'occupied'
+    )
       data = {
         apartmentNumber:
           state.apartmentNumber === null
@@ -69,7 +72,10 @@ function DetailsForm({ details }) {
           state.tenantEmail === null
             ? apartment.tenantEmail
             : state.tenantEmail,
-        occupancyStatus: state.occupancyStatus,
+        occupancyStatus:
+          state.occupancyStatus === null
+            ? apartment.occupancyStatus
+            : state.occupancyStatus,
         leaseStartDate:
           state.leaseStartDate === null
             ? apartment.leaseStartDate
@@ -87,7 +93,6 @@ function DetailsForm({ details }) {
             ? apartment.actualRentalIncome
             : state.actualRentalIncome,
       };
-
     if (state.occupancyStatus === null && state.actualRentalIncome !== null)
       data = {
         apartmentNumber: apartment.apartmentNumber,
@@ -124,7 +129,7 @@ function DetailsForm({ details }) {
         actualRentalIncome: +state.actualRentalIncome,
       };
     // console.log(state);
-    // console.log(data);
+    // console.log(state);
 
     return data;
   }
@@ -150,6 +155,7 @@ function DetailsForm({ details }) {
     e.preventDefault();
 
     const data = processData();
+    // console.log(data);
 
     const isNotUpdated =
       Object.values(data).filter((value) => value === null).length > 0 &&

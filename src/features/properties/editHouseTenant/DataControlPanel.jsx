@@ -1,9 +1,10 @@
-import Button from '../../../ui/Button';
+import { formatCurrency } from '../../../utilities/helpers';
 import { ButtonContainer } from '../../../ui/ButtonContainer';
+
 import ConfirmDelete from '../../../ui/ConfirmDelete';
 import Modal from '../../../ui/Modal';
 import Spinner from '../../../ui/Spinner';
-import { formatCurrency } from '../../../utilities/helpers';
+import Button from '../../../ui/Button';
 
 function DataControlPanel({ operations }) {
   const {
@@ -14,7 +15,10 @@ function DataControlPanel({ operations }) {
     leaseExpiryDate,
   } = operations;
 
-  const isExpired = formatCurrency(leaseExpiryDate).includes('Exp.');
+  const isExpired =
+    formatCurrency(leaseExpiryDate).includes('Exp.') ||
+    occupancyStatus === 'occupied';
+
   return (
     <ButtonContainer>
       <Button
@@ -27,7 +31,7 @@ function DataControlPanel({ operations }) {
       {occupancyStatus === 'occupied' && (
         <Modal>
           <Modal.Open opens="remove">
-            <Button type="button" variation="reset" disabled={!isExpired}>
+            <Button type="button" variation="reset" disabled={isExpired}>
               Remove tenant
             </Button>
           </Modal.Open>

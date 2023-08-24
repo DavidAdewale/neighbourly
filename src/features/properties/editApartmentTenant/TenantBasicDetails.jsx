@@ -8,9 +8,12 @@ function TenantBasicDetails({ actions, apartment }) {
     apartment;
 
   const { state, dispatch } = actions;
-  const isLease =
+  const isLeaseExpired =
     formatDateDistance(leaseExpiryDate).includes('Exp.') ||
     state.occupancyStatus === 'occupied';
+
+  const isLeaseStartValid = !isLeaseExpired ? leaseStartDate : null;
+  const isLeaseExpValid = !isLeaseExpired ? leaseExpiryDate : null;
 
   return (
     <ColumnFormRow>
@@ -47,8 +50,8 @@ function TenantBasicDetails({ actions, apartment }) {
         <FormInput
           type="date"
           id="leaseStartDate"
-          defaultValue={leaseStartDate}
-          disabled={!isLease}
+          defaultValue={isLeaseStartValid}
+          disabled={!isLeaseExpired}
           onChange={(e) =>
             dispatch({
               type: 'field/update',
@@ -62,8 +65,8 @@ function TenantBasicDetails({ actions, apartment }) {
         <FormInput
           type="date"
           id="leaseExpiry"
-          defaultValue={leaseExpiryDate}
-          disabled={!isLease}
+          defaultValue={isLeaseExpValid}
+          disabled={!isLeaseExpired}
           onChange={(e) =>
             dispatch({
               type: 'field/update',

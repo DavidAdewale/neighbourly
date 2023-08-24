@@ -3,12 +3,22 @@ import FormRow from '../../../ui/FormRow';
 import { formatDateDistance } from '../../../utilities/helpers';
 import { ColumnFormRow } from '../ColumnFormRow';
 
-function RentInformation({ dispatch, property }) {
-  const { expectedRentalIncome, actualRentalIncome, leaseExpiryDate } =
-    property;
+function RentInformation({ actions, property }) {
+  const {
+    expectedRentalIncome,
+    actualRentalIncome,
+    leaseExpiryDate,
+    occupancyStatus,
+  } = property;
+
+  const { state, dispatch } = actions;
 
   const isExpired = formatDateDistance(leaseExpiryDate).includes('Exp.');
-  // const isFullyPaid = expectedRentalIncome === actualRentalIncome;
+
+  const isVacant =
+    occupancyStatus === 'vacant' && state.occupancyStatus !== 'occupied';
+
+  if (isVacant) return;
   return (
     <ColumnFormRow>
       <legend>Rent Information</legend>

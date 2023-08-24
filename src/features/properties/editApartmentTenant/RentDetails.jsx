@@ -1,7 +1,7 @@
+import { ColumnFormRow } from '../ColumnFormRow';
+import { formatDateDistance } from '../../../utilities/helpers';
 import FormInput from '../../../ui/FormInput';
 import FormRow from '../../../ui/FormRow';
-import { formatDateDistance } from '../../../utilities/helpers';
-import { ColumnFormRow } from '../ColumnFormRow';
 
 function RentDetails({ actions, apartment }) {
   const {
@@ -18,7 +18,10 @@ function RentDetails({ actions, apartment }) {
       formatDateDistance(leaseExpiryDate).includes('Exp.')) ||
     state.occupancyStatus === 'occupied';
 
-  // console.log(isExpired);
+  const isAboutToBeLeased =
+    occupancyStatus === 'vacant' && state.occupancyStatus !== 'occupied';
+
+  if (isAboutToBeLeased) return;
 
   function handleAmount(e) {
     dispatch({
