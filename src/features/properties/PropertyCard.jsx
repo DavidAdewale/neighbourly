@@ -21,13 +21,6 @@ const PropertyCard = styled.div`
     box-shadow: var(--box-shadow);
   }
 
-  img {
-    width: 100%;
-    height: 18rem;
-    object-fit: cover;
-    object-position: center;
-  }
-
   h3 {
     font-family: 'Space Mono', monospace;
     font-size: 2.2rem;

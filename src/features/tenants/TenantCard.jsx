@@ -9,22 +9,23 @@ import { HiOutlineHome, HiOutlineIdentification } from 'react-icons/hi2';
 import Paragraph from '../../ui/Paragraph';
 
 const StyledTenantCard = styled.div`
-  width: 50rem;
+  width: 40rem;
   background-color: var(--color-card-bg);
   padding: 2rem 2rem;
   border-radius: 2.5rem;
   cursor: pointer;
-  border: 1px dashed var(--color-btn-text-faded);
-  transition: all 0.1s;
-
-  @media only screen and (max-width: 112rem) {
-    width: 35rem;
-  }
+  border: 1px solid var(--color-form-input-faded);
+  transition: all 0.3s;
 
   & svg {
     width: 2.5rem;
     height: 2.5rem;
     color: var(--color-light-accent);
+  }
+
+  &:hover {
+    border: 1px solid var(--color-light-accent);
+    transform: scale(1.03);
   }
 
   ${(props) =>
@@ -39,8 +40,8 @@ const StyledTenantCard = styled.div`
       }
     `}
 
-  &:hover {
-    transform: scale(1.03);
+  @media only screen and (max-width: 112rem) {
+    width: 35rem;
   }
 `;
 

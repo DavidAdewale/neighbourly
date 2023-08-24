@@ -21,6 +21,26 @@ const CardTitle = styled.div`
   justify-content: space-between;
 `;
 
+const Image = styled.div`
+  overflow: hidden;
+
+  &:hover > img {
+    transform: scale(1.1);
+    filter: brightness(1);
+  }
+
+  img {
+    width: 100%;
+    min-height: 100%;
+    height: 18rem;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.8);
+
+    transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.9s;
+  }
+`;
+
 const CardBody = styled.div`
   display: flex;
   flex-direction: column;
@@ -61,11 +81,13 @@ function PropertiesCard({ property }) {
   }
   return (
     <PropertyCard onClick={handleClick}>
-      {property.propertyImage.length === 0 ? (
-        <img src="/no-image.jpg" alt="no-image" />
-      ) : (
-        <img src={image} alt={`${propertyName}`} />
-      )}
+      <Image>
+        {property.propertyImage.length === 0 ? (
+          <img src="/no-image.jpg" alt="no-image" />
+        ) : (
+          <img src={image} alt={`${propertyName}`} />
+        )}
+      </Image>
 
       <CardBody>
         <CardTitle>

@@ -70,11 +70,7 @@ function UpdatePersonalInformation() {
         </FormRow>
       </FormStyle>
       <ButtonContainer>
-        <Button
-        // disabled={isUpdating || !formChange || (!formChange && !avatar)}
-        >
-          {isUpdating ? <Spinner /> : ''} Save Changes
-        </Button>
+        <Button>{isUpdating ? <Spinner /> : ''} Save Changes</Button>
         <Button
           type="reset"
           variation="reset"
@@ -83,11 +79,6 @@ function UpdatePersonalInformation() {
         >
           Cancel
         </Button>
-        {/* {formChange && (
-          <Button type="reset" disabled={isUpdating} onClick={handleReset}>
-            Cancel
-          </Button>
-        )} */}
       </ButtonContainer>
     </FormBox>
   );

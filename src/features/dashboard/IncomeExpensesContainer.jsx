@@ -19,6 +19,7 @@ const Card = styled.div`
 
 const Revenue = styled.p`
   font-family: 'Space Mono';
+  font-size: 2rem;
 
   ${({ type }) =>
     type === 'income' &&
