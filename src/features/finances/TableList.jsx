@@ -18,7 +18,7 @@ const StyledList = styled.div`
   transition: all 0.2s;
 
   &:hover {
-    background-color: var(--color-card-bg);
+    background-color: var(--color-form-input-focus);
   }
 
   @media only screen and (max-width: 37.5em) {

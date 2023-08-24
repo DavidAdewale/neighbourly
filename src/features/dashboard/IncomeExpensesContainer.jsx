@@ -5,7 +5,7 @@ import { formatCurrency } from '../../utilities/helpers';
 const Card = styled.div`
   padding: 2rem 2rem;
   border-radius: 1.8rem;
-  border: 1px dashed var(--color-light-accent);
+  border: 1px solid var(--color-light-accent);
   text-align: center;
   transition: all 0.3s;
   cursor: pointer;
@@ -13,7 +13,7 @@ const Card = styled.div`
   &:hover {
     background-color: var(--color-form-input-focus);
     transform: scale(1.04);
-    border: 1px dashed transparent;
+    border: 1px solid transparent;
   }
 `;
 

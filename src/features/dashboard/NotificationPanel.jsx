@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import RecentActivity from './RecentActivity';
 import OccupancyStatusChart from './OccupancyStatusChart';
 import IncomeExpensesContainer from './IncomeExpensesContainer';
+import FinanceChart from './FinanceChart';
 
 const Panel = styled.div`
   display: flex;
@@ -57,10 +58,11 @@ function NotificationPanel({ records, properties }) {
       </SummaryContainer>
       <NotificationContainer>
         <Heading>
-          <h4>Occupancy rate summary (in %)</h4>
+          <h4>Occupancy rate summary (%)</h4>
         </Heading>
         <OccupancyStatusChart properties={properties} />
       </NotificationContainer>
+      <FinanceChart records={records} />
     </Panel>
   );
 }

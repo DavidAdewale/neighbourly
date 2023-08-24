@@ -6,7 +6,7 @@ import ActivityList from './ActivityList';
 const ActivityBox = styled.div`
   border-top: 1px solid var(--color-light-accent);
   border-bottom: 1px solid var(--color-light-accent);
-  /* background-color: orangered; */
+  background-color: var(--color-bg);
   padding-top: 2rem;
   margin-bottom: 2rem;
 

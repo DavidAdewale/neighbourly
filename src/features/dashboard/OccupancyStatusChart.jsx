@@ -13,6 +13,7 @@ const ChartBox = styled.div`
   border-bottom: 1px solid var(--color-light-accent);
   padding: 1rem 0;
   margin-bottom: 2rem;
+  background-color: var(--color-bg);
 
   max-height: 100%;
   overflow: hidden;
