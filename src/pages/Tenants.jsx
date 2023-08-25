@@ -61,9 +61,14 @@ function Tenants() {
 
   const numOccupiedHouses = occupiedHouses.length;
   const numOccupiedApartments = allOccupiedApartments.reduce(
-    (acc, building) => acc + building.apartments?.length,
+    (acc, building) => {
+      if (!building.apartments) return acc;
+      return acc + (building.apartments?.length || 0);
+    },
     0
   );
+
+  console.log(numOccupiedHouses);
 
   const totalTenants = numOccupiedHouses + numOccupiedApartments;
 
