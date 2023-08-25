@@ -3,6 +3,7 @@ import RecentActivity from './RecentActivity';
 import OccupancyStatusChart from './OccupancyStatusChart';
 import IncomeExpensesContainer from './IncomeExpensesContainer';
 import FinanceChart from './FinanceChart';
+import { format, parseISO, subWeeks } from 'date-fns';
 
 const Panel = styled.div`
   display: flex;
@@ -41,9 +42,16 @@ const SummaryContainer = styled.div`
 
 function NotificationPanel({ records, properties }) {
   const currentDate = new Date().toISOString().split('T').at(0);
-  const todaysActivity = records.filter(
-    (record) => record.transactionDate === currentDate
-  );
+
+  const pastWeek = format(subWeeks(parseISO(currentDate), 1), 'yyyy-MM-dd');
+
+  const todaysActivity = records
+    .filter(
+      (record) =>
+        record.transactionDate >= pastWeek &&
+        record.transactionDate <= currentDate
+    )
+    .sort((a, b) => b.transactionDate.localeCompare(a.transactionDate));
 
   return (
     <Panel>

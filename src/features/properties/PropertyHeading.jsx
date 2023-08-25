@@ -92,12 +92,14 @@ function PropertyHeading({ property }) {
     amenities,
     expectedRentalIncome,
     actualRentalIncome,
-    leaseStartDate,
+    propertyCategory,
     leaseExpiryDate,
   } = property;
-  const isLeaseExpired =
-    formatDateDistance(leaseStartDate, leaseExpiryDate) === '0 day';
+  // const isLeaseExpired =
+  //   formatDateDistance(leaseStartDate, leaseExpiryDate) === '0 day';
 
+  const isLeaseExpired = formatDateDistance(leaseExpiryDate).includes('Exp.');
+  // console.log(isLeaseExpired);
   // const isRed =
   //   actualRentalIncome <= expectedRentalIncome || occupancyStatus === 'vacant';
 
@@ -134,14 +136,34 @@ function PropertyHeading({ property }) {
           <Paragraph size="small">Expected Rental Income</Paragraph>
         </Income>
         <Income
-          block={actualRentalIncome >= expectedRentalIncome ? 'full' : 'not'}
+          block={
+            isLeaseExpired ||
+            occupancyStatus === 'vacant' ||
+            actualRentalIncome < expectedRentalIncome
+              ? 'not'
+              : 'full'
+          }
         >
           <h3>
-            {isLeaseExpired && occupancyStatus !== 'vacant' && 'Lease Expired'}
-            {!isLeaseExpired &&
+            {isLeaseExpired &&
+              propertyCategory === 'house' &&
+              occupancyStatus !== 'vacant' &&
+              actualRentalIncome &&
+              'Lease Expired'}
+            {isLeaseExpired &&
+              propertyCategory === 'house' &&
+              occupancyStatus !== 'vacant' &&
+              !actualRentalIncome &&
+              formatCurrency(actualRentalIncome)}
+            {isLeaseExpired &&
+              propertyCategory === 'apartment-building' &&
               occupancyStatus !== 'vacant' &&
               formatCurrency(actualRentalIncome)}
-            {!isLeaseExpired && occupancyStatus === 'vacant' && 'Vacant'}
+            {!isLeaseExpired &&
+              actualRentalIncome <= expectedRentalIncome &&
+              occupancyStatus !== 'vacant' &&
+              formatCurrency(actualRentalIncome)}
+            {!actualRentalIncome && occupancyStatus === 'vacant' && 'Vacant'}
           </h3>
           <Paragraph size="small">Actual Rental Income</Paragraph>
         </Income>

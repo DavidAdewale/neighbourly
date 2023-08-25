@@ -29,6 +29,7 @@ const TextArea = styled.textarea`
 `;
 
 const initialState = {
+  category: null,
   transactionDate: null,
   amount: null,
   description: null,
@@ -69,12 +70,14 @@ function EditForm() {
   function handleSubmit(e) {
     e.preventDefault();
     const data = {
+      category: state.category || category,
       transactionDate: state.transactionDate || transactionDate,
       amount: state.amount || amount,
       description: state.description || description,
     };
 
     const oldData = {
+      category: category,
       transactionDate: transactionDate,
       amount: amount,
       description: description,
@@ -103,7 +106,17 @@ function EditForm() {
             />
           </FormRow>
           <FormRow label="Category">
-            <Select defaultValue={category} disabled={isRent}>
+            <Select
+              defaultValue={category}
+              disabled={isRent}
+              onChange={(e) =>
+                dispatch({
+                  type: 'field/update',
+                  field: 'category',
+                  payload: e.target.value,
+                })
+              }
+            >
               <option value="income">Income</option>
               <option value="expenses">Expense</option>
             </Select>

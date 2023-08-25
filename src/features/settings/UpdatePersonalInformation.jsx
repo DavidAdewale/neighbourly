@@ -70,7 +70,9 @@ function UpdatePersonalInformation() {
         </FormRow>
       </FormStyle>
       <ButtonContainer>
-        <Button>{isUpdating ? <Spinner /> : ''} Save Changes</Button>
+        <Button disabled={isUpdating}>
+          {isUpdating && <Spinner />} Save Changes
+        </Button>
         <Button
           type="reset"
           variation="reset"

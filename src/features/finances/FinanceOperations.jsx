@@ -23,8 +23,8 @@ function FinanceOperations({ property }) {
           <Filter
             filterField="sort"
             options={[
-              { value: 'created_at-asc', label: 'Latest - Earliest' },
-              { value: 'created_at-desc', label: 'Earliest - Latest' },
+              { value: 'transactionDate-asc', label: 'Latest - Earliest' },
+              { value: 'transactionDate-desc', label: 'Earliest - Latest' },
             ]}
           />
           <Filter

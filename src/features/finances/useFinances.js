@@ -22,7 +22,7 @@ export function useFinances(id, fetchAll = false) {
       : { field: 'category', value: categoryFilter };
 
   //sort
-  const sortFilter = searchParams.get('sort') || 'created_at-desc';
+  const sortFilter = searchParams.get('sort') || 'transactionDate-desc';
   const [field, direction] = sortFilter.split('-') || '';
   const sort = { field, direction };
 

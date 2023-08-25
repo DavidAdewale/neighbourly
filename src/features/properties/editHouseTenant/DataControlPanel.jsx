@@ -1,4 +1,4 @@
-import { formatCurrency } from '../../../utilities/helpers';
+import { formatDateDistance } from '../../../utilities/helpers';
 import { ButtonContainer } from '../../../ui/ButtonContainer';
 
 import ConfirmDelete from '../../../ui/ConfirmDelete';
@@ -15,9 +15,8 @@ function DataControlPanel({ operations }) {
     leaseExpiryDate,
   } = operations;
 
-  const isExpired =
-    formatCurrency(leaseExpiryDate).includes('Exp.') ||
-    occupancyStatus === 'occupied';
+  const isExpired = formatDateDistance(leaseExpiryDate).includes('Exp.');
+  const isVacant = occupancyStatus === 'vacant';
 
   return (
     <ButtonContainer>
@@ -28,10 +27,10 @@ function DataControlPanel({ operations }) {
       >
         {isUploading && <Spinner />} Submit
       </Button>
-      {occupancyStatus === 'occupied' && (
+      {!isVacant && (
         <Modal>
           <Modal.Open opens="remove">
-            <Button type="button" variation="reset" disabled={isExpired}>
+            <Button type="button" variation="reset" disabled={!isExpired}>
               Remove tenant
             </Button>
           </Modal.Open>

@@ -73,8 +73,8 @@ function FinanceChart({ records }) {
             tickLine={{ stroke: colors.text }}
           />
           <Tooltip formatter={labelFormatter} />
-          <Bar dataKey="Income" fill={colors.income} />
-          <Bar dataKey="Expenses" fill={colors.expenses} />
+          <Bar dataKey="Income" stackId="a" fill={colors.income} />
+          <Bar dataKey="Expenses" stackId="a" fill={colors.expenses} />
           <Legend
             verticalAlign="middle"
             align="right"

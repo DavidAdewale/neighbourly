@@ -9,10 +9,11 @@ import {
   HiOutlineArrowTrendingUp,
 } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
+import Paragraph from '../../ui/Paragraph';
 
 const Activity = styled.div`
   display: grid;
-  grid-template-columns: 0.2fr 1.5fr 2fr 0.5fr;
+  grid-template-columns: 0.2fr 1.5fr 2fr 1fr;
   padding: 1rem 2rem;
   gap: 1rem;
   cursor: pointer;
@@ -90,7 +91,9 @@ function ActivityList({ activity }) {
       </Icon>
       <Description>{description}</Description>
       <Amount type={category}>{formatCurrency(amount)}</Amount>
-      <p>{capitalizeFirstLetter(formatDateToRelative(transactionDate))}</p>
+      <Paragraph size="small">
+        {capitalizeFirstLetter(formatDateToRelative(transactionDate))}
+      </Paragraph>
     </Activity>
   );
 }
