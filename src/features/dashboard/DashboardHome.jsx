@@ -20,7 +20,7 @@ function DashboardHome({ properties }) {
         property.propertyCategory === 'apartment-building' &&
         property.occupancyStatus !== 'vacant'
     )
-    .map((apartments) => apartments.propertyDetails.apartments)
+    .map((apartments) => apartments.propertyDetails?.apartments)
     .flat()
     .filter((apartment) => apartment.occupancyStatus === 'occupied');
 
@@ -46,8 +46,8 @@ function DashboardHome({ properties }) {
 
   const allApartmentOccupancyRateInformation = allApartmentBuildings.map(
     (building) => {
-      const numApartments = building.propertyDetails.totalApartments;
-      const numOccupiedApartments = building.propertyDetails.apartments.filter(
+      const numApartments = building.propertyDetails?.totalApartments;
+      const numOccupiedApartments = building.propertyDetails?.apartments.filter(
         (apartment) => apartment.occupancyStatus === 'occupied'
       ).length;
 

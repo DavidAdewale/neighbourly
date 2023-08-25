@@ -1,16 +1,12 @@
 import { styled } from 'styled-components';
-import {
-  HiBars3,
-  HiOutlineMoon,
-  HiOutlineQuestionMarkCircle,
-  HiOutlineSun,
-} from 'react-icons/hi2';
+import { HiBars3, HiOutlineMoon, HiOutlineSun, HiXMark } from 'react-icons/hi2';
 
-import { useDarkMode } from '../context/DarkModeContext';
-import { useUser } from '../features/authentication/useUser';
-import { useSideBarMenu } from '../context/SidebarMenuContext';
-import Button from './Button';
+import { useDarkMode } from '../../../../context/DarkModeContext';
+import { useUser } from '../../../../features/authentication/useUser';
+import { useSideBarMenu } from '../../../../context/SidebarMenuContext';
+import Button from '../../../../ui/Button';
 import { useNavigate } from 'react-router-dom';
+import FullPageSpinner from '../../../../ui/FullPageSpinner';
 
 const StyledHeader = styled.header`
   min-height: 4rem;
@@ -72,7 +68,7 @@ const ProfileImage = styled.img`
 
 const LeftIconDiv = styled.div`
   display: none;
-  @media only screen and (max-width: 37.5em) {
+  @media only screen and (max-width: 56.25em) {
     display: block;
   }
 `;
@@ -84,28 +80,49 @@ const RightIconDiv = styled.div`
 
 function Header() {
   const navigate = useNavigate();
-  const { openSidebar } = useSideBarMenu();
+  const { toggleSidebar, isSidebarOpen } = useSideBarMenu();
   const { isDark, handleDarkToggle } = useDarkMode();
-  const { user } = useUser();
+  const { user, isAuthenticated, isLoading } = useUser();
 
-  const picture = user.user_metadata.picture;
-  const userAvatar = picture || user.user_metadata.avatar || 'default-user.jpg';
+  if (isLoading) return <FullPageSpinner />;
+
+  const picture = user?.user_metadata.picture;
+  const userAvatar =
+    picture || user?.user_metadata.avatar || 'default-user.jpg';
 
   return (
     <StyledHeader>
       <LeftIconDiv>
-        <Icon onClick={openSidebar}>
-          <HiBars3 />
+        <Icon onClick={toggleSidebar}>
+          {isSidebarOpen ? <HiXMark /> : <HiBars3 />}
         </Icon>
       </LeftIconDiv>
       <RightIconDiv>
-        <Button variation="formSecondary" onClick={() => navigate('/help')}>
-          <HiOutlineQuestionMarkCircle /> Help
+        <Button variation="secondary" onClick={() => navigate('/')}>
+          Home
         </Button>
+        {isAuthenticated && (
+          <>
+            <Button
+              variation="formSecondary"
+              onClick={() => navigate('/dashboard')}
+            >
+              Dashboard
+            </Button>
+          </>
+        )}
+        {!isAuthenticated && (
+          <>
+            <Button variation="secondary" onClick={() => navigate('/signup')}>
+              Sign up
+            </Button>
+            <Button onClick={() => navigate('/signin')}>Sign in</Button>
+          </>
+        )}
         <Icon onClick={handleDarkToggle}>
           {isDark ? <HiOutlineSun /> : <HiOutlineMoon />}
         </Icon>
-        <ProfileImage src={userAvatar} />
+        {isAuthenticated && <ProfileImage src={userAvatar} />}
       </RightIconDiv>
     </StyledHeader>
   );

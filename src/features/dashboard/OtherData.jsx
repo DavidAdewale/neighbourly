@@ -34,8 +34,8 @@ function OtherData({ propertyIds, properties }) {
             filterField="timeInterval"
             options={[
               { value: 'currentYear', label: 'This year' },
-              { value: 'past6Months', label: 'Past 6 months' },
               { value: 'pastQuarter', label: 'Past quater' },
+              { value: 'past6Months', label: 'Past 6 months' },
               { value: 'pastTwoYears', label: 'Last 2 years' },
               { value: 'pastFiveYears', label: 'Last 5 years' },
               { value: 'all', label: 'All' },

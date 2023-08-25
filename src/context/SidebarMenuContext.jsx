@@ -13,9 +13,13 @@ function SideBarProvider({ children }) {
     setSidebarOpen(false);
   }
 
+  function toggleSidebar() {
+    setSidebarOpen(!isSidebarOpen);
+  }
+
   return (
     <SideBarContext.Provider
-      value={{ isSidebarOpen, openSidebar, closeSidebar }}
+      value={{ isSidebarOpen, openSidebar, closeSidebar, toggleSidebar }}
     >
       {children}
     </SideBarContext.Provider>

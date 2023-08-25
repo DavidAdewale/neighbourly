@@ -42,7 +42,7 @@ function Tenants() {
       id: building.id,
       propertyName: building.propertyName,
       propertyCategory: building.propertyCategory,
-      apartments: building.propertyDetails.apartments.filter(
+      apartments: building.propertyDetails?.apartments.filter(
         (apartment) => apartment.occupancyStatus === 'occupied'
       ),
     };
@@ -61,7 +61,7 @@ function Tenants() {
 
   const numOccupiedHouses = occupiedHouses.length;
   const numOccupiedApartments = allOccupiedApartments.reduce(
-    (acc, building) => acc + building.apartments.length,
+    (acc, building) => acc + building.apartments?.length,
     0
   );
 

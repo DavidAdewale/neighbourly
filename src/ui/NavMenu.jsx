@@ -1,64 +1,12 @@
-import { NavLink } from 'react-router-dom';
-import { css, styled } from 'styled-components';
+import { styled } from 'styled-components';
 import { HiBars3, HiXMark } from 'react-icons/hi2';
 import { useMenuToggle } from '../hooks/useMenuToggle';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useUser } from '../features/authentication/useUser';
 import { useLogout } from '../features/authentication/useLogout';
-
-const StyledNavMenu = styled.ul`
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  transition: all 0.3s;
-
-  @media only screen and (max-width: 37.5em) {
-    background-color: var(--color-bg);
-    width: 25rem;
-    height: 100dvh;
-    flex-direction: column;
-    gap: 4rem;
-    padding: 8rem 2rem;
-    position: absolute;
-    top: 0;
-    right: -25rem;
-    z-index: 2;
-
-    ${(props) =>
-      props.type === 'open' &&
-      css`
-        right: 0;
-      `}
-  }
-`;
-
-const StyledNavLink = styled(NavLink)`
-  text-decoration: none;
-  color: var(--color-text);
-  border-radius: 0.8rem;
-  font-size: inherit;
-  padding: 0.5rem 1.5rem;
-  transition: all 0.15s;
-
-  &:hover {
-    background-color: var(--color-btn-secondary-hover);
-  }
-
-  ${(props) =>
-    props.type === 'button' &&
-    css`
-      background-color: var(--color-main);
-      color: var(--color-btn-text);
-
-      border-radius: 0.8rem;
-
-      &:hover {
-        background-color: var(--color-main-hover);
-        color: var(--color-btn-text);
-      }
-    `}
-`;
+import { StyledNavLink } from './StyledNavLink';
+import { StyledNavMenu } from './StyledNavMenu';
 
 const MenuListContainer = styled.div`
   display: flex;
@@ -105,7 +53,7 @@ function NavMenu() {
     <MenuListContainer>
       <StyledNavMenu type={isOpen ? 'open' : ''} ref={ref}>
         <li>
-          <StyledNavLink>How to use</StyledNavLink>
+          <StyledNavLink to="/help">How to use</StyledNavLink>
         </li>
         <li>
           <StyledNavLink>Docs</StyledNavLink>

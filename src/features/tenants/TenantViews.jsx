@@ -23,6 +23,7 @@ function TenantViews({ properties }) {
     return (
       <PageBody>
         {properties.map((property) => {
+          if (!property) return;
           const { id, propertyName } = property;
           return (
             <TenantCard

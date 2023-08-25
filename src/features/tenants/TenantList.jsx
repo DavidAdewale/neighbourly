@@ -59,9 +59,9 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
     };
   });
 
-  const apartments = occupiedApartments.flatMap(
+  const apartments = occupiedApartments?.flatMap(
     ({ id, propertyName, propertyCategory, apartments }) =>
-      apartments.map(
+      apartments?.map(
         ({
           tenantName,
           tenantEmail,
@@ -75,12 +75,12 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
           propertyName,
           propertyCategory,
           apartmentNumber,
-          tenantName,
-          tenantEmail,
-          leaseStartDate,
-          leaseExpiryDate,
-          actualRentalIncome: +actualRentalIncome,
-          expectedRentalIncome: +expectedRentalIncome,
+          tenantName: tenantName || '',
+          tenantEmail: tenantEmail || '',
+          leaseStartDate: leaseStartDate || '',
+          leaseExpiryDate: leaseExpiryDate || '',
+          actualRentalIncome: +actualRentalIncome || 0,
+          expectedRentalIncome: +expectedRentalIncome || 0,
         })
       )
   );
@@ -88,13 +88,15 @@ function TenantList({ occupiedApartments, occupiedHouses }) {
   const allRentedProperties = [...houses, ...apartments];
   let propertiesArray;
 
-  const filterExpiredRentals = allRentedProperties.filter((property) =>
-    formatDateDistance(property.leaseExpiryDate).includes('Exp.')
-  );
+  const filterExpiredRentals = allRentedProperties.filter((property) => {
+    if (!property?.leaseExpiryDate) return false;
+    return formatDateDistance(property?.leaseExpiryDate).includes('Exp.');
+  });
 
   const filterShortTermTenants = allRentedProperties.filter((tenant) => {
+    if (!tenant?.leaseExpiryDate) return false;
     const leaseDurationString = formatDateDistance(
-      tenant.leaseExpiryDate
+      tenant?.leaseExpiryDate
     ).toLowerCase();
     const regex = /in (([1-9]|[12]\d|3[01]) days|(1|2|3|4|5|6) months)/;
     return regex.test(leaseDurationString);

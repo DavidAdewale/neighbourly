@@ -23,16 +23,30 @@ function FinanceOperations({ property }) {
           <Filter
             filterField="sort"
             options={[
-              { value: 'transactionDate-asc', label: 'Latest - Earliest' },
-              { value: 'transactionDate-desc', label: 'Earliest - Latest' },
+              {
+                value: 'transactionDate-desc',
+                label: 'Sort by date (earlier first)',
+              },
+              {
+                value: 'transactionDate-asc',
+                label: 'Sort by date (earlier last)',
+              },
+              {
+                value: 'amount-desc',
+                label: 'Sort by amount (high first)',
+              },
+              {
+                value: 'amount-asc',
+                label: 'Sort by amount (low first)',
+              },
             ]}
           />
           <Filter
             filterField="timeInterval"
             options={[
               { value: 'currentYear', label: 'This year' },
-              { value: 'past6Months', label: 'Past 6 months' },
               { value: 'pastQuarter', label: 'Past quater' },
+              { value: 'past6Months', label: 'Past 6 months' },
               { value: 'pastTwoYears', label: 'Last 2 years' },
               { value: 'pastFiveYears', label: 'Last 5 years' },
               { value: 'all', label: 'All' },
