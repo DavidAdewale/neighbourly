@@ -4,7 +4,6 @@ import { useMenuToggle } from '../hooks/useMenuToggle';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useUser } from '../features/authentication/useUser';
-import { useLogout } from '../features/authentication/useLogout';
 import { StyledNavLink } from './StyledNavLink';
 import { StyledNavMenu } from './StyledNavMenu';
 
@@ -43,7 +42,6 @@ const StyledOverlay = styled.div`
 
 function NavMenu() {
   const { isAuthenticated } = useUser();
-  const { logout } = useLogout();
 
   const { isOpen, handleToggle, closeMenu } = useMenuToggle();
   const { isDark, handleDarkToggle } = useDarkMode();

@@ -14,6 +14,7 @@ const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 3rem;
 
   padding: 3rem 0;
@@ -22,6 +23,7 @@ const Content = styled.div`
 
   @media only screen and (max-width: 75em) {
     text-align: center;
+    justify-content: center;
   }
 `;
 
@@ -31,6 +33,8 @@ const Image = styled.div`
     width: 100%;
   }
   @media only screen and (max-width: 56.25em) {
+    max-width: 80%;
+
     & img {
       width: 50%;
     }

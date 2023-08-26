@@ -80,7 +80,9 @@ function HeroContent() {
             Sign up - it&lsquo;s free!
           </Button>
         )}
-        <Button variation="secondary">Learn more</Button>
+        <Button variation="secondary" onClick={() => navigate('/help')}>
+          Learn more
+        </Button>
       </ButtonContainer>
       <StyledBuildTools>
         <Paragraph size="small">Built with industry standard tools</Paragraph>
