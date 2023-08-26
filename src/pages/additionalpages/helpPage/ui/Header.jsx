@@ -113,10 +113,7 @@ function Header() {
         )}
         {!isAuthenticated && (
           <>
-            <Button variation="secondary" onClick={() => navigate('/signup')}>
-              Sign up
-            </Button>
-            <Button onClick={() => navigate('/signin')}>Sign in</Button>
+            <Button onClick={() => navigate('/signin')}>Sign in/up</Button>
           </>
         )}
         <Icon onClick={handleDarkToggle}>
