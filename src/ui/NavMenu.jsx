@@ -56,7 +56,9 @@ function NavMenu() {
           <StyledNavLink to="/help">How to use</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink>Docs</StyledNavLink>
+          <StyledNavLink to="https://github.com/DavidAdewale/neighbourly">
+            Docs
+          </StyledNavLink>
         </li>
         <li>
           <StyledNavLink
