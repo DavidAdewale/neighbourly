@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { css, styled } from 'styled-components';
 
 import { useDarkMode } from '../../../../context/DarkModeContext';
@@ -135,11 +135,7 @@ function Menu() {
         <MenuList to="/help" onClick={() => closeSidebar()}>
           <HiOutlineHome /> Home
         </MenuList>
-        <MenuList
-          exact
-          to="/guide/getting-started"
-          onClick={() => closeSidebar()}
-        >
+        <MenuList to="/guide/getting-started" onClick={() => closeSidebar()}>
           <HiOutlinePlay /> Getting Started
         </MenuList>
         <hr />

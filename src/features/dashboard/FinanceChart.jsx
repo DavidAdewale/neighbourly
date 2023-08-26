@@ -47,6 +47,8 @@ function FinanceChart({ records }) {
     };
   });
 
+  if (data.length === 0) return;
+
   const labelFormatter = (value) => {
     return `NGN ${value}M`;
   };

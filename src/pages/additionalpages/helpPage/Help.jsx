@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
 import Paragraph from '../../../ui/Paragraph';
 import { useDarkMode } from '../../../context/DarkModeContext';
+import { useScrollToTop } from '../../../hooks/useScrollToTop';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 
 const Container = styled.div`
   width: 100%;
@@ -69,6 +71,9 @@ const Image = styled.div`
 `;
 
 function Help() {
+  useScrollToTop();
+  useDocumentTitle('Getting Started with Neighbourly');
+
   const { isDark } = useDarkMode();
 
   const src = isDark ? 'emblemGrad-dark.png' : 'emblemGrad-light.png';

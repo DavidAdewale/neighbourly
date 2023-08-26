@@ -2,8 +2,13 @@ import { StyledContent } from './ui/StyledContent';
 import { Title } from './ui/Title';
 import { Section } from './ui/Section';
 import { StyledParagraph } from './ui/StyledParagraph';
+import { useScrollToTop } from '../../../hooks/useScrollToTop';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 
 function GettingStarted() {
+  useScrollToTop();
+  useDocumentTitle('Getting started with Neighbourly');
+
   return (
     <StyledContent>
       <Title>

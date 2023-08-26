@@ -68,8 +68,6 @@ function Tenants() {
     0
   );
 
-  console.log(numOccupiedHouses);
-
   const totalTenants = numOccupiedHouses + numOccupiedApartments;
 
   return (

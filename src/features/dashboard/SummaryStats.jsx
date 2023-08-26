@@ -5,7 +5,6 @@ import {
   HiOutlineUser,
 } from 'react-icons/hi2';
 import { css, styled } from 'styled-components';
-import Paragraph from '../../ui/Paragraph';
 import { formatCurrency } from '../../utilities/helpers';
 import { useNavigate } from 'react-router-dom';
 
@@ -93,7 +92,9 @@ function SummaryStats({ summaryData }) {
   const { numProperties, totalRent, numTenants, overallOccupancyRate } =
     summaryData;
 
-  const occupancyRate = Math.round(overallOccupancyRate);
+  const occupancyRate = isNaN(overallOccupancyRate)
+    ? 0
+    : overallOccupancyRate.toFixed(2);
   return (
     <StatContainer>
       <StatCard onClick={() => navigate('/properties')}>

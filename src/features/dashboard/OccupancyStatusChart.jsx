@@ -7,6 +7,8 @@ import {
   Tooltip,
 } from 'recharts';
 import { styled } from 'styled-components';
+import { Empty } from '../../ui/Empty';
+import Paragraph from '../../ui/Paragraph';
 
 const ChartBox = styled.div`
   border-top: 1px solid var(--color-light-accent);
@@ -42,6 +44,16 @@ function OccupancyStatusChart({ properties }) {
     { name: 'Partially Occupied', value: partiallyOccupiedPercentage },
     { name: 'Vacant', value: vacantPercentage },
   ];
+
+  if (data.some((item) => isNaN(item.value)))
+    return (
+      <ChartBox>
+        <Empty>
+          <Paragraph color="faded">No data to display</Paragraph>
+        </Empty>
+      </ChartBox>
+    );
+
   const labelFormatter = (value) => {
     return `${value}%`;
   };

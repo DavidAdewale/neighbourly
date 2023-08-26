@@ -2,8 +2,12 @@ import { StyledContent } from './ui/StyledContent';
 import { Title } from './ui/Title';
 import { Section } from './ui/Section';
 import { StyledParagraph } from './ui/StyledParagraph';
+import { useScrollToTop } from '../../../hooks/useScrollToTop';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 
 function SettingsOverview() {
+  useScrollToTop();
+  useDocumentTitle('Getting started with your Settings');
   return (
     <StyledContent>
       <Title>

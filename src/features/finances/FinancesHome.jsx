@@ -1,5 +1,9 @@
 import { styled } from 'styled-components';
+import { PiWarningThin } from 'react-icons/pi';
+import { Empty } from '../../ui/Empty';
+
 import FinancePropertyCard from './FinancePropertyCard';
+import Paragraph from '../../ui/Paragraph';
 
 const PageLayout = styled.div`
   display: flex;
@@ -9,15 +13,28 @@ const PageLayout = styled.div`
     gap: 3rem;
   }
 `;
+
+const EmplyBlock = styled.div`
+  width: 100%;
+`;
 function FinancesHome({ properties }) {
   return (
     <PageLayout>
-      {properties.map((property) => (
-        <FinancePropertyCard
-          property={property}
-          key={property.propertyName + Math.random(property.id)}
-        />
-      ))}
+      {properties.length > 0 &&
+        properties.map((property) => (
+          <FinancePropertyCard
+            property={property}
+            key={property.propertyName + Math.random(property.id)}
+          />
+        ))}
+      {properties.length === 0 && (
+        <EmplyBlock>
+          <Empty>
+            <PiWarningThin />
+            <Paragraph color="faded">No properties to display</Paragraph>
+          </Empty>
+        </EmplyBlock>
+      )}
     </PageLayout>
   );
 }

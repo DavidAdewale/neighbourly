@@ -3,7 +3,6 @@ import Header from './Header';
 import Menu from './Menu';
 import { SideBarProvider } from '../../../../context/SidebarMenuContext';
 import { Outlet } from 'react-router-dom';
-import { useDocumentTitle } from '../../../../hooks/useDocumentTitle';
 
 const StyledLayout = styled.div`
   display: flex;
@@ -20,8 +19,6 @@ const MainContent = styled.main`
 `;
 
 function PageLayout() {
-  useDocumentTitle('Getting Started with Neighbourly');
-
   return (
     <SideBarProvider>
       <StyledLayout>
